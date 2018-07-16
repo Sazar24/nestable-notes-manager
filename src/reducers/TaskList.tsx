@@ -1,5 +1,5 @@
 import { Action, ActionTypes } from "../actions/TaskListActions";
-import { ITask } from "../models/Task";
+import { ITask, SingleTask } from "../models/Task";
 // import * as definedTypes from '../types/actionTypes';
 // import *as TaskListItems from '../actions/TaskListItems';
 // import { IMainListStateType, ITask } from '../types/mainListStateType';
@@ -9,16 +9,10 @@ export interface IState {
 }
 
 const initialState: IState = {
-    items: [{
-        description: "foobar1 -description. Mleko jest od krowy",
-        header: "foobar1 - mleko",
-        isDone: false,
-    },
-    {
-        description: "foobar2 -description. Ogródkowe niutaty",
-        header: "foobar2 - ziemniaki",
-        isDone: false
-    }]
+    items: [
+        new SingleTask("foobar1-mleczko", "jakiś opis dla mleka", false),
+        new SingleTask("Task nr 2", "opis 2`ki", true)
+    ]
 }
 
 export const mainListReducer = (state = { ...initialState }, action: Action) => {

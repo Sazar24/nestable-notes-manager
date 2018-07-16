@@ -1,4 +1,5 @@
 import { ITask } from "../models/Task";
+import { v1 } from 'uuid';
 
 export enum ActionTypes {
     ADD_ITEM = "ADD NEW ITEM TO LIST",
@@ -13,10 +14,11 @@ export function AddTask(header: string, description: string): IAddTaskAction {
     return {
         payload: {
             taskItem: {
-                // TODO: id: guid(),
-                description,
+                // TODO: tu jakiś staroć. Taski są teraz tworzone przez konstruktor
                 header,
+                description,
                 isDone: false,
+                ID: v1(),
             }
         },
         type: ActionTypes.ADD_ITEM,
