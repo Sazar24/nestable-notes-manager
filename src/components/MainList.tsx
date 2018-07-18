@@ -18,10 +18,9 @@ export default class MainList extends React.Component<IProps>{
       <div>
         <List>
           {taskItems.map((item) => (
-            (
-              <List.Item key={v1()}>
-                <TreeBranch taskItem={item} />
-              </List.Item>
+            <List.Item key={v1()}>
+              <TreeBranch taskItem={item} />
+            </List.Item>
               // <TreeBranch
               // taskItem = { item }
               // // header = {item.header}
@@ -30,16 +29,6 @@ export default class MainList extends React.Component<IProps>{
               // // childrensID = {item.children}
               // // ?parent = {}
               // />
-
-              // <List.Item key={v1()}>
-              //   <List.Header>
-              //     {item.header}
-              //   </List.Header>
-              //   <List.Description>
-              //     {item.description}
-              //   </List.Description>
-              // </List.Item>
-            )
           ))}
         </List>
       </div>
