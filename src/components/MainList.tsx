@@ -1,34 +1,30 @@
 import * as React from "react";
-import { List } from "semantic-ui-react";
-import { ITask } from "../models/Task";
-// const uuidv1 = require('uuid/v1');
+import { List, Button, Icon } from "semantic-ui-react";
+import { INode } from "../models/Task";
 import { v1 } from 'uuid';
-import TreeBranch from './TreeBranch';
+import NodeWrapper from './Node';
 
 interface IProps {
   // taskItems: IState,
-  taskItems: ITask[],
+  nodes: INode[],
+  addNewBranchClicked: () => void,
 }
 
 export default class MainList extends React.Component<IProps>{
   public render() {
-    const { taskItems } = this.props;
+    const { nodes, addNewBranchClicked } = this.props;
 
     return (
       <div>
         <List>
-          {taskItems.map((item) => (
-            <List.Item key={v1()}>
-              <TreeBranch taskItem={item} />
-            </List.Item>
-              // <TreeBranch
-              // taskItem = { item }
-              // // header = {item.header}
-              // // description = {item.description}
-              // // ID = {item.ID}
-              // // childrensID = {item.children}
-              // // ?parent = {}
-              // />
+          {nodes.map((item) => (
+            item.parentID === null ?
+              <List.Item key={v1()}>
+                {/* <NodeWrapper node={item} /> */}
+                <NodeWrapper renderChild={true}  />
+              </List.Item>
+              : console.log({item})
+// console.log({item})
           ))}
         </List>
       </div>

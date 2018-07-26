@@ -1,0 +1,6 @@
+// zrobić coś podobnego do https://plnkr.co/edit/?p=preview , ale z opcją dodawania nowych node`ów.
+// iterować się po keyach obiektu {data} i sprawdzać czy jest zgodne z szukanym id - Bo każdy komponent będzie trzymał tylko ID.
+Nie może być świadomy całej struktury danych.
+Dlatego w momencie wywołania jakiejkolwiek akcji dla node o danym ID, logika szukania gdzie to ma być wpisane (w drzewku), powinna być gdzieś z boku.
+Ale jaka składnia wywołania, gdy już znajdę wszystkie pośrednie (rodziców/dzieci) ID?
+data.parent.[parent2].[parent3].sth. ? oO

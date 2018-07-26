@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux'
-import * as fromTaskListReducer from './TaskList';
+// import * as fromTaskListReducer from './TaskList';
+import * as fromNodeListReducer from './nodeList';
 
 export interface IState {
-    taskItems: fromTaskListReducer.IState
+    nodes: fromNodeListReducer.IState
 }
 
 export const reducer = combineReducers<IState>({
-    taskItems: fromTaskListReducer.mainListReducer
+    nodes: fromNodeListReducer.nodeListReducer
 })

@@ -1,17 +1,18 @@
 import { v1 } from 'uuid';
 
-export interface ITask {
+export interface INode {
     header: string,
     description: string,
     isDone: boolean,
     ID: string,
-    // childrens: string[],
-    // parentIT ?: string | null,
+    childrensID?: string[],
+    parentID?: string | null,
 }
 
-export class SingleTask implements ITask {
+export class SingleNode implements INode {
     public ID = v1();
-    
+    public parentID = null;
+
     constructor(public header: string, public description: string, public isDone: boolean) {
         this.header = header;
         this.description = description;

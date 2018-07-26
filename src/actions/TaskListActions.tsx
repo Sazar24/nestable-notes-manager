@@ -1,44 +1,46 @@
-import { ITask } from "../models/Task";
+import { INode } from "../models/Task";
 import { v1 } from 'uuid';
+import { SingleNode } from '../models/Task';
 
 export enum ActionTypes {
     ADD_ITEM = "ADD NEW ITEM TO LIST",
+    ADD_NODE = "ADD NODE TO NODES-LIST"
 }
 
-// export const addTodoItem = (listItemHeader: string) => ({ type: types.ADD_ITEM, listItemHeader });
-export interface IAddTaskAction { type: ActionTypes.ADD_ITEM, payload: { taskItem: ITask } }
+interface IAddTaskAction {
+    type: ActionTypes.ADD_ITEM,
+    payload: { taskItem: INode }
+}
 
-export function AddTask(header: string, description: string): IAddTaskAction {
-
-    // if (header !== '' && description !== '')
+// export function AddTask(header: string, description: string): IAddTaskAction {
+export function AddTask(): IAddTaskAction {
     return {
-        payload: {
-            taskItem: {
-                // TODO: tu jakiś staroć. Taski są teraz tworzone przez konstruktor
-                header,
-                description,
-                isDone: false,
-                ID: v1(),
-            }
-        },
         type: ActionTypes.ADD_ITEM,
+        payload: {
+            taskItem: new SingleNode("header", "description", false)
+        }
     }
-    // else
-    //     return;
 }
 
-export type Action = IAddTaskAction;
+interface ICreateNewNode {
+    type: ActionTypes.ADD_NODE,
+    payload: {
+        node: INode,
+        parentID: string
+    }
+}
 
-// expamples:
-// export const addTodo = text => ({ type: types.ADD_TODO, text })
-// export const deleteTodo = id => ({ type: types.DELETE_TODO, id })
-// export const editTodo = (id, text) => ({ type: types.EDIT_TODO, id, text })
-// export const completeTodo = id => ({ type: types.COMPLETE_TODO, id })
-// export function saveValidationResult(saveValidationResult, reducerDataType) {
-    // 
-//     return {
-//         type: actionTypes.MAINFORM_DATA_CHANGE,
-//         payload: saveValidationResult ,
-//         dataType: reducerDataType + validatorMark
-//     }
-// }
+export function CreateNewNode(parentID: string): ICreateNewNode {
+    return {
+        type: ActionTypes.ADD_NODE,
+        payload: {
+            node: new SingleNode("newly created node", "foobar descript.", true),
+            parentID,
+        }
+    }
+
+}
+
+// need sth to push child ID to  parents' childersID array
+
+export type Action = IAddTaskAction | ICreateNewNode;
