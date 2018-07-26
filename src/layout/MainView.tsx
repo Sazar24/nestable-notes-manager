@@ -1,10 +1,9 @@
 import * as React from "react";
 import { connect } from 'react-redux';
 import { Container, Button, Icon } from "semantic-ui-react";
-import MainList from "../components/containers/MainList";
+import MainList from "../components/MainList";
 import { AddTask } from "../actions/TaskListActions";
-// import ButtonToggleLoader from "../components/ButtonToggleLoader";
-// import MainList from "../components/MainList";
+
 interface IProps {
   addNewBranchClicked: () => void,
 }
@@ -12,7 +11,6 @@ interface IProps {
 class MainView extends React.Component<IProps>{
   public render() {
     const { addNewBranchClicked } = this.props;
-    console.log("kupa");
     return (
       <Container>
         <MainList />

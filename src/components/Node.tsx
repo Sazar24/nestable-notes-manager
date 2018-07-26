@@ -7,25 +7,34 @@ export interface IProps {
     node: INode
 }
 
-interface IRecurencyTest {
-    renderChild?: boolean
-}
+// interface IRecurencyTest {
+//     renderChild?: boolean
+// }
 
-export default class NodeFrame extends React.Component<IRecurencyTest>{
+export default class NodeFrame extends React.Component<IProps>{
+    // public renderChild = childID  => {
+    // YOU ARE HERE
+    // }
+
     public render() {
-        // const { node } = this.props;
-        const {renderChild} = this.props;
+        const { node } = this.props;
+        // const {renderChild} = this.props;
         return (
             <div>
+            {/* <List.Item> */}
                 <List.Header>
-                   Node Kupa Header 
+                    {node.header}
                 </List.Header>
                 <List.Description>
-                   Node Kupa Descr 
+                    {node.description}
                 </List.Description>
+                {/* <List>
+                    {node.childrensID}
+                </List> */}
+            {/* </List.Item> */}
 
-                {/* {renderChild === true ? <NodeFrame /> : console.log("renderChild === false")} */}
-            </div>
+            {/* {renderChild === true ? <NodeFrame /> : console.log("renderChild === false")} */}
+             </div>
         )
     }
 }

@@ -2,49 +2,53 @@ import * as React from "react";
 import { List, Button, Icon } from "semantic-ui-react";
 import { INode } from "../models/Task";
 import { v1 } from 'uuid';
+import { connect } from 'react-redux';
 import NodeWrapper from './Node';
+import { IState } from "../reducers";
+import { ENGINE_METHOD_DIGESTS } from "constants";
 
-interface IProps {
-  // taskItems: IState,
-  nodes: INode[],
-  addNewBranchClicked: () => void,
-}
+// interface IProps {
+//   // taskItems: IState,
+//   nodes: INode[],
+//   // addNewBranchClicked: () => void,
+// }
 
-export default class MainList extends React.Component<IProps>{
+class MainList extends React.Component<IState>{
   public render() {
-    const { nodes, addNewBranchClicked } = this.props;
+    const { nodes } = this.props;
+    // const { nodes, addNewBranchClicked } = this.props;
+    // console.log(nodes);
+    // Object.keys(nodes).ma forEach(item=>{
 
+    // })
+    //  console.log(this.props.nodes["1"] );
     return (
       <div>
         <List>
-          {nodes.map((item) => (
+          <List.Item>
+            {Object.keys(nodes).map((nodeID) => {
+              // nodes[nodeID].parentID === null ? <NodeWrapper /> : null;
+              console.log(`nodes[${nodeID}]: ${nodes[nodeID].parentID}`);
+              return nodes[nodeID].parentID === null ? <NodeWrapper key={nodeID} node={nodes[nodeID]} /> : null;
+            })}
+          </List.Item>
+          {/* {nodes.map((item) => (
             item.parentID === null ?
               <List.Item key={v1()}>
-                {/* <NodeWrapper node={item} /> */}
                 <NodeWrapper renderChild={true}  />
               </List.Item>
               : console.log({item})
 // console.log({item})
-          ))}
+          ))} */}
         </List>
       </div>
     );
   }
 }
 
-///////////////////////////////////////////////
-/*<List.Item>
-  <ListItemContainer>
-    mleko
-</ListItemContainer>
-</List.Item>
-  <List.Item>
-    <ListItemContainer>
-      kapustaa
-</ListItemContainer>
-  </List.Item>
-  <List.Item>
-    <ListItemContainer>
-      fooobar3
-</ListItemContainer>
-  </List.Item> */
+
+const mapStateToProps = (state: IState) => ({
+  nodes: state.nodes,
+})
+
+export default connect<any, any, any>(mapStateToProps)(MainList);

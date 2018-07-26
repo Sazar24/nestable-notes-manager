@@ -7,13 +7,21 @@ export enum ActionTypes {
     ADD_NODE = "ADD NODE TO NODES-LIST"
 }
 
-interface IAddTaskAction {
+interface IAddNodeAction {
     type: ActionTypes.ADD_ITEM,
     payload: { taskItem: INode }
 }
 
+interface ICreateNewNodeAction {
+    type: ActionTypes.ADD_NODE,
+    payload: {
+        node: INode,
+        parentID: string
+    }
+}
+
 // export function AddTask(header: string, description: string): IAddTaskAction {
-export function AddTask(): IAddTaskAction {
+export function AddTask(): IAddNodeAction {
     return {
         type: ActionTypes.ADD_ITEM,
         payload: {
@@ -22,15 +30,7 @@ export function AddTask(): IAddTaskAction {
     }
 }
 
-interface ICreateNewNode {
-    type: ActionTypes.ADD_NODE,
-    payload: {
-        node: INode,
-        parentID: string
-    }
-}
-
-export function CreateNewNode(parentID: string): ICreateNewNode {
+export function AddNewNodeWithParentID(parentID: string): ICreateNewNodeAction {
     return {
         type: ActionTypes.ADD_NODE,
         payload: {
@@ -43,4 +43,4 @@ export function CreateNewNode(parentID: string): ICreateNewNode {
 
 // need sth to push child ID to  parents' childersID array
 
-export type Action = IAddTaskAction | ICreateNewNode;
+export type Action = IAddNodeAction | ICreateNewNodeAction;
