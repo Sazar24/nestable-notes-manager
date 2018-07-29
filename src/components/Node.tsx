@@ -6,27 +6,27 @@ import { v1 } from 'uuid';
 import { IState } from '../reducers';
 
 export interface IProps {
-    nodeID: string;
+    nodeId: string;
     node: INode;
-    childrenIDs?: string[] | null,
+    childrenIDs: string[],
 }
 
 class NodeFrame extends React.Component<IProps>{
 
-    public renderMyChilds(): any {
+    public renderMyChilds() {
         const { childrenIDs } = this.props;
         if (!childrenIDs || childrenIDs.length === 0) {
+            console.log("renderMyChilds: Im out!");
             return
         };
 
         return (
             <List>
                 {
-                    childrenIDs.map((ID) => {
+                    childrenIDs.map((id) => {
                         return (
-                            <List.Item key={ID}>
-                                {/* <NodeFrame nodeID={ID} /> */}
-                                foobar with id = {ID}
+                            <List.Item key={id}>
+                                <ConnectedNodeFrame nodeId={id} />
                             </List.Item>
                         )
                     })
@@ -37,13 +37,16 @@ class NodeFrame extends React.Component<IProps>{
 
     public render(): any {
         const { node } = this.props;
+        if (node === undefined) throw new Error(' passed undefined {node} to NodeFrame');
         return (
             <div>
                 <List.Header>
-                    {node.header}
+                    {/* {node.header} */}
+                    this node id: {node.ID}
                 </List.Header>
                 <List.Description>
-                    {node.description} + {node.ID}
+                    parent: {(node.parentID) ? node.parentID : "(i dont have any parents)"}
+                    {/* {node.description} + {node.ID} bbb */}
                 </List.Description>
                 {this.renderMyChilds()}
             </div>
@@ -51,20 +54,21 @@ class NodeFrame extends React.Component<IProps>{
     }
 }
 
-function myChildsIDs(thisID: string, state: IState): string[] {
+function findMyChildrenIDs(thisID: string, state: IState): string[] {
     const childrenIDs: string[] = [];
     Object.keys(state.nodes).map((nodeID) => {
         const node = state.nodes[nodeID];
         if (node.parentID === thisID) {
             childrenIDs.push(node.ID);
+            console.log(`found a match with id=${thisID}`)
         }
     })
     return childrenIDs;
 }
 
 const mapStateToProps = (state: IState, ownProps: IProps) => ({
-    node: state.nodes[ownProps.nodeID],
-    childrenIDs: myChildsIDs(ownProps.nodeID, state)
+    node: state.nodes[ownProps.nodeId],
+    childrenIDs: findMyChildrenIDs(ownProps.nodeId, state)
 })
 
 const ConnectedNodeFrame = connect<any, any, any>(mapStateToProps)(NodeFrame);

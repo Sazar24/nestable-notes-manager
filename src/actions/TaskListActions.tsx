@@ -41,6 +41,5 @@ export function AddNewNodeWithParentID(parentID: string): ICreateNewNodeAction {
 
 }
 
-// need sth to push child ID to  parents' childersID array
 
 export type Action = IAddNodeAction | ICreateNewNodeAction;

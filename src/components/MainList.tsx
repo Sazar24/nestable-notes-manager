@@ -15,9 +15,9 @@ class MainList extends React.Component<IState>{
       <div>
         <List>
           <List.Item>
-            {Object.keys(nodes).map((nodeID) => {
-              return nodes[nodeID].parentID === null
-                ? <NodeFrame key={nodeID} nodeID={nodeID} />
+            {Object.keys(nodes).map((nodeId) => {
+              return nodes[nodeId].parentID === null
+                ? <NodeFrame key={nodeId} nodeId={nodeId} />
                 : null;
             })}
           </List.Item>
