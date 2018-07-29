@@ -3,9 +3,9 @@ import { v1 } from 'uuid';
 export interface INode {
     header: string,
     description: string,
-    isDone: boolean,
+    // isDone: boolean,
     ID: string,
-    childrensID?: string[],
+    // childrensID?: string[],
     parentID?: string | null,
 }
 

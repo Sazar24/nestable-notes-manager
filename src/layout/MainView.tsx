@@ -24,8 +24,6 @@ class MainView extends React.Component<IProps>{
   }
 };
 
-// export default MainView;
-
 const mapDispatchToProps = {
   addNewBranchClicked: AddTask,
 }
