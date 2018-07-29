@@ -8,7 +8,7 @@ import { IState } from '../reducers';
 export interface IProps {
     nodeID: string;
     node: INode;
-    childrenIDs: string[] | null,
+    childrenIDs?: string[] | null,
 }
 
 class NodeFrame extends React.Component<IProps>{
@@ -25,7 +25,7 @@ class NodeFrame extends React.Component<IProps>{
                     childrenIDs.map((ID) => {
                         return (
                             <List.Item key={ID}>
-                                {/* <ConnectedNodeFrame key={ID} nodeID={ID} /> */}
+                                {/* <NodeFrame nodeID={ID} /> */}
                                 foobar with id = {ID}
                             </List.Item>
                         )

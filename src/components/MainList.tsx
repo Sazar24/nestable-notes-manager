@@ -3,7 +3,7 @@ import { List, Button, Icon } from "semantic-ui-react";
 import { INode } from "../models/Task";
 import { v1 } from 'uuid';
 import { connect } from 'react-redux';
-import NodeWrapper from './Node';
+import NodeFrame from './Node';
 import { IState } from "../reducers";
 import { ENGINE_METHOD_DIGESTS } from "constants";
 
@@ -17,7 +17,7 @@ class MainList extends React.Component<IState>{
           <List.Item>
             {Object.keys(nodes).map((nodeID) => {
               return nodes[nodeID].parentID === null
-                ? <NodeWrapper key={nodeID} nodeID={nodeID} />
+                ? <NodeFrame key={nodeID} nodeID={nodeID} />
                 : null;
             })}
           </List.Item>
