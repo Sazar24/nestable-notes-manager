@@ -1,11 +1,10 @@
 import * as React from "react";
 import { List, Button, Icon } from "semantic-ui-react";
-import { INode } from "../models/Task";
+import { INode } from "../models/Node";
 import { v1 } from 'uuid';
 import { connect } from 'react-redux';
 import NodeFrame from './Node';
 import { IState } from "../reducers";
-import { ENGINE_METHOD_DIGESTS } from "constants";
 
 class MainList extends React.Component<IState>{
   public render() {

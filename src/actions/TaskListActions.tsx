@@ -1,6 +1,6 @@
-import { INode } from "../models/Task";
+import { INode } from "../models/Node";
 import { v1 } from 'uuid';
-import { SingleNode } from '../models/Task';
+import { SingleNode } from '../models/Node';
 
 export enum ActionTypes {
     ADD_ITEM = "ADD NEW ITEM TO LIST",
@@ -22,6 +22,7 @@ interface ICreateNewNodeAction {
 
 // export function AddTask(header: string, description: string): IAddTaskAction {
 export function AddTask(): IAddNodeAction {
+    console.log("AddTask (action) has beenCalled!")
     return {
         type: ActionTypes.ADD_ITEM,
         payload: {
@@ -30,16 +31,17 @@ export function AddTask(): IAddNodeAction {
     }
 }
 
-export function AddNewNodeWithParentID(parentID: string): ICreateNewNodeAction {
+export function CreateNewNodeWithParentId(parentID: string): ICreateNewNodeAction {
+    console.log("CreateNewNodeWithParentId has been called!");
     return {
         type: ActionTypes.ADD_NODE,
         payload: {
-            node: new SingleNode("newly created node", "foobar descript.", true),
+            node: new SingleNode("newly created node", "foobar description", true),
             parentID,
         }
     }
-
 }
 
+// TODO: będzie(?) też oddzielna funkcja na CreateNode-aleBezParentId (lista główna) 
 
 export type Action = IAddNodeAction | ICreateNewNodeAction;

@@ -14,6 +14,7 @@ class MainView extends React.Component<IProps>{
     return (
       <Container>
         <MainList />
+        {/* <NewNodeButton nodeId={null} /> */}
         <Button basic={true} icon={true}
           onClick={() => addNewBranchClicked()}
         >

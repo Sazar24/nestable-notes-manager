@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux'
-// import * as fromTaskListReducer from './TaskList';
 import * as fromNodeListReducer from './nodeList';
 
 export interface IState {
