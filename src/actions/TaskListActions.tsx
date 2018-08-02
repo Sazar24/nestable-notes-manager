@@ -22,7 +22,6 @@ interface ICreateNewNodeAction {
 
 // export function AddTask(header: string, description: string): IAddTaskAction {
 export function AddTask(): IAddNodeAction {
-    console.log("AddTask (action) has beenCalled!")
     return {
         type: ActionTypes.ADD_ITEM,
         payload: {
@@ -32,7 +31,6 @@ export function AddTask(): IAddNodeAction {
 }
 
 export function CreateNewNodeWithParentId(parentID: string): ICreateNewNodeAction {
-    console.log("CreateNewNodeWithParentId has been called!");
     return {
         type: ActionTypes.ADD_NODE,
         payload: {

@@ -23,7 +23,7 @@ initialState[4].ID = "4";
 initialState[5].ID = "5";
 
 initialState[2].parentID = "1";
-initialState[4].parentID = "1";
+initialState[4].parentID = "2";
 
 export const nodeListReducer = (state = { ...initialState }, action: Action) => {
     switch (action.type) {
