@@ -2,6 +2,7 @@
   "name": "task-list",
   "version": "0.1.0",
   "private": true,
+  "main": "src/index.tsx",
   "dependencies": {
     "@types/uuid": "^3.4.3",
     "react": "^16.4.1",
@@ -9,6 +10,7 @@
     "react-redux": "^5.0.7",
     "react-redux-typescript": "^3.0.0-rc.3",
     "react-scripts-ts": "2.16.0",
+    "redux": "4.0.0",
     "redux-logger": "^3.0.6",
     "redux-typescript": "^1.2.1",
     "semantic-ui-css": "^2.3.2",
