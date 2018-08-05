@@ -9,11 +9,10 @@ export interface INodesListReducer {
 }
 
 const initialState: INodesListReducer = {
-  "1": new SingleNode("foobar1-mleczko", "jakiś opis dla mleka", false, "1"),
-  // "2": new SingleNode("Task nr 2", "opis 2`ki", true, "2"),
-  // "3": new SingleNode("umyć gary", "ewentualnie wyrzucić i kupić nowe :)", false, "3"),
-  // "4": new SingleNode("podNotka", "jakiś opis", false, "4"),
-  // "5": new SingleNode("5szlag", "coś się spsuło z JSX`ami i chyba z ts`em też...", false, "5")
+  "1": { header: "header", description: "descr", isDone: false, Id: "1", parentID: null },
+  "3": { header: "header", description: "descr", isDone: false, Id: "3", parentID: "1" },
+  "4": { header: "header", description: "descr", isDone: false, Id: "4", parentID: "1" },
+  "2": { header: "header", description: "descr", isDone: false, Id: "2", parentID: "3" },
 };
 
 // initialState[2].parentID = "1";

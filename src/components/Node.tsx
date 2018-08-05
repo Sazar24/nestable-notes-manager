@@ -18,7 +18,7 @@ export class NodeFrame extends React.Component<IProps>{
     public renderMyChilds() {
         const { childrenIDs } = this.props;
         if (!childrenIDs || childrenIDs.length === 0) {
-            return
+            return;
         };
 
         return (
@@ -42,9 +42,8 @@ export class NodeFrame extends React.Component<IProps>{
         };
 
         return (
-            <List.Item style={{ border: "1px dashed black"}} >
-                <div style={{ width: "500px"}}>
-                    <div style={{ float: "left", padding: "0 12px" }}>
+            <List.Item style={{ border: "1px dashed black", width: "500px", backgroundColor: "yellow"}} >
+                <div style={{ width: "500px"}}><div style={{ float: "left", padding: "0 12px", border: "0px solid red"  }}>
                         <List.Header>
                             {/* {node.header} */}
                             this node id: {node.Id}
@@ -52,11 +51,8 @@ export class NodeFrame extends React.Component<IProps>{
                         <List.Description>
                             parent: {(node.parentID) ? node.parentID : "(i dont have any parents)"}
                             {/* {node.description} + {node.ID} bbb */}
-                        </List.Description>
-                    </div>
-                    <div style={{ float: "left" }}>
-                        <NewNodeButton nodeId={this.props.nodeId} />
-                    </div>
+                        </List.Description></div>
+                    <div style={{ float: "left"}}>{/* <NewNodeButton nodeId={this.props.nodeId} /> */}</div>
                 {this.renderMyChilds()}
                 </div>
             </List.Item>
