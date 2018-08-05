@@ -2,7 +2,8 @@ import * as React from "react";
 import { connect } from 'react-redux';
 import { Container, Button, Icon } from "semantic-ui-react";
 import MainList from "../components/MainList";
-import { AddTask } from "../actions/TaskListActions";
+import NewNodeButton from "../components/NewNodeButton";
+// import { AddTask } from "../actions/TaskListActions";
 
 interface IProps {
   addNewBranchClicked: () => void,
@@ -15,18 +16,20 @@ class MainView extends React.Component<IProps>{
       <Container>
         <MainList />
         {/* <NewNodeButton nodeId={null} /> */}
-        <Button basic={true} icon={true}
+        {/* <Button basic={true} icon={true}
           onClick={() => addNewBranchClicked()}
         >
           <Icon name='plus' />
-        </Button>
+        </Button> */}
+        {/* <NewNodeButton nodeId={this.props.nodeId} /> */} 
+        {/* TODO: tu zrobić oddzielnego dispatchera na tworzenie nowej notki BEZ ID rodzica */}
       </Container>
     );
   }
 };
 
 const mapDispatchToProps = {
-  addNewBranchClicked: AddTask,
+  // addNewBranchClicked: AddTask,
 }
 
 

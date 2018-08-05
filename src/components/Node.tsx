@@ -5,6 +5,7 @@ import { List, Container } from "semantic-ui-react";
 import { v1 } from 'uuid';
 import { IState } from '../reducers';
 import NewNodeButton from './NewNodeButton';
+import ConnectedNodeFrame from './connectedComponents/ConnectedNode';
 
 export interface IProps {
     nodeId: string;
@@ -12,7 +13,7 @@ export interface IProps {
     childrenIDs: string[],
 }
 
-class NodeFrame extends React.Component<IProps>{
+export class NodeFrame extends React.Component<IProps>{
 
     public renderMyChilds() {
         const { childrenIDs } = this.props;
@@ -41,12 +42,12 @@ class NodeFrame extends React.Component<IProps>{
         };
 
         return (
-            <div>
-                <div style={{ width: "400px" }}>
-                    <div style={{ float: "left" }}>
+            <List.Item style={{ border: "1px dashed black"}} >
+                <div style={{ width: "500px"}}>
+                    <div style={{ float: "left", padding: "0 12px" }}>
                         <List.Header>
                             {/* {node.header} */}
-                            this node id: {node.ID}
+                            this node id: {node.Id}
                         </List.Header>
                         <List.Description>
                             parent: {(node.parentID) ? node.parentID : "(i dont have any parents)"}
@@ -56,28 +57,9 @@ class NodeFrame extends React.Component<IProps>{
                     <div style={{ float: "left" }}>
                         <NewNodeButton nodeId={this.props.nodeId} />
                     </div>
-                </div>
                 {this.renderMyChilds()}
-            </div>
+                </div>
+            </List.Item>
         )
     }
 }
-
-function findMyChildrenIDs(thisID: string, state: IState): string[] {
-    const childrenIDs: string[] = [];
-    Object.keys(state.nodes).map((nodeID) => {
-        const node = state.nodes[nodeID];
-        if (node.parentID === thisID) {
-            childrenIDs.push(node.ID);
-        }
-    })
-    return childrenIDs;
-}
-
-const mapStateToProps = (state: IState, ownProps: IProps) => ({
-    node: state.nodes[ownProps.nodeId],
-    childrenIDs: findMyChildrenIDs(ownProps.nodeId, state)
-})
-
-const ConnectedNodeFrame = connect<any, any, any>(mapStateToProps)(NodeFrame);
-export default ConnectedNodeFrame;
