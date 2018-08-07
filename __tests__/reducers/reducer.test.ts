@@ -9,7 +9,7 @@ describe('reducer should return proper state when apply the action to previous s
         const initialState: INodesListReducer = {
             "1": { header: "header", description: "descr", isDone: false, Id: "1", parentID: null },
         }
-        const actionADDNode = CreateNewNodeAsChild("1", "2");
+        const actionADDNode = CreateNewNodeAsChild("2", "1");
         const simulatedStateOutput = nodeListReducer(initialState, actionADDNode);
 
         const expectedState: INodesListReducer = {
@@ -28,10 +28,10 @@ describe('reducer should return proper state when apply the action to previous s
         }
 
         let simulatedStateOutput;
-        simulatedStateOutput = nodeListReducer(initialState, CreateNewNodeAsChild("1", "3"));
-        simulatedStateOutput = nodeListReducer(simulatedStateOutput, CreateNewNodeAsChild("1", "3"));
-        simulatedStateOutput = nodeListReducer(simulatedStateOutput, CreateNewNodeAsChild("1", "4"));
-        simulatedStateOutput = nodeListReducer(simulatedStateOutput, CreateNewNodeAsChild("3", "2"));
+        simulatedStateOutput = nodeListReducer(initialState, CreateNewNodeAsChild("3", "1"));
+        simulatedStateOutput = nodeListReducer(simulatedStateOutput, CreateNewNodeAsChild("3", "1"));
+        simulatedStateOutput = nodeListReducer(simulatedStateOutput, CreateNewNodeAsChild("4", "1"));
+        simulatedStateOutput = nodeListReducer(simulatedStateOutput, CreateNewNodeAsChild("2", "3"));
 
         const expectedState2: INodesListReducer = {
             "1": { header: "header", description: "descr", isDone: false, Id: "1", parentID: null },

@@ -4,7 +4,6 @@ import { INode, SingleNode } from "../models/Node";
 // import { IMainListStateType, ITask } from '../types/mainListStateType';
 
 export interface INodesListReducer {
-  // coreNodes: INode[];
   [nodeId: string]: INode;
 }
 
@@ -15,20 +14,22 @@ const initialState: INodesListReducer = {
   "2": { header: "header", description: "descr", isDone: false, Id: "2", parentID: "3" },
 };
 
-// initialState[2].parentID = "1";
-// initialState[4].parentID = "2";
-
-// export const nodeListReducer = (state = { ...initialState }, action: Action) => {
 export function nodeListReducer(state = { ...initialState }, action: Action) {
   switch (action.type) {
-
     case ActionTypes.ADD_NODE:
-      // console.log("Im in reducer .ADD_NODE!")
       const newState = Object.assign({}, state);
       const newNode = Object.assign({}, action.payload.node);
       newNode.parentID = action.payload.parentID;
       newState[action.payload.node.Id] = Object.assign({}, newNode);
       return { ...newState };
+
+    case ActionTypes.ADD_NODE_WITH_NO_PARENT:
+      const newState2 = Object.assign({}, state);
+      const newNode2 = Object.assign({}, action.payload.node);
+
+      newState2[action.payload.node.Id] = Object.assign({}, newNode2);
+      return { ...newState2 };
+
 
     default:
       return state;

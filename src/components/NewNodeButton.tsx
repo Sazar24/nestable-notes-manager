@@ -4,6 +4,7 @@ import { Button, Icon } from "semantic-ui-react";
 import { CreateNewNodeAsChild } from "../actions/TaskListActions";
 import { Dispatch } from "redux";
 import { v1 } from "uuid";
+
 interface INewNodeButton {
     nodeId: string;
     // CreateNewNodeWithParentIdClicked: () => void,
@@ -26,10 +27,8 @@ class NewNodeButton extends React.Component<INewNodeButton> {
     }
 }
 
-// export default NewNodeButton;
-
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: INewNodeButton) => ({
-    CreateNewNodeWithParentIdClicked: () => dispatch(CreateNewNodeAsChild(ownProps.nodeId, v1()))
+    CreateNewNodeWithParentIdClicked: () => dispatch(CreateNewNodeAsChild(v1(), ownProps.nodeId)),
 });
 
 export default connect<any, any, any>(
