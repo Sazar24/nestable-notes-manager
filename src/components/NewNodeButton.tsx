@@ -7,7 +7,6 @@ import { v1 } from "uuid";
 
 interface INewNodeButton {
     nodeId: string;
-    // CreateNewNodeWithParentIdClicked: () => void,
     CreateNewNodeWithParentIdClicked: () => void;
 }
 

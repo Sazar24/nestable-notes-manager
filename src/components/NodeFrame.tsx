@@ -40,25 +40,29 @@ export class NodeFrame extends React.Component<IProps> {
     }
 
     return (
-      <List.Item style={{ minWidth: "500px", backgroundColor: "yellow" }}>
-        <div style={{ minWidth: "500px", display: "inline" }}>
-          <div style={{ padding: "0 12px", border: "1px solid black" }} >
-            <div style={{ display: "inline-flex" }}>
-              <div >
-                <List.Header>
-                  {node.header} ++Id: {node.Id}
-                </List.Header>
-                <List.Description>
-                  {node.description} | parent:{" "}
-                  {node.parentID ? node.parentID : "(i dont have any parents)"}
-                </List.Description>
-              </div>
-              <div style={{}}>
-                <NewNodeButton nodeId={this.props.nodeId} />
-              </div>
+      <List.Item
+      >
+        <div style={{
+          minWidth: "500px",
+          padding: "0 12px",
+          border: "1px solid black",
+          backgroundColor: "silver",
+        }}>
+          <div style={{ display: "inline-flex" }}>
+            <div >
+              <List.Header>
+                {node.header} ++Id: {node.Id}
+              </List.Header>
+              <List.Description>
+                {node.description} | parent:{" "}
+                {node.parentID ? node.parentID : "(i dont have any parents)"}
+              </List.Description>
             </div>
-            {this.renderMyChilds()}
+            <div style={{}}>
+              <NewNodeButton nodeId={this.props.nodeId} />
+            </div>
           </div>
+          {this.renderMyChilds()}
         </div>
       </List.Item>
     );

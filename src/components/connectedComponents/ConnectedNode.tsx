@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { IState } from "../../reducers";
-import { IProps, NodeFrame } from "../Node";
+import { IProps, NodeFrame } from "../NodeFrame";
 
 function findMyChildrenIDs(thisID: string, state: IState): string[] {
     const childrenIDs: string[] = [];
