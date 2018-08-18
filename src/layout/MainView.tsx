@@ -5,8 +5,6 @@ import { CreateNewNodeWithoutParent } from "../actions/TaskListActions";
 import { Dispatch } from "redux";
 import { v1 } from "uuid";
 import MainList from "../components/MainList";
-import NewNodeButton from "../components/NewNodeButton";
-// import { AddTask } from "../actions/TaskListActions";
 
 interface IProps {
   addNewBranchClicked: () => void,

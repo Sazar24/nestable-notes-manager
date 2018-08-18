@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
-import { IState } from "../../reducers";
-import { IProps, NodeFrame } from "../NodeFrame";
+import { IProps, NodeWithChildren }   from "../NodeWithChildren";
+import { IState } from '../../../reducers';
 
-function findMyChildrenIDs(thisID: string, state: IState): string[] {
+export function findMyChildrenIds(thisID: string, state: IState): string[] {
     const childrenIDs: string[] = [];
+
     Object.keys(state.nodes).map((nodeID) => {
         const node = state.nodes[nodeID];
         if (node.parentID === thisID) {
@@ -15,8 +16,8 @@ function findMyChildrenIDs(thisID: string, state: IState): string[] {
 
 const mapStateToProps = (state: IState, ownProps: IProps) => ({
     node: state.nodes[ownProps.nodeId],
-    childrenIDs: findMyChildrenIDs(ownProps.nodeId, state)
+    childrenIDs: findMyChildrenIds(ownProps.nodeId, state)
 })
 
-const ConnectedNodeFrame = connect<any, any, any>(mapStateToProps)(NodeFrame);
-export default ConnectedNodeFrame;
+const ConnectedNodeWithChildren = connect<any, any, any>(mapStateToProps)(NodeWithChildren);
+export default ConnectedNodeWithChildren;

@@ -4,7 +4,8 @@ import { INode } from "../models/Node";
 import { v1 } from 'uuid';
 import { connect } from 'react-redux';
 import { IState } from "../reducers";
-import Node from "./connectedComponents/ConnectedNode";
+import Node from "./NodeComponents/connectedComponents/ConnectedNode";
+import NodeEditMode from "./NodeComponents/NodeEditMode";
 
 class MainList extends React.Component<IState>{
   public render() {
@@ -13,19 +14,17 @@ class MainList extends React.Component<IState>{
     return (
       <div>
         <List>
-          {/* <List.Item > */}
             {Object.keys(nodes).map((nodeId) => {
               return nodes[nodeId].parentID === null
                 ? <Node key={nodeId} nodeId={nodeId} />
                 : null;
             })}
-          {/* </List.Item> */}
         </List>
+        <NodeEditMode />
       </div>
     );
   }
 }
-
 
 const mapStateToProps = (state: IState) => ({
   nodes: state.nodes,

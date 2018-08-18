@@ -8,10 +8,10 @@ export interface INodesListReducer {
 }
 
 const initialState: INodesListReducer = {
-  "1": { header: "header", description: "descr", isDone: false, Id: "1", parentID: null },
-  "3": { header: "header", description: "descr", isDone: false, Id: "3", parentID: "1" },
-  "4": { header: "header", description: "descr", isDone: false, Id: "4", parentID: "1" },
-  "2": { header: "header", description: "descr", isDone: false, Id: "2", parentID: "3" },
+  "1": { header: "header", description: "description 1", isDone: false, Id: "1", parentID: null },
+  "3": { header: "foobar", description: "description : fooobar", isDone: false, Id: "3", parentID: "1" },
+  "4": { header: "simba`s motto", description: "hakuna matata!", isDone: false, Id: "4", parentID: "1" },
+  "2": { header: "lorem ipsum", description: "Long live Lorem Ipsum!", isDone: false, Id: "2", parentID: "3" },
 };
 
 export function nodeListReducer(state = { ...initialState }, action: Action) {
