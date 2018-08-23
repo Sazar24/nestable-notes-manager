@@ -20,7 +20,7 @@ class MainList extends React.Component<IState>{
                 : null;
             })}
         </List>
-        <NodeEditMode />
+        {/* <NodeEditMode /> */}
       </div>
     );
   }

@@ -16,7 +16,7 @@ import NodeEditMode from './NodeEditMode';
 import ConnectedNodeWithChildren from './connectedComponents/ConnectedNode';
 
 interface IProps {
-    Id: string,
+    nodeId: string,
     editMode: boolean
 }
 class NodeWrapper extends React.Component<IProps>{
@@ -25,11 +25,11 @@ class NodeWrapper extends React.Component<IProps>{
     }
 
     public render() {
-        const { editMode } = this.props;
+        const { editMode, nodeId } = this.props;
         return (
             <div>
                 {editMode && (
-                    <NodeEditMode />
+                    <NodeEditMode nodeId={nodeId} />
                 )}
 
                 {editMode && (

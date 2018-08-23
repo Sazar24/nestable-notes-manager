@@ -14,7 +14,8 @@ class NewNodeButton extends React.Component<INewNodeButton> {
     public render() {
         const { CreateNewNodeWithParentIdClicked, nodeId } = this.props;
         return (
-            <div>
+            // <div style={{ width: "20%", backgroundColor: "aqua" }}>
+            <div style={{float: "right"}}>
                 <Button
                     basic={true}
                     icon={true}

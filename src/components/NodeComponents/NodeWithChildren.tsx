@@ -42,14 +42,15 @@ export class NodeWithChildren extends React.Component<IProps> {
 
     return (
       <List.Item style={{
-        width: "400px",
+        minWidth: "500px",
         padding: "0 0 0 12px",
         border: "1px solid black",
         backgroundColor: "silver",
-        marginBottom: "2px"
+        marginBottom: "2px",
+        display: "inline-block"
       }}>
 
-        <div style={{ display: "inline-flex" }}>
+        <div style={{ display: "inline-flex", width: "100%" }}>
           <NodeContentWithoutChildren node={node} />
           {/* <Button floated="right"> kmkmkmkm </Button> */}
           <NewNodeButton nodeId={this.props.nodeId} />

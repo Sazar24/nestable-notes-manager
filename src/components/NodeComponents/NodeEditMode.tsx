@@ -3,8 +3,10 @@ import { INode } from '../../models/Node';
 import { Input, Container } from 'semantic-ui-react';
 
 interface INodeEditMode {
-    node?: INode;
+    // node?: INode;
+    nodeId: string;
 }
+
 class NodeEditMode extends React.Component<INodeEditMode>{
     public render() {
         return (
