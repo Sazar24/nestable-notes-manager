@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { IState } from "../reducers";
 import Node from "./NodeComponents/connectedComponents/ConnectedNode";
 import NodeEditMode from "./NodeComponents/NodeEditMode";
+import ConnectedNodeWrapper from "./NodeComponents/NodeWrapper";
 
 class MainList extends React.Component<IState>{
   public render() {
@@ -14,11 +15,13 @@ class MainList extends React.Component<IState>{
     return (
       <div>
         <List>
-            {Object.keys(nodes).map((nodeId) => {
-              return nodes[nodeId].parentID === null
-                ? <Node key={nodeId} nodeId={nodeId} />
-                : null;
-            })}
+          {Object.keys(nodes).map((nodeId) => {
+            console.log(`in MainList: nodeId = ${nodeId}`);
+            return nodes[nodeId].parentID === null ?
+              <Node key={nodeId} nodeId={nodeId} />
+              // <ConnectedNodeWrapper key={nodeId} nodeId={nodeId} />
+              : null;
+          })}
         </List>
         {/* <NodeEditMode /> */}
       </div>

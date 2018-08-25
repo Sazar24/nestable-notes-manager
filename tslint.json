@@ -15,7 +15,8 @@
     "no-console": false,
     "object-literal-sort-keys": false,
     "no-unused-variable": false,
-    "jsx-no-lambda": false
+    "jsx-no-lambda": false,
+    "curly": [true, "ignore-same-line"]
   },
   "defaultSeverity": "warning"
 }

@@ -15,6 +15,7 @@ export interface IProps {
 }
 
 export class NodeWithChildren extends React.Component<IProps> {
+
   public renderMyChilds() {
     const { childrenIDs } = this.props;
     if (!childrenIDs || childrenIDs.length === 0) {
@@ -27,6 +28,7 @@ export class NodeWithChildren extends React.Component<IProps> {
           return (
             <List.Item key={id}>
               <ConnectedNodeWithChildren nodeId={id} />
+              {/* // YOU ARE HERE : TODO: Tu powinien być wrapper, żeby określać czy edit mode, czy nie */}
             </List.Item>
           );
         })}
@@ -42,17 +44,18 @@ export class NodeWithChildren extends React.Component<IProps> {
 
     return (
       <List.Item style={{
-        minWidth: "500px",
-        padding: "0 0 0 12px",
+        // minWidth: "500px",
+        minWidth: "51%",
+        padding: "0 0 0 8px",
         border: "1px solid black",
         backgroundColor: "silver",
         marginBottom: "2px",
-        display: "inline-block"
+        display: "inline-block",
+        // clear: "both"
       }}>
 
         <div style={{ display: "inline-flex", width: "100%" }}>
           <NodeContentWithoutChildren node={node} />
-          {/* <Button floated="right"> kmkmkmkm </Button> */}
           <NewNodeButton nodeId={this.props.nodeId} />
         </div>
         {this.renderMyChilds()}
