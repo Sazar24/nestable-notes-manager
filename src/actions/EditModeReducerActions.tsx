@@ -12,10 +12,11 @@ interface IPassEditModeToID {
 }
 
 export function PassEditModeToId(nodeId: string): IPassEditModeToID {
+    console.log(`PassEditModeToId(${nodeId}) has been called!`);
     return {
         type: ActionTypes.SWITCH_EDIT_MODE_TO_GIVEN_ID_ONLY,
         payload: {
-            IdOfEditableNode: "nodeId"
+            IdOfEditableNode: nodeId
         }
     }
 }

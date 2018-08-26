@@ -45,7 +45,7 @@ export class NodeWithChildren extends React.Component<IProps> {
     return (
       <List.Item style={{
         // minWidth: "500px",
-        minWidth: "51%",
+        minWidth: "90%",
         padding: "0 0 0 8px",
         border: "1px solid black",
         backgroundColor: "silver",

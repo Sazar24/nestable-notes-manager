@@ -16,14 +16,11 @@ class MainList extends React.Component<IState>{
       <div>
         <List>
           {Object.keys(nodes).map((nodeId) => {
-            console.log(`in MainList: nodeId = ${nodeId}`);
             return nodes[nodeId].parentID === null ?
               <Node key={nodeId} nodeId={nodeId} />
-              // <ConnectedNodeWrapper key={nodeId} nodeId={nodeId} />
               : null;
           })}
         </List>
-        {/* <NodeEditMode /> */}
       </div>
     );
   }

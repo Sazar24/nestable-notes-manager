@@ -1,6 +1,5 @@
 import { Action, ActionTypes } from "../actions/EditModeReducerActions";
 
-
 export interface INodeSelectingReducer {
     IdOfEditableNode: string | null;
     // IdOfHighlighted: string | null;
@@ -8,7 +7,7 @@ export interface INodeSelectingReducer {
 
 const initialState: INodeSelectingReducer = {
     // IdOfEditableNode: null,
-    IdOfEditableNode: "4",
+    IdOfEditableNode: "2",
     // IdOfHighlighted: null
 }
 
