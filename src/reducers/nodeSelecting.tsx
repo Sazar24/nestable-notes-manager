@@ -6,20 +6,15 @@ export interface INodeSelectingReducer {
 }
 
 const initialState: INodeSelectingReducer = {
-    // IdOfEditableNode: null,
-    IdOfEditableNode: "2",
+    IdOfEditableNode: null,
     // IdOfHighlighted: null
 }
-
 
 export function nodeSelectingReducer(state = { ...initialState }, action: Action) {
     switch (action.type) {
         case ActionTypes.SWITCH_EDIT_MODE_TO_GIVEN_ID_ONLY:
             return { ...state, IdOfEditableNode: action.payload.IdOfEditableNode }
 
-        // case ActionTypes.TOGGLE_EDIT_MODE_FOR_GIVEN_ID:
-        // ....
-        // return {...}
 
         default:
             return state;

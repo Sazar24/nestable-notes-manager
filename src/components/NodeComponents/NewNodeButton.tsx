@@ -15,7 +15,10 @@ class NewNodeButton extends React.Component<INewNodeButton> {
         const { CreateNewNodeWithParentIdClicked, nodeId } = this.props;
         return (
             // <div style={{ width: "20%", backgroundColor: "aqua" }}>
-            <div style={{float: "right"}}>
+            <div style={{
+                float: "right",
+                width: "5%" // need to extend it to max-possible
+            }}>
                 <Button
                     basic={true}
                     icon={true}

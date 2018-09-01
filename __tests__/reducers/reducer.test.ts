@@ -21,25 +21,25 @@ describe('reducer should return proper state when apply the action to previous s
 
     });
 
-    it('adding subsequent nodes to same state gives state with all of the added nodes', () => {
+    // it('adding subsequent nodes to same state gives state with all of the added nodes', () => {
 
-        const initialState: INodesListReducer = {
-            "1": { header: "header", description: "descr", isDone: false, Id: "1", parentID: null },
-        }
+    //     const initialState: INodesListReducer = {
+    //         "1": { header: "header", description: "descr", isDone: false, Id: "1", parentID: null },
+    //     }
 
-        let simulatedStateOutput;
-        simulatedStateOutput = nodeListReducer(initialState, CreateNewNodeAsChild("3", "1"));
-        simulatedStateOutput = nodeListReducer(simulatedStateOutput, CreateNewNodeAsChild("3", "1"));
-        simulatedStateOutput = nodeListReducer(simulatedStateOutput, CreateNewNodeAsChild("4", "1"));
-        simulatedStateOutput = nodeListReducer(simulatedStateOutput, CreateNewNodeAsChild("2", "3"));
+    //     let simulatedStateOutput;
+    //     simulatedStateOutput = nodeListReducer(initialState, CreateNewNodeAsChild("3", "1"));
+    //     simulatedStateOutput = nodeListReducer(simulatedStateOutput, CreateNewNodeAsChild("3", "1"));
+    //     simulatedStateOutput = nodeListReducer(simulatedStateOutput, CreateNewNodeAsChild("4", "1"));
+    //     simulatedStateOutput = nodeListReducer(simulatedStateOutput, CreateNewNodeAsChild("2", "3"));
 
-        const expectedState2: INodesListReducer = {
-            "1": { header: "header", description: "descr", isDone: false, Id: "1", parentID: null },
-            "3": { header: "header", description: "descr", isDone: false, Id: "3", parentID: "1" },
-            "4": { header: "header", description: "descr", isDone: false, Id: "4", parentID: "1" },
-            "2": { header: "header", description: "descr", isDone: false, Id: "2", parentID: "3" },
-        };
+    //     const expectedState2: INodesListReducer = {
+    //         "1": { header: "header", description: "descr", isDone: false, Id: "1", parentID: null },
+    //         "3": { header: "header", description: "descr", isDone: false, Id: "3", parentID: "1" },
+    //         "4": { header: "header", description: "descr", isDone: false, Id: "4", parentID: "1" },
+    //         "2": { header: "header", description: "descr", isDone: false, Id: "2", parentID: "3" },
+    //     };
 
-        expect(simulatedStateOutput).toEqual(expectedState2);
-    });
+    //     expect(simulatedStateOutput).toEqual(expectedState2);
+    // });
 });

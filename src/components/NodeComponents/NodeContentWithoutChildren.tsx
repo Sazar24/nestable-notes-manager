@@ -17,7 +17,10 @@ class NodeContentWithoutChildren extends React.Component<INodeMainContent>{
     public render() {
         const { node, editMode, switchToEditMode } = this.props;
 
-        if (editMode === false) {
+        if (editMode) {
+            return <ConnectedEditableNode nodeId={node.Id} />
+        }
+        else {
             return (
                 <div
                     style={{ width: "100%", paddingRight: "15px" }}
@@ -34,7 +37,6 @@ class NodeContentWithoutChildren extends React.Component<INodeMainContent>{
                 </div>
             )
         }
-        else return <ConnectedEditableNode nodeId={node.Id} />
     }
 }
 

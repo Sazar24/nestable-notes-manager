@@ -15,21 +15,28 @@ const initialState: INodesListReducer = {
 };
 
 export function nodeListReducer(state = { ...initialState }, action: Action) {
+  const newState = Object.assign({}, state);
   switch (action.type) {
     case ActionTypes.ADD_NODE:
-      const newState = Object.assign({}, state);
+      // const newState = Object.assign({}, state);
       const newNode = Object.assign({}, action.payload.node);
       newNode.parentID = action.payload.parentID;
       newState[action.payload.node.Id] = Object.assign({}, newNode);
       return { ...newState };
 
     case ActionTypes.ADD_NODE_WITH_NO_PARENT:
-      const newState2 = Object.assign({}, state);
+      // const newState = Object.assign({}, state);
       const newNode2 = Object.assign({}, action.payload.node);
 
-      newState2[action.payload.node.Id] = Object.assign({}, newNode2);
-      return { ...newState2 };
+      newState[action.payload.node.Id] = Object.assign({}, newNode2);
+      return { ...newState };
 
+    case ActionTypes.DELETE_NODE_WITH_GIVEN_ID:
+    // it doesnt remove subNodes (children)
+      // const newState = Object.assign({}, state);
+      delete newState[action.payload.NodeId];
+      console.log(`deleting id: ${action.payload.NodeId}`)
+      return { ...newState };
 
     default:
       return state;

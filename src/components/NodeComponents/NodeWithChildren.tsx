@@ -50,7 +50,8 @@ export class NodeWithChildren extends React.Component<IProps> {
         border: "1px solid black",
         backgroundColor: "silver",
         marginBottom: "2px",
-        display: "inline-block",
+        // display: "inline-block",
+        display: "inherit",
         // clear: "both"
       }}>
 

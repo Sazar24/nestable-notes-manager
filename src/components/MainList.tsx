@@ -5,8 +5,8 @@ import { v1 } from 'uuid';
 import { connect } from 'react-redux';
 import { IState } from "../reducers";
 import Node from "./NodeComponents/connectedComponents/ConnectedNode";
-import NodeEditMode from "./NodeComponents/NodeEditMode";
-import ConnectedNodeWrapper from "./NodeComponents/NodeWrapper";
+// import NodeEditMode from "./NodeComponents/NodeEditMode";
+// import ConnectedNodeWrapper from "./NodeComponents/NodeWrapper";
 
 class MainList extends React.Component<IState>{
   public render() {

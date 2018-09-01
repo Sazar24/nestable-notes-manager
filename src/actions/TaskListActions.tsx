@@ -6,6 +6,7 @@ export enum ActionTypes {
   ADD_ITEM = "ADD NEW ITEM TO LIST",
   ADD_NODE = "ADD NODE TO NODES-LIST",
   ADD_NODE_WITH_NO_PARENT = "ADD NODE WITHOUT PARENT",
+  DELETE_NODE_WITH_GIVEN_ID = "DELETE_NODE_WITH_GIVEN_ID"
 }
 
 interface ICreateNewNodeAction {
@@ -44,4 +45,21 @@ export function CreateNewNodeWithoutParent(newNodeId: string): ICreateNewNodeWit
     }
   }
 }
-export type Action = ICreateNewNodeAction | ICreateNewNodeWithoutParentAction;
+
+interface IDeleteNodeWithId {
+  type: ActionTypes.DELETE_NODE_WITH_GIVEN_ID,
+  payload: {
+    NodeId: string
+  }
+}
+
+export function DeleteNodeWithId(nodeId: string): IDeleteNodeWithId {
+  return {
+    type: ActionTypes.DELETE_NODE_WITH_GIVEN_ID,
+    payload: {
+      NodeId: nodeId
+    }
+  }
+
+}
+export type Action = ICreateNewNodeAction | ICreateNewNodeWithoutParentAction | IDeleteNodeWithId;

@@ -18,6 +18,7 @@
     ]
   },
   "dependencies": {
+    "@types/react-onclickoutside": "^6.0.4",
     "@types/uuid": "^3.4.3",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
@@ -47,6 +48,7 @@
     "@types/redux-logger": "^3.0.6",
     "babel-jest": "^23.4.2",
     "jest": "^23.4.2",
+    "react-onclickoutside": "^6.7.1",
     "redux-devtools-extension": "^2.13.5",
     "ts-jest": "^23.1.2",
     "typescript": "^2.9.2"
