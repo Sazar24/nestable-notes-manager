@@ -14,7 +14,7 @@ interface INodeMainContent {
 }
 
 class NodeContentWithoutChildren extends React.Component<INodeMainContent>{
-    public render() {
+    render() {
         const { node, editMode, switchToEditMode } = this.props;
 
         if (editMode) {
@@ -26,7 +26,7 @@ class NodeContentWithoutChildren extends React.Component<INodeMainContent>{
                     style={{ width: "100%", paddingRight: "15px" }}
                     onClick={() => switchToEditMode()}
                 >
-                    <List.Header>
+                    <List.Header >
                         {node.header}
                         <span style={{ float: "right" }}> [Id: {node.Id}] </span>
                     </List.Header>

@@ -9,7 +9,7 @@ import Node from "./NodeComponents/connectedComponents/ConnectedNode";
 // import ConnectedNodeWrapper from "./NodeComponents/NodeWrapper";
 
 class MainList extends React.Component<IState>{
-  public render() {
+   render() {
     const { nodes } = this.props;
 
     return (

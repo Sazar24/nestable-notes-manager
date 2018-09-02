@@ -28,7 +28,7 @@ export function CreateNewNodeAsChild(newNodeId: string, parentID: string): ICrea
   return {
     type: ActionTypes.ADD_NODE,
     payload: {
-      node: new SingleNode("header", "descr", false, newNodeId),
+      node: new SingleNode("new node", "click me, to edit", false, newNodeId),
       parentID,
     }
   }
@@ -40,7 +40,7 @@ export function CreateNewNodeWithoutParent(newNodeId: string): ICreateNewNodeWit
   return {
     type: ActionTypes.ADD_NODE_WITH_NO_PARENT,
     payload: {
-      node: new SingleNode("newBranch - header ", "newBranch - description", false, newNodeId),
+      node: new SingleNode("new node", "To edit - click me.", false, newNodeId),
       // node: new SingleNode(header, descr, false, newNodeId),
     }
   }

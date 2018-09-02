@@ -11,7 +11,7 @@ interface INewNodeButton {
 }
 
 class NewNodeButton extends React.Component<INewNodeButton> {
-    public render() {
+    render() {
         const { CreateNewNodeWithParentIdClicked, nodeId } = this.props;
         return (
             // <div style={{ width: "20%", backgroundColor: "aqua" }}>

@@ -11,7 +11,7 @@ interface IProps {
 }
 
 class MainView extends React.Component<IProps>{
-  public render() {
+  render() {
     const { addNewBranchClicked } = this.props;
     return (
       <Container>
