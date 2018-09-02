@@ -22,8 +22,11 @@ class NodeContentWithoutChildren extends React.Component<INodeMainContent>{
         }
         else {
             return (
-                <div
-                    style={{ width: "100%", paddingRight: "15px" }}
+                <div style={{
+                    width: "100%",
+                    paddingRight: "15px",
+                    whiteSpace: "pre-line"
+                }}
                     onClick={() => switchToEditMode()}
                 >
                     <List.Header >
