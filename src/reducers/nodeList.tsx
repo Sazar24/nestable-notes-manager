@@ -1,4 +1,4 @@
-import { Action, ActionTypes } from "../actions/TaskListActions";
+import { Action, actionTypes } from "../actions/TaskListActions";
 import { INode, SingleNode } from "../models/Node";
 // import * as definedTypes from '../types/actionTypes';
 // import { IMainListStateType, ITask } from '../types/mainListStateType';
@@ -19,23 +19,31 @@ export function nodeListReducer(state = { ...initialState }, action: Action) {
   const newState = Object.assign({}, state);
 
   switch (action.type) {
-    case ActionTypes.ADD_NODE:
+    case actionTypes.ADD_NODE:
       const newNode = Object.assign({}, action.payload.node);
       newNode.parentID = action.payload.parentID;
       newState[action.payload.node.Id] = Object.assign({}, newNode);
       return newState;
- 
-    case ActionTypes.ADD_NODE_WITH_NO_PARENT:
+
+    case actionTypes.ADD_NODE_WITH_NO_PARENT:
       const newNode2 = Object.assign({}, action.payload.node);
 
       newState[action.payload.node.Id] = Object.assign({}, newNode2);
       return newState;
 
-    case ActionTypes.DELETE_NODE_WITH_GIVEN_ID:
+    case actionTypes.DELETE_NODE_WITH_GIVEN_ID:
       // it doesnt remove subNodes (children)
-      delete newState[action.payload.NodeId];
-      console.log(`deleting id: ${action.payload.NodeId}`)
+      delete newState[action.payload.nodeId];
+      console.log(`deleting id: ${action.payload.nodeId}`)
       return newState;
+
+    case actionTypes.CHANGE_NODE_CONTENT:
+      console.log("reducer: CHANGE_NODE_CONTENT has been called ");
+      const newNode3 = Object.assign({}, action.payload.node);
+      newState[newNode3.Id] = Object.assign({}, newNode3);
+
+      return newState
+
 
     default:
       return state;

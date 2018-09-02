@@ -2,15 +2,16 @@ import { INode } from "../models/Node";
 import { v1 } from "uuid";
 import { SingleNode } from "../models/Node";
 
-export enum ActionTypes {
+export enum actionTypes {
   ADD_ITEM = "ADD NEW ITEM TO LIST",
   ADD_NODE = "ADD NODE TO NODES-LIST",
   ADD_NODE_WITH_NO_PARENT = "ADD NODE WITHOUT PARENT",
-  DELETE_NODE_WITH_GIVEN_ID = "DELETE_NODE_WITH_GIVEN_ID"
+  DELETE_NODE_WITH_GIVEN_ID = "DELETE_NODE_WITH_GIVEN_ID",
+  CHANGE_NODE_CONTENT = "CHANGE_NODE_CONTENT"
 }
 
 interface ICreateNewNodeAction {
-  type: ActionTypes.ADD_NODE;
+  type: actionTypes.ADD_NODE;
   payload: {
     node: INode;
     parentID: string;
@@ -18,7 +19,7 @@ interface ICreateNewNodeAction {
 }
 
 interface ICreateNewNodeWithoutParentAction {
-  type: ActionTypes.ADD_NODE_WITH_NO_PARENT,
+  type: actionTypes.ADD_NODE_WITH_NO_PARENT,
   payload: {
     node: INode;
   }
@@ -26,7 +27,7 @@ interface ICreateNewNodeWithoutParentAction {
 
 export function CreateNewNodeAsChild(newNodeId: string, parentID: string): ICreateNewNodeAction {
   return {
-    type: ActionTypes.ADD_NODE,
+    type: actionTypes.ADD_NODE,
     payload: {
       node: new SingleNode("new node", "click me, to edit", false, newNodeId),
       parentID,
@@ -38,7 +39,7 @@ export function CreateNewNodeAsChild(newNodeId: string, parentID: string): ICrea
 // export function CreateNewNodeWithoutParent(newNodeId:string, header, description) :ICreateNewNodeWithoutParent{
 export function CreateNewNodeWithoutParent(newNodeId: string): ICreateNewNodeWithoutParentAction {
   return {
-    type: ActionTypes.ADD_NODE_WITH_NO_PARENT,
+    type: actionTypes.ADD_NODE_WITH_NO_PARENT,
     payload: {
       node: new SingleNode("new node", "To edit - click me.", false, newNodeId),
       // node: new SingleNode(header, descr, false, newNodeId),
@@ -47,19 +48,36 @@ export function CreateNewNodeWithoutParent(newNodeId: string): ICreateNewNodeWit
 }
 
 interface IDeleteNodeWithId {
-  type: ActionTypes.DELETE_NODE_WITH_GIVEN_ID,
+  type: actionTypes.DELETE_NODE_WITH_GIVEN_ID,
   payload: {
-    NodeId: string
+    nodeId: string
   }
 }
 
 export function DeleteNodeWithId(nodeId: string): IDeleteNodeWithId {
   return {
-    type: ActionTypes.DELETE_NODE_WITH_GIVEN_ID,
+    type: actionTypes.DELETE_NODE_WITH_GIVEN_ID,
     payload: {
-      NodeId: nodeId
+      nodeId
     }
   }
-
 }
-export type Action = ICreateNewNodeAction | ICreateNewNodeWithoutParentAction | IDeleteNodeWithId;
+
+interface IChangeNodeContent {
+  type: actionTypes.CHANGE_NODE_CONTENT,
+  payload: {
+    node: INode
+  }
+}
+
+export function ChangeNodeContent(node: INode): IChangeNodeContent {
+  console.log("action: ChangeNodeContent has been called", node);
+  return {
+    type: actionTypes.CHANGE_NODE_CONTENT,
+    payload: {
+      node
+    }
+  }
+}
+
+export type Action = ICreateNewNodeAction | ICreateNewNodeWithoutParentAction | IDeleteNodeWithId | IChangeNodeContent;

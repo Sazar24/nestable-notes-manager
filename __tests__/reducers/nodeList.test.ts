@@ -1,6 +1,6 @@
 import { Action, CreateNewNodeAsChild } from './../../src/actions/TaskListActions';
 import { nodeListReducer, INodesListReducer } from './../../src/reducers/nodeList';
-import { SingleNode } from '../../src/models/Node';
+import { INode } from '../../src/models/Node';
 
 describe('reducer should return proper state when apply the action to previous state;', () => {
 

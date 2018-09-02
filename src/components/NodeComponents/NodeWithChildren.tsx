@@ -16,7 +16,7 @@ export interface IProps {
 
 export class NodeWithChildren extends React.Component<IProps> {
 
-  renderMyChilds() {
+   renderMyChilds() {
     const { childrenIDs } = this.props;
     if (!childrenIDs || childrenIDs.length === 0) {
       return;
@@ -36,7 +36,7 @@ export class NodeWithChildren extends React.Component<IProps> {
     );
   }
 
-  render(): any {
+   render(): any {
     const { node } = this.props;
     if (node === undefined) {
       throw new Error("passed undefined {node} to NodeFrame");
