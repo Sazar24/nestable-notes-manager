@@ -1,7 +1,6 @@
-import { Action, actionTypes } from "../actions/TaskListActions";
+import { Action } from "../actions/TaskListActions";
 import { INode, SingleNode } from "../models/Node";
-// import * as definedTypes from '../types/actionTypes';
-// import { IMainListStateType, ITask } from '../types/mainListStateType';
+import { actionTypes } from "../actions/actionTypes";
 
 export interface INodesListReducer {
   [nodeId: string]: INode;
@@ -14,7 +13,7 @@ const initialState: INodesListReducer = {
   "2": { header: "lorem ipsum", description: "Long live Lorem Ipsum!", isDone: false, Id: "2", parentID: "3" },
 };
 
-export function nodeListReducer(state = { ...initialState }, action: Action) {
+export function nodeListReducer(state = { ...initialState }, action: Action): INodesListReducer {
 
   const newState = Object.assign({}, state);
 

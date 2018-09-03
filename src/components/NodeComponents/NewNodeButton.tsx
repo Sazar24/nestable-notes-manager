@@ -14,7 +14,6 @@ class NewNodeButton extends React.Component<INewNodeButton> {
     render() {
         const { CreateNewNodeWithParentIdClicked, nodeId } = this.props;
         return (
-            // <div style={{ width: "20%", backgroundColor: "aqua" }}>
             <div style={{
                 float: "right",
                 width: "5%" // need to extend it to max-possible

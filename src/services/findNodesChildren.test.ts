@@ -1,4 +1,4 @@
-import { IGlobalReduxState } from './../reducers/index';
+import { IGlobalReduxState } from '../reducers/index';
 // import { NodeWithChildren } from './../NodeWithChildren';
 // import { findMyChildrenIds } from "./ConnectedNode";
 import FindNodesChildren from './findNodesChildren';

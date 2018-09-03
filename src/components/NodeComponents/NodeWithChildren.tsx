@@ -3,11 +3,10 @@ import { connect } from "react-redux";
 import { INode, SingleNode } from "../../models/Node";
 import { List, Container, Button } from "semantic-ui-react";
 import { v1 } from "uuid";
-import { IGlobalReduxState } from "../../reducers";
+import FindNodesChildren from "../../services/findNodesChildren";
 import NewNodeButton from "./NewNodeButton";
 import NodeContentWithoutChildren from "./NodeContentWithoutChildren";
-// import ConnectedNodeWithChildren from "./connectedComponents/ConnectedNode";
-import FindNodesChildren from "../../services/findNodesChildren";
+import { IGlobalReduxState } from "../../reducers/index";
 
 export interface IProps {
   nodeId: string;
@@ -29,7 +28,6 @@ export class NodeWithChildren extends React.Component<IProps> {
           return (
             <List.Item key={id}>
               <ConnectedNodeWithChildren nodeId={id} />
-              {/* // YOU ARE HERE : TODO: Tu powinien być wrapper, żeby określać czy edit mode, czy nie */}
             </List.Item>
           );
         })}
@@ -45,17 +43,14 @@ export class NodeWithChildren extends React.Component<IProps> {
 
     return (
       <List.Item style={{
-        
         // minWidth: "500px",
         minWidth: "90%",
         padding: "0 0 0 8px",
         border: "1px solid black",
         backgroundColor: "silver",
         marginBottom: "2px",
-        // display: "inline-block",
         display: "inherit",
         // clear: "both"
-        
       }}>
 
         <div style={{ display: "inline-flex", width: "100%" }}>

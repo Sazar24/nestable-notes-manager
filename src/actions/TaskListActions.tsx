@@ -1,14 +1,8 @@
 import { INode } from "../models/Node";
 import { v1 } from "uuid";
 import { SingleNode } from "../models/Node";
+import { actionTypes } from "./actionTypes";
 
-export enum actionTypes {
-  ADD_ITEM = "ADD NEW ITEM TO LIST",
-  ADD_NODE = "ADD NODE TO NODES-LIST",
-  ADD_NODE_WITH_NO_PARENT = "ADD NODE WITHOUT PARENT",
-  DELETE_NODE_WITH_GIVEN_ID = "DELETE_NODE_WITH_GIVEN_ID",
-  CHANGE_NODE_CONTENT = "CHANGE_NODE_CONTENT"
-}
 
 interface ICreateNewNodeAction {
   type: actionTypes.ADD_NODE;
@@ -61,7 +55,7 @@ export function DeleteNodeWithId(nodeId: string): IDeleteNodeWithId {
       nodeId
     }
   }
-}
+} // TODO: Test me!
 
 interface IChangeNodeContent {
   type: actionTypes.CHANGE_NODE_CONTENT,
@@ -77,6 +71,6 @@ export function ChangeNodeContent(node: INode): IChangeNodeContent {
       node
     }
   }
-}
+}// TODO: Test me!
 
 export type Action = ICreateNewNodeAction | ICreateNewNodeWithoutParentAction | IDeleteNodeWithId | IChangeNodeContent;

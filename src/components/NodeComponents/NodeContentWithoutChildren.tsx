@@ -2,10 +2,10 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { INode } from "../../models/Node";
 import { List } from 'semantic-ui-react';
-import { IGlobalReduxState } from '../../reducers';
 import ConnectedEditableNode from './NodeEditMode';
 import { Dispatch } from 'redux';
 import { PassEditModeToId } from '../../actions/EditModeReducerActions';
+import { IGlobalReduxState } from '../../reducers/index';
 
 interface INodeMainContent {
     node: INode;
@@ -44,16 +44,12 @@ class NodeContentWithoutChildren extends React.Component<INodeMainContent>{
 }
 
 function AmIInEditMode(askingNodeId: string, IdOfEditableNode: string | null): boolean {
-
-    if (askingNodeId === IdOfEditableNode) { return true }
-    else {
-        return false
-    }
+    if (askingNodeId === IdOfEditableNode) return true
+    else return false
 }
 
 const mapStateToProps = (state: IGlobalReduxState, ownProps: INodeMainContent) => ({
     editMode: AmIInEditMode(ownProps.node.Id, state.selectedNodes.IdOfEditableNode),
-    // editMode: false,
 })
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: INodeMainContent) => ({

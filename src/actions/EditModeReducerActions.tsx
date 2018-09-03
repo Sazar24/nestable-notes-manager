@@ -1,10 +1,7 @@
-export enum ActionTypes {
-    SWITCH_EDIT_MODE_TO_GIVEN_ID_ONLY = "SWITCH_EDIT_MODE_TO_GIVEN_ID_ONLY",
-    TOGGLE_EDIT_MODE_FOR_GIVEN_ID = "TOGGLE_EDIT_MODE_FOR_GIVEN_ID",
-}
+import { actionTypes } from "./actionTypes";
 
 interface IPassEditModeToID {
-    type: ActionTypes.SWITCH_EDIT_MODE_TO_GIVEN_ID_ONLY,
+    type: actionTypes.SWITCH_EDIT_MODE_TO_GIVEN_ID_ONLY,
     payload: {
         IdOfEditableNode: string | null,
 
@@ -13,7 +10,7 @@ interface IPassEditModeToID {
 
 export function PassEditModeToId(nodeId: string | null): IPassEditModeToID {
     return {
-        type: ActionTypes.SWITCH_EDIT_MODE_TO_GIVEN_ID_ONLY,
+        type: actionTypes.SWITCH_EDIT_MODE_TO_GIVEN_ID_ONLY,
         payload: {
             IdOfEditableNode: nodeId
         }
