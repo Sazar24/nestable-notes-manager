@@ -71,6 +71,6 @@ export function ChangeNodeContent(node: INode): IChangeNodeContent {
       node
     }
   }
-}// TODO: Test me!
+} // TODO: Test me!
 
 export type Action = ICreateNewNodeAction | ICreateNewNodeWithoutParentAction | IDeleteNodeWithId | IChangeNodeContent;
