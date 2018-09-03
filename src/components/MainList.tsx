@@ -3,12 +3,13 @@ import { List, Button, Icon } from "semantic-ui-react";
 import { INode } from "../models/Node";
 import { v1 } from 'uuid';
 import { connect } from 'react-redux';
-import { IState } from "../reducers";
-import Node from "./NodeComponents/connectedComponents/ConnectedNode";
+import { IGlobalReduxState } from "../reducers";
+import ConnectedNodeWithChildren from "./NodeComponents/NodeWithChildren";
+// import Node from "./NodeComponents/connectedComponents/ConnectedNode";
 // import NodeEditMode from "./NodeComponents/NodeEditMode";
 // import ConnectedNodeWrapper from "./NodeComponents/NodeWrapper";
 
-class MainList extends React.Component<IState>{
+class MainList extends React.Component<IGlobalReduxState>{
    render() {
     const { nodes } = this.props;
 
@@ -17,7 +18,7 @@ class MainList extends React.Component<IState>{
         <List>
           {Object.keys(nodes).map((nodeId) => {
             return nodes[nodeId].parentID === null ?
-              <Node key={nodeId} nodeId={nodeId} />
+              <ConnectedNodeWithChildren key={nodeId} nodeId={nodeId} />
               : null;
           })}
         </List>
@@ -26,7 +27,7 @@ class MainList extends React.Component<IState>{
   }
 }
 
-const mapStateToProps = (state: IState) => ({
+const mapStateToProps = (state: IGlobalReduxState) => ({
   nodes: state.nodes,
 })
 

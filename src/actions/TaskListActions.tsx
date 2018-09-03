@@ -71,7 +71,6 @@ interface IChangeNodeContent {
 }
 
 export function ChangeNodeContent(node: INode): IChangeNodeContent {
-  console.log("action: ChangeNodeContent has been called", node);
   return {
     type: actionTypes.CHANGE_NODE_CONTENT,
     payload: {

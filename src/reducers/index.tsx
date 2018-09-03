@@ -2,12 +2,12 @@ import { combineReducers } from 'redux'
 import * as fromNodeListReducer from './nodeList';
 import * as nodeSelecting from './nodeSelecting';
 
-export interface IState {
+export interface IGlobalReduxState {
     nodes: fromNodeListReducer.INodesListReducer,
     selectedNodes: nodeSelecting.INodeSelectingReducer
 }
 
-export const reducer = combineReducers<IState>({
+export const reducer = combineReducers<IGlobalReduxState>({
     nodes: fromNodeListReducer.nodeListReducer,
     selectedNodes: nodeSelecting.nodeSelectingReducer
 })

@@ -12,8 +12,6 @@ interface IPassEditModeToID {
 }
 
 export function PassEditModeToId(nodeId: string | null): IPassEditModeToID {
-    console.log("PassEditModeToId has been called with : ", nodeId);
-
     return {
         type: ActionTypes.SWITCH_EDIT_MODE_TO_GIVEN_ID_ONLY,
         payload: {

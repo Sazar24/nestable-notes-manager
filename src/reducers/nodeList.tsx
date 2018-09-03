@@ -34,11 +34,9 @@ export function nodeListReducer(state = { ...initialState }, action: Action) {
     case actionTypes.DELETE_NODE_WITH_GIVEN_ID:
       // it doesnt remove subNodes (children)
       delete newState[action.payload.nodeId];
-      console.log(`deleting id: ${action.payload.nodeId}`)
       return newState;
 
     case actionTypes.CHANGE_NODE_CONTENT:
-      console.log("reducer: CHANGE_NODE_CONTENT has been called ");
       const newNode3 = Object.assign({}, action.payload.node);
       newState[newNode3.Id] = Object.assign({}, newNode3);
 

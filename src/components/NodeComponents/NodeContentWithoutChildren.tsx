@@ -2,7 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { INode } from "../../models/Node";
 import { List } from 'semantic-ui-react';
-import { IState } from '../../reducers';
+import { IGlobalReduxState } from '../../reducers';
 import ConnectedEditableNode from './NodeEditMode';
 import { Dispatch } from 'redux';
 import { PassEditModeToId } from '../../actions/EditModeReducerActions';
@@ -25,7 +25,7 @@ class NodeContentWithoutChildren extends React.Component<INodeMainContent>{
                 <div style={{
                     width: "100%",
                     paddingRight: "15px",
-                    whiteSpace: "pre-line"
+                    whiteSpace: "pre"
                 }}
                     onClick={() => switchToEditMode()}
                 >
@@ -51,7 +51,7 @@ function AmIInEditMode(askingNodeId: string, IdOfEditableNode: string | null): b
     }
 }
 
-const mapStateToProps = (state: IState, ownProps: INodeMainContent) => ({
+const mapStateToProps = (state: IGlobalReduxState, ownProps: INodeMainContent) => ({
     editMode: AmIInEditMode(ownProps.node.Id, state.selectedNodes.IdOfEditableNode),
     // editMode: false,
 })

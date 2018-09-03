@@ -3,10 +3,11 @@ import { connect } from "react-redux";
 import { INode, SingleNode } from "../../models/Node";
 import { List, Container, Button } from "semantic-ui-react";
 import { v1 } from "uuid";
-import { IState } from "../../reducers";
+import { IGlobalReduxState } from "../../reducers";
 import NewNodeButton from "./NewNodeButton";
 import NodeContentWithoutChildren from "./NodeContentWithoutChildren";
-import ConnectedNodeWithChildren from "./connectedComponents/ConnectedNode";
+// import ConnectedNodeWithChildren from "./connectedComponents/ConnectedNode";
+import FindNodesChildren from "../../services/findNodesChildren";
 
 export interface IProps {
   nodeId: string;
@@ -44,6 +45,7 @@ export class NodeWithChildren extends React.Component<IProps> {
 
     return (
       <List.Item style={{
+        
         // minWidth: "500px",
         minWidth: "90%",
         padding: "0 0 0 8px",
@@ -53,6 +55,7 @@ export class NodeWithChildren extends React.Component<IProps> {
         // display: "inline-block",
         display: "inherit",
         // clear: "both"
+        
       }}>
 
         <div style={{ display: "inline-flex", width: "100%" }}>
@@ -64,3 +67,11 @@ export class NodeWithChildren extends React.Component<IProps> {
     );
   }
 }
+
+const mapStateToProps = (state: IGlobalReduxState, ownProps: IProps) => ({
+    node: state.nodes[ownProps.nodeId],
+    childrenIDs: new FindNodesChildren().call(ownProps.nodeId, state)
+})
+
+const ConnectedNodeWithChildren = connect<any, any, any>(mapStateToProps)(NodeWithChildren);
+export default ConnectedNodeWithChildren;
