@@ -1,10 +1,6 @@
-import { IGlobalReduxState } from '../reducers/index';
-// import { NodeWithChildren } from './../NodeWithChildren';
-// import { findMyChildrenIds } from "./ConnectedNode";
-import FindNodesChildren from './findNodesChildren';
-// import { IGlobalReduxState } from '../../../reducers';
+import { IGlobalReduxState } from '../../src/reducers/index';
+import FindNodesChildren from '../../src/services/findNodesChildren';
 
-// const childrenNodesFinder = new FindingNodesChildren().call
 describe('findMyChildrenIds(...) should return propper array of Ids; ', () => {
     it('There are 2 nodes in state. 1st is parent of 2nd', () => {
         const state: IGlobalReduxState = {

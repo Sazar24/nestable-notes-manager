@@ -55,7 +55,7 @@ export function DeleteNodeWithId(nodeId: string): IDeleteNodeWithId {
       nodeId
     }
   }
-} // TODO: Test me!
+}
 
 interface IChangeNodeContent {
   type: actionTypes.CHANGE_NODE_CONTENT,

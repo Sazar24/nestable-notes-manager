@@ -1,6 +1,7 @@
 import { Action } from "../actions/TaskListActions";
 import { INode, SingleNode } from "../models/Node";
 import { actionTypes } from "../actions/actionTypes";
+import IsNodeAlreadyExistsInState from "../services/isNodeAlreadyExists";
 
 export interface INodesListReducer {
   [nodeId: string]: INode;
@@ -16,29 +17,34 @@ const initialState: INodesListReducer = {
 export function nodeListReducer(state = { ...initialState }, action: Action): INodesListReducer {
 
   const newState = Object.assign({}, state);
+  let newNode: INode;
 
   switch (action.type) {
     case actionTypes.ADD_NODE:
-      const newNode = Object.assign({}, action.payload.node);
+      newNode = Object.assign({}, action.payload.node);
       newNode.parentID = action.payload.parentID;
       newState[action.payload.node.Id] = Object.assign({}, newNode);
       return newState;
 
     case actionTypes.ADD_NODE_WITH_NO_PARENT:
-      const newNode2 = Object.assign({}, action.payload.node);
+      newNode = Object.assign({}, action.payload.node);
 
-      newState[action.payload.node.Id] = Object.assign({}, newNode2);
+      newState[action.payload.node.Id] = Object.assign({}, newNode);
       return newState;
 
-    case actionTypes.DELETE_NODE_WITH_GIVEN_ID:
-      // it doesnt remove subNodes (children)
+    case actionTypes.DELETE_NODE_WITH_GIVEN_ID: // it doesnt remove subNodes (children)
       delete newState[action.payload.nodeId];
       return newState;
 
     case actionTypes.CHANGE_NODE_CONTENT:
-      const newNode3 = Object.assign({}, action.payload.node);
-      newState[newNode3.Id] = Object.assign({}, newNode3);
+      newNode = Object.assign({}, action.payload.node);
 
+
+      const nodeWithGivenIdAlreadExists: boolean = new IsNodeAlreadyExistsInState().call(newNode.Id, state);
+      if (nodeWithGivenIdAlreadExists) {
+        // console.log(`actionTypes.CHANGE_NODE_CONTENT: node with given ID already exists in state, so i can overwrite changes. State[node.id]: ${JSON.stringify(state[newNode.Id])} and Id: ${newNode.Id}\n service returned: ${nodeWithGivenIdAlreadExists}`)
+        newState[newNode.Id] = Object.assign({}, newNode);
+      }
       return newState
 
 
