@@ -1,11 +1,9 @@
 import { INode, SingleNode } from './../models/Node';
 import { ICreateNewNodeAction, AddLoadedNode } from '../actions/TaskListActions';
 import { Store } from 'redux';
-// import store from '../store/store';
 
 interface IStorageHandler {
     keys: string[];
-    // mapLocalStorageItemsToReduxState: (dispatchNodeToReduxState: any) => void;
 }
 
 
@@ -43,25 +41,17 @@ class LocalStorageHandler implements IStorageHandler {
         if (extractedNode === null) {
             throw new Error("in localStorage there is null assigned to key-value, instead of Node-Object");
         }
-        // console.log({ extractedNode });
         return extractedNode;
     }
 
     mapLocalStorageItemsToReduxState(store: Store): void {
-    // mapLocalStorageItemsToReduxState(): void {
-        // mapLocalStorageItemsToReduxState () :state {
         if (!this.isSupported()) return;
 
-        try {
-            this.extractKeys();
-        } catch (e) {
-            throw new Error("extracting keys from local storage has failed")
-        }
-        
+        this.extractKeys();
+
         this.keys.map(extractedKey => {
             const extractedNode: INode = this.getNode(extractedKey);
-            return store.dispatch(AddLoadedNode(extractedNode));
-            // return store.dispatch(AddLoadedNode(extractedNode)); // store must be a argument. Otherwise, if called directly, there would be redux-type error (" Generic type 'Dispatch<S>' requires 1 type argument(s).")
+            return store.dispatch(AddLoadedNode(extractedNode)); // store must be a argument. Otherwise, if called directly, there would be redux-type error (" Generic type 'Dispatch<S>' requires 1 type argument(s).")
         })
     }
 
@@ -76,4 +66,3 @@ class LocalStorageHandler implements IStorageHandler {
 }
 
 export default new LocalStorageHandler();
-// export default LocalStorageHandler;
