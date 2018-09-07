@@ -1,7 +1,9 @@
 import { IGlobalReduxState } from '../../src/reducers/index';
-import FindNodesChildren from '../../src/services/findNodesChildren';
+import NodesManager from '../../src/services/NodesManager';
 
 describe('findMyChildrenIds(...) should return propper array of Ids; ', () => {
+    const nodesManager = new NodesManager();
+    
     it('There are 2 nodes in state. 1st is parent of 2nd', () => {
         const state: IGlobalReduxState = {
             nodes: {
@@ -11,7 +13,7 @@ describe('findMyChildrenIds(...) should return propper array of Ids; ', () => {
             selectedNodes: { IdOfEditableNode: "2" }
         };
 
-        const childrenIdsFound = new FindNodesChildren().call("1", state);
+        const childrenIdsFound = new NodesManager().findChildrensIds("1", state);
         const expectedOutput = ["2"];
 
         expect(childrenIdsFound).toEqual(expectedOutput);
@@ -28,10 +30,10 @@ describe('findMyChildrenIds(...) should return propper array of Ids; ', () => {
             selectedNodes: { IdOfEditableNode: "2" }
         };
 
-        expect(new FindNodesChildren().call("2", state)).toEqual([]);
-        expect(new FindNodesChildren().call("1", state)).toEqual([]);
-        expect(new FindNodesChildren().call("6", state)).toEqual([]);
-        expect(new FindNodesChildren().call("foobar", state)).toEqual([]);
+        expect(nodesManager.findChildrensIds("2", state)).toEqual([]);
+        expect(nodesManager.findChildrensIds("1", state)).toEqual([]);
+        expect(nodesManager.findChildrensIds("6", state)).toEqual([]);
+        expect(nodesManager.findChildrensIds("foobar", state)).toEqual([]);
     });
 
     it('Many nodes in state. There are some parents/children, but given Id has no any. Sholud retun null/empty array', () => {
@@ -46,11 +48,11 @@ describe('findMyChildrenIds(...) should return propper array of Ids; ', () => {
             selectedNodes: { IdOfEditableNode: "2" }
         };
 
-        const childrenIdsFound = new FindNodesChildren().call("4", state);
+        const childrenIdsFound = nodesManager.findChildrensIds("4", state);
         const expectedOutput: string[] = [];
         expect(childrenIdsFound).toEqual(expectedOutput);
 
-        expect(new FindNodesChildren().call("2", state)).toEqual([]);
+        expect(nodesManager.findChildrensIds("2", state)).toEqual([]);
     });
 
     it('For given parent Id returns Ids(array) which are assigned as it children.', () => {
@@ -65,7 +67,7 @@ describe('findMyChildrenIds(...) should return propper array of Ids; ', () => {
             selectedNodes: { IdOfEditableNode: "2" }
         };
 
-        const childrenIdsFound = new FindNodesChildren().call("1", state);
+        const childrenIdsFound = nodesManager.findChildrensIds("1", state);
         const expectedOutput = ["3", "4"];
 
         // const expectedOutput2 = ["4", "3"];   <--TODO/TBD: this one would fail. Maybe i should add some sorting by id in state?

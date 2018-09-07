@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { INode, SingleNode } from "../../models/Node";
 import { List, Container, Button } from "semantic-ui-react";
 import { v1 } from "uuid";
-import FindNodesChildren from "../../services/findNodesChildren";
+import NodesManager from "../../services/NodesManager";
 import NewNodeButton from "./NewNodeButton";
 import NodeContentWithoutChildren from "./NodeContentWithoutChildren";
 import { IGlobalReduxState } from "../../reducers/index";
@@ -65,7 +65,7 @@ export class NodeWithChildren extends React.Component<IProps> {
 
 const mapStateToProps = (state: IGlobalReduxState, ownProps: IProps) => ({
     node: state.nodes[ownProps.nodeId],
-    childrenIDs: new FindNodesChildren().call(ownProps.nodeId, state)
+    childrenIDs: new NodesManager().findChildrensIds(ownProps.nodeId, state)
 })
 
 const ConnectedNodeWithChildren = connect<any, any, any>(mapStateToProps)(NodeWithChildren);

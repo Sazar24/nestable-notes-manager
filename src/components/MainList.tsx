@@ -6,10 +6,10 @@ import { connect } from 'react-redux';
 import ConnectedNodeWithChildren from "./NodeComponents/NodeWithChildren";
 import { IGlobalReduxState } from "../reducers/index";
 // import { Dispatch } from "redux";
-import LocalStorageHandler from "../services/LocalStorageHandler";
 import { Dispatch } from "redux";
 import { AddLoadedNode } from "../actions/TaskListActions";
 import store from "../store/store";
+import LocalStorageAccessor from "../services/LocalStorageHandler";
 
 
 class MainList extends React.Component<IGlobalReduxState>{
@@ -30,9 +30,8 @@ class MainList extends React.Component<IGlobalReduxState>{
   }
 
   componentWillMount() {
-    // LocalStorageHandler.mapLocalStorageItemsToReduxState(console.log);
-    LocalStorageHandler.mapLocalStorageItemsToReduxState(store);
-    // LocalStorageHandler.mapLocalStorageItemsToReduxState();
+    const localStorageAccessor:any = new LocalStorageAccessor();
+    localStorageAccessor.mapLocalStorageItemsToReduxState(store);
   }
 }
 
@@ -40,9 +39,5 @@ const mapStateToProps = (state: IGlobalReduxState) => ({
   nodes: state.nodes,
 })
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  // CreateNewNodeWithParentIdClicked: () => dispatch(CreateNewNodeAsChild(v1(), ownProps.nodeId)),
-  // AddToState: () => dispatch(AddLoadedNode())
-});
 
 export default connect<any, any, any>(mapStateToProps)(MainList);

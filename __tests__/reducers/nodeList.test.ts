@@ -1,4 +1,4 @@
-import { Action, CreateNewNodeAsChild, DeleteNodeWithId } from './../../src/actions/TaskListActions';
+import { CreateNewNodeAsChild, DeleteNodeWithId } from './../../src/actions/TaskListActions';
 import { nodeListReducer, INodesListReducer } from './../../src/reducers/nodeList';
 import { INode } from '../../src/models/Node';
 import * as TaskListActions from '../../src/actions/TaskListActions';
@@ -10,7 +10,7 @@ describe('handling actionTypes.ADD_NODE: reducer should return proper state when
         const initialState: INodesListReducer = {
             "1": { header: "new node", description: "click me, to edit", isDone: false, Id: "1", parentID: null },
         }
-        const actionADDNode = CreateNewNodeAsChild("2", "1");
+        const actionADDNode :any = CreateNewNodeAsChild("2", "1"); // TODO: kill "any"-type
         const simulatedStateOutput = nodeListReducer(initialState, actionADDNode);
 
         const expectedState: INodesListReducer = {

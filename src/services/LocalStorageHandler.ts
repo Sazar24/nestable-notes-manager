@@ -1,51 +1,29 @@
 import { INode, SingleNode } from './../models/Node';
-import { ICreateNewNodeAction, AddLoadedNode } from '../actions/TaskListActions';
+import { AddLoadedNode } from '../actions/TaskListActions';
 import { Store } from 'redux';
 
 interface IStorageHandler {
-    keys: string[];
+    setLastAccessDateTime(): void;
+    mapLocalStorageItemsToReduxState(store: Store): void;
+    setNodeInLocalStorage(node: INode): void;
+    removeNodeFromLocalStorage(key: string): void;
 }
 
+class LocalStorageAccessor implements IStorageHandler { // TODO: test me!
+    private keys: string[] = [];
 
-class LocalStorageHandler implements IStorageHandler {
-    keys: string[] = [];
-
-    setLastAccessDateTime() {
-        localStorage.setItem("LastAccessDateTime", JSON.stringify(new Date()));
-    }
-
-    setNodeInLocalStorage(node: INode) {
-        if (!this.isSupported()) return;
+    public setNodeInLocalStorage(node: INode): void {
+        if (!this.isLocalStorageSupported()) return;
         localStorage.setItem(node.Id, JSON.stringify(node));
         // this.setLastAccessDateTime();
     }
 
-    extractKeys() {
-        this.keys = [];
-        for (let i: number = 0; i < localStorage.length; i++) {
-            const keyInStorage: string | null = localStorage.key(i);
-            if (keyInStorage !== null)
-                this.keys.push(keyInStorage);
-        }
+    public setLastAccessDateTime(): void {
+        localStorage.setItem("LastAccessDateTime", JSON.stringify(new Date()));
     }
 
-    getItemAsString(key: string): string {
-        const extractedItem: string | null = localStorage.getItem(key)
-        if (extractedItem !== null)
-            return extractedItem;
-        else return "null";   // TODO: find sth to replace that abomination...
-    }
-
-    getNode(key: string): INode {
-        const extractedNode: INode = JSON.parse(this.getItemAsString(key));
-        if (extractedNode === null) {
-            throw new Error("in localStorage there is null assigned to key-value, instead of Node-Object");
-        }
-        return extractedNode;
-    }
-
-    mapLocalStorageItemsToReduxState(store: Store): void {
-        if (!this.isSupported()) return;
+    public mapLocalStorageItemsToReduxState(store: Store): void {
+        if (!this.isLocalStorageSupported()) return;
 
         this.extractKeys();
 
@@ -55,7 +33,37 @@ class LocalStorageHandler implements IStorageHandler {
         })
     }
 
-    isSupported(): boolean {  // Jest tests does not support localStorage so it is necessary.
+    public removeNodeFromLocalStorage(key:string):void {
+        if (!this.isLocalStorageSupported()) return;
+            localStorage.removeItem(key);
+
+    }
+
+    private extractKeys(): void {
+        this.keys = [];
+        for (let i: number = 0; i < localStorage.length; i++) {
+            const keyInStorage: string | null = localStorage.key(i);
+            if (keyInStorage !== null)
+                this.keys.push(keyInStorage);
+        }
+    }
+
+    private getItemAsString(key: string): string {
+        const extractedItem: string | null = localStorage.getItem(key)
+        if (extractedItem !== null)
+            return extractedItem;
+        else return "null";   // TODO: find sth to replace that abomination...
+    }
+
+    private getNode(key: string): INode {
+        const extractedNode: INode = JSON.parse(this.getItemAsString(key));
+        if (extractedNode === null) {
+            throw new Error("in localStorage there is null assigned to key-value, instead of Node-Object");
+        }
+        return extractedNode;
+    }
+
+    private isLocalStorageSupported(): boolean {  // Jest tests does not support localStorage so it is necessary.
         try {
             const itemBackup = localStorage.getItem("")
             return true;
@@ -63,6 +71,8 @@ class LocalStorageHandler implements IStorageHandler {
             return false;
         }
     }
+
 }
 
-export default new LocalStorageHandler();
+// export default new LocalStorageHandler();
+export default LocalStorageAccessor;
