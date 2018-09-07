@@ -3,6 +3,8 @@ import { INode, SingleNode } from "../models/Node";
 import { actionTypes } from "../actions/actionTypes";
 import IsNodeAlreadyExistsInState from "../services/isNodeAlreadyExists";
 import LocalStorageHandler from "../services/LocalStorageHandler";
+// import LocalStorageHandler from '../services/LocalStorageHandler';
+
 
 export interface INodesListReducer {
   [nodeId: string]: INode;

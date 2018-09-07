@@ -1,6 +1,7 @@
 import { INode, SingleNode } from './../models/Node';
 import { ICreateNewNodeAction, AddLoadedNode } from '../actions/TaskListActions';
-import store from '../store/store';
+import { Store } from 'redux';
+// import store from '../store/store';
 
 interface IStorageHandler {
     keys: string[];
@@ -42,11 +43,13 @@ class LocalStorageHandler implements IStorageHandler {
         if (extractedNode === null) {
             throw new Error("in localStorage there is null assigned to key-value, instead of Node-Object");
         }
-        console.log({ extractedNode });
+        // console.log({ extractedNode });
         return extractedNode;
     }
 
-    mapLocalStorageItemsToReduxState() {
+    mapLocalStorageItemsToReduxState(store: Store): void {
+    // mapLocalStorageItemsToReduxState(): void {
+        // mapLocalStorageItemsToReduxState () :state {
         if (!this.isSupported()) return;
 
         try {
@@ -54,10 +57,11 @@ class LocalStorageHandler implements IStorageHandler {
         } catch (e) {
             throw new Error("extracting keys from local storage has failed")
         }
-
+        
         this.keys.map(extractedKey => {
             const extractedNode: INode = this.getNode(extractedKey);
-            store.dispatch(AddLoadedNode(extractedNode));
+            return store.dispatch(AddLoadedNode(extractedNode));
+            // return store.dispatch(AddLoadedNode(extractedNode)); // store must be a argument. Otherwise, if called directly, there would be redux-type error (" Generic type 'Dispatch<S>' requires 1 type argument(s).")
         })
     }
 
@@ -72,3 +76,4 @@ class LocalStorageHandler implements IStorageHandler {
 }
 
 export default new LocalStorageHandler();
+// export default LocalStorageHandler;

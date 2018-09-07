@@ -82,6 +82,7 @@ interface IAddNodeFromMemory {
 }
 
 export function AddLoadedNode(node: INode): IAddNodeFromMemory {
+  console.log("Im in AddLoadedNode action with parameter node: ", node);
   return {
     type: actionTypes.ADD_NODE_FROM_MEMORY,
     payload: {
@@ -90,5 +91,4 @@ export function AddLoadedNode(node: INode): IAddNodeFromMemory {
   }
 }
 
-export type Action = ICreateNewNodeAction | ICreateNewNodeWithoutParentAction
-  | IDeleteNodeWithId | IChangeNodeContent | IAddNodeFromMemory;
+export type Action = ICreateNewNodeAction | ICreateNewNodeWithoutParentAction | IDeleteNodeWithId | IChangeNodeContent | IAddNodeFromMemory;

@@ -4,3 +4,11 @@ Nie może być świadomy całej struktury danych.
 Dlatego w momencie wywołania jakiejkolwiek akcji dla node o danym ID, logika szukania gdzie to ma być wpisane (w drzewku), powinna być gdzieś z boku.
 Ale jaka składnia wywołania, gdy już znajdę wszystkie pośrednie (rodziców/dzieci) ID?
 data.parent.[parent2].[parent3].sth. ? oO
+
+
+
+Błąd, który nie występuje w trakcie developmentu, a dopiero po ponownym odpaleniu `npm start`. Powodowane przez zaimportowanie LocalStorageHandler w reducerze.
+Failed to compile
+/home/cb/projects/todoTree/nodesList2/tasks-tree/node_modules/@types/react-redux/index.d.ts
+(195,16): Generic type 'Dispatch<S>' requires 1 type argument(s).
+This error occurred during the build time and cannot be dismissed.

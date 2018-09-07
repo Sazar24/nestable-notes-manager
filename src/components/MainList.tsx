@@ -1,16 +1,16 @@
 import * as React from "react";
-import { List, Button, Icon } from "semantic-ui-react";
-import { INode } from "../models/Node";
-import { v1 } from 'uuid';
+import { List } from "semantic-ui-react";
+// import { INode } from "../models/Node";
+// import { v1 } from 'uuid';
 import { connect } from 'react-redux';
 import ConnectedNodeWithChildren from "./NodeComponents/NodeWithChildren";
 import { IGlobalReduxState } from "../reducers/index";
+// import { Dispatch } from "redux";
+import LocalStorageHandler from "../services/LocalStorageHandler";
 import { Dispatch } from "redux";
 import { AddLoadedNode } from "../actions/TaskListActions";
-import LocalStorageHandler from "../services/LocalStorageHandler";
-// import Node from "./NodeComponents/connectedComponents/ConnectedNode";
-// import NodeEditMode from "./NodeComponents/NodeEditMode";
-// import ConnectedNodeWrapper from "./NodeComponents/NodeWrapper";
+import store from "../store/store";
+
 
 class MainList extends React.Component<IGlobalReduxState>{
   render() {
@@ -29,13 +29,20 @@ class MainList extends React.Component<IGlobalReduxState>{
     );
   }
 
-  componentWillMount(){
-    LocalStorageHandler.mapLocalStorageItemsToReduxState();
+  componentWillMount() {
+    // LocalStorageHandler.mapLocalStorageItemsToReduxState(console.log);
+    LocalStorageHandler.mapLocalStorageItemsToReduxState(store);
+    // LocalStorageHandler.mapLocalStorageItemsToReduxState();
   }
 }
 
 const mapStateToProps = (state: IGlobalReduxState) => ({
   nodes: state.nodes,
 })
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  // CreateNewNodeWithParentIdClicked: () => dispatch(CreateNewNodeAsChild(v1(), ownProps.nodeId)),
+  // AddToState: () => dispatch(AddLoadedNode())
+});
 
 export default connect<any, any, any>(mapStateToProps)(MainList);
