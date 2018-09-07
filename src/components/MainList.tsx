@@ -7,7 +7,7 @@ import ConnectedNodeWithChildren from "./NodeComponents/NodeWithChildren";
 import { IGlobalReduxState } from "../reducers/index";
 import { Dispatch } from "redux";
 import { AddLoadedNode } from "../actions/TaskListActions";
-// import LocalStorageHandler from "../services/LocalStorageHandler";
+import LocalStorageHandler from "../services/LocalStorageHandler";
 // import Node from "./NodeComponents/connectedComponents/ConnectedNode";
 // import NodeEditMode from "./NodeComponents/NodeEditMode";
 // import ConnectedNodeWrapper from "./NodeComponents/NodeWrapper";
@@ -30,7 +30,7 @@ class MainList extends React.Component<IGlobalReduxState>{
   }
 
   componentWillMount(){
-    // LocalStorageHandler.mapLocalStorageItemsToReduxState();
+    LocalStorageHandler.mapLocalStorageItemsToReduxState();
   }
 }
 
@@ -38,7 +38,4 @@ const mapStateToProps = (state: IGlobalReduxState) => ({
   nodes: state.nodes,
 })
 
-// const mapDispatchToProps = (dispatch: Dispatch) => ({
-//     CreateNewNodeWithParentIdClicked: () => dispatch(AddLoadedNode(node)),
-// });
 export default connect<any, any, any>(mapStateToProps)(MainList);

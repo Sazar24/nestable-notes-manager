@@ -24,7 +24,6 @@ class LocalStorageHandler implements IStorageHandler {
     extractKeys() {
         this.keys = [];
         for (let i: number = 0; i < localStorage.length; i++) {
-            // const keyInStorage: string = JSON.stringify(localStorage.key(i));
             const keyInStorage: string | null = localStorage.key(i);
             if (keyInStorage !== null)
                 this.keys.push(keyInStorage);
@@ -50,31 +49,21 @@ class LocalStorageHandler implements IStorageHandler {
     mapLocalStorageItemsToReduxState() {
         if (!this.isSupported()) return;
 
-        console.log("Attempt to extract from localStorage");
         try {
             this.extractKeys();
         } catch (e) {
             throw new Error("extracting keys from local storage has failed")
         }
-        console.log("extracted keys: ", this.keys);
 
-        // const extractedNode: INode = this.getNode(this.keys[0]);
         this.keys.map(extractedKey => {
             const extractedNode: INode = this.getNode(extractedKey);
-            //     // dispatchNodeToReduxState(extractedNode);
-            //     // dispatchNodeToReduxState(extractedNode);
             store.dispatch(AddLoadedNode(extractedNode));
         })
     }
 
     isSupported(): boolean {  // Jest tests does not support localStorage so it is necessary.
-        // source: https://gist.github.com/CodeiSir/1fb8bd9154dfde7eb0c7
         try {
             const itemBackup = localStorage.getItem("")
-            // localStorage.removeItem("");
-            // localStorage.setItem("", JSON.stringify(itemBackup));
-            // if (itemBackup === null) localStorage.removeItem("")
-            // else localStorage.setItem("", itemBackup)
             return true;
         } catch (e) {
             return false;
