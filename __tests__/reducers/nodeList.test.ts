@@ -154,14 +154,4 @@ describe("handling actionTypes.CHANGE_NODE_CONTENT", () => {
 
         expect(simulatedStateOutput).toEqual(initialState);
     });
-
-    it('change entire node, others are unchanged', () => {
-
-    });
-
-    it('dispatch does not change Id of changed node or its', () => {
-        const a = { a: "1", b: "2" }
-        expect(a).toEqual({ a: "1", b: "2" });
-        expect(a).toEqual({ b: "2", a: "1" });
-    });
 });

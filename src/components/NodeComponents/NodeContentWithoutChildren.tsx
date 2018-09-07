@@ -16,7 +16,7 @@ interface INodeMainContent {
 class NodeContentWithoutChildren extends React.Component<INodeMainContent>{
     render() {
         const { node, editMode, switchToEditMode } = this.props;
-
+        // localStorage.setItem(node.Id,JSON.stringify(node));
         if (editMode) {
             return <ConnectedEditableNode nodeId={node.Id} />
         }

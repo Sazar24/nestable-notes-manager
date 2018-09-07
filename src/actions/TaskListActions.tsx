@@ -4,7 +4,7 @@ import { SingleNode } from "../models/Node";
 import { actionTypes } from "./actionTypes";
 
 
-interface ICreateNewNodeAction {
+export interface ICreateNewNodeAction {
   type: actionTypes.ADD_NODE;
   payload: {
     node: INode;
@@ -32,6 +32,7 @@ export function CreateNewNodeAsChild(newNodeId: string, parentID: string): ICrea
 
 // export function CreateNewNodeWithoutParent(newNodeId:string, header, description) :ICreateNewNodeWithoutParent{
 export function CreateNewNodeWithoutParent(newNodeId: string): ICreateNewNodeWithoutParentAction {
+  // TODO: ujednolicić tę funkcję i CreateNewNodeAsChild(...). Rozbicie na Create...AsAChild i ...WithoutParent robi bajzel.
   return {
     type: actionTypes.ADD_NODE_WITH_NO_PARENT,
     payload: {
@@ -73,4 +74,21 @@ export function ChangeNodeContent(node: INode): IChangeNodeContent {
   }
 } // TODO: Test me!
 
-export type Action = ICreateNewNodeAction | ICreateNewNodeWithoutParentAction | IDeleteNodeWithId | IChangeNodeContent;
+interface IAddNodeFromMemory {
+  type: actionTypes.ADD_NODE_FROM_MEMORY,
+  payload: {
+    node: INode
+  }
+}
+
+export function AddLoadedNode(node: INode): IAddNodeFromMemory {
+  return {
+    type: actionTypes.ADD_NODE_FROM_MEMORY,
+    payload: {
+      node
+    }
+  }
+}
+
+export type Action = ICreateNewNodeAction | ICreateNewNodeWithoutParentAction
+  | IDeleteNodeWithId | IChangeNodeContent | IAddNodeFromMemory;
