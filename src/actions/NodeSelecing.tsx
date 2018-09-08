@@ -17,4 +17,20 @@ export function PassEditModeToId(nodeId: string | null): IPassEditModeToID {
     }
 }
 
-export type Action = IPassEditModeToID ;
+// interface IToggleHoghlightNode {
+//     type: actionTypes.TOGGLE_HIGHLIGHT,
+//     payload: {
+//         nodeId: string
+//     }
+// }
+
+// export function ToggleNodeHighlight(nodeId: string): IToggleHoghlightNode {
+//     return {
+//         type: actionTypes.TOGGLE_HIGHLIGHT,
+//         payload: {
+//             nodeId : nodeId
+//         }
+//     }
+// }
+
+export type Action = IPassEditModeToID;

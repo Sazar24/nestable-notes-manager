@@ -9,7 +9,7 @@ import { IGlobalReduxState } from "../reducers/index";
 import { Dispatch } from "redux";
 import { AddLoadedNode } from "../actions/TaskListActions";
 import store from "../store/store";
-import LocalStorageAccessor from "../services/LocalStorageHandler";
+import LocalStorageAccessor from "../services/LocalStorage";
 
 
 class MainList extends React.Component<IGlobalReduxState>{

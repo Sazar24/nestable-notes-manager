@@ -3,7 +3,7 @@ import { INode, SingleNode } from "../models/Node";
 import { actionTypes } from "../actions/actionTypes";
 import NodesManager from "../services/NodesManager";
 
-import LocalStorageAccessor from "../services/LocalStorageHandler";
+import LocalStorageAccessor from "../services/LocalStorage";
 import { IAction } from "../actions/TaskListActions";
 // import { Action } from "../actions/TaskListActions";
 

@@ -3,6 +3,7 @@ export enum actionTypes {
     // nodeSelectingReducer:
     SWITCH_EDIT_MODE_TO_GIVEN_ID_ONLY = "SWITCH_EDIT_MODE_TO_GIVEN_ID_ONLY",
     TOGGLE_EDIT_MODE_FOR_GIVEN_ID = "TOGGLE_EDIT_MODE_FOR_GIVEN_ID",
+    TOGGLE_HIGHLIGHT = "TOGGLE_HIGHLIGHT",
 
     // nodeListReducer:
     ADD_ITEM = "ADD NEW ITEM TO LIST",

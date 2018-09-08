@@ -1,4 +1,4 @@
-import { INode, SingleNode } from './../models/Node';
+import { INode, SingleNode } from '../models/Node';
 import { AddLoadedNode } from '../actions/TaskListActions';
 import { Store } from 'redux';
 
@@ -7,6 +7,7 @@ interface IStorageHandler {
     mapLocalStorageItemsToReduxState(store: Store): void;
     setNodeInLocalStorage(node: INode): void;
     removeNodeFromLocalStorage(key: string): void;
+    removeChildrenOfParent(parentId: string): void;
 }
 
 class LocalStorageAccessor implements IStorageHandler { // TODO: test me!
@@ -33,10 +34,14 @@ class LocalStorageAccessor implements IStorageHandler { // TODO: test me!
         })
     }
 
-    public removeNodeFromLocalStorage(key:string):void {
+    public removeNodeFromLocalStorage(key: string): void {
         if (!this.isLocalStorageSupported()) return;
-            localStorage.removeItem(key);
+        localStorage.removeItem(key);
 
+    }
+
+    public removeChildrenOfParent(parentId: string) {
+        console.log(); // TODO :)
     }
 
     private extractKeys(): void {

@@ -11,6 +11,10 @@ interface INewNodeButton {
 }
 
 class NewNodeButton extends React.Component<INewNodeButton> {
+    handleClick = (e: Event) => {
+        e.stopPropagation();
+        this.props.CreateNewNodeWithParentIdClicked();
+    }
     render() {
         const { CreateNewNodeWithParentIdClicked, nodeId } = this.props;
         return (
@@ -22,7 +26,7 @@ class NewNodeButton extends React.Component<INewNodeButton> {
                     basic={true}
                     icon={true}
                     floated="right"
-                    onClick={() => CreateNewNodeWithParentIdClicked()}
+                    onClick={(e: any) => this.handleClick(e)}
                 >
                     <Icon name="plus" />
                 </Button>

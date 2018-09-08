@@ -1,5 +1,5 @@
 import { INodeSelectingReducer, nodeSelectingReducer } from './../../src/reducers/nodeSelecting';
-import { PassEditModeToId } from '../../src/actions/EditModeReducerActions';
+import { PassEditModeToId } from '../../src/actions/NodeSelecing';
 
 describe("nodeSelecting Reducer: handling ActionTypes.SWITCH_EDIT_MODE_TO_GIVEN_ID_ONLY", () => {
     it("when null Id is dispatched to IdOfEditableNode-property, it is saved to reducer state as null ", () => {

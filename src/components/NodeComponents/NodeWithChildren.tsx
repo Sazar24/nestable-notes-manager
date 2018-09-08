@@ -14,9 +14,25 @@ export interface IProps {
   childrenIDs: string[];
 }
 
-export class NodeWithChildren extends React.Component<IProps> {
+interface IState {
+  bgcolor: string;
+  selected: boolean;
+}
 
-   renderMyChilds() {
+export class NodeWithChildren extends React.Component<IProps, IState> {
+  private selectedOnColor: string = "#08e8ff";
+  private selectedOffColor: string = "silver";
+
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      bgcolor: this.selectedOffColor,
+      selected: false
+    }
+  }
+
+
+  renderMyChilds() {
     const { childrenIDs } = this.props;
     if (!childrenIDs || childrenIDs.length === 0) {
       return;
@@ -35,7 +51,27 @@ export class NodeWithChildren extends React.Component<IProps> {
     );
   }
 
-   render(): any {
+  changeBackgroundColor(isToggled: boolean) {
+    if (isToggled)
+      this.setState({ bgcolor: this.selectedOnColor })
+    else
+      this.setState({ bgcolor: this.selectedOffColor });
+  }
+
+  toggleSelected() {
+    const { selected } = this.state;
+    this.changeBackgroundColor(!selected);
+    this.setState({
+      selected: !selected,
+    });
+  }
+
+  handleClick = (event: Event) => {
+    event.stopPropagation();
+    this.toggleSelected();
+  }
+
+  render(): any {
     const { node } = this.props;
     if (node === undefined) {
       throw new Error("passed undefined {node} to NodeFrame");
@@ -46,14 +82,18 @@ export class NodeWithChildren extends React.Component<IProps> {
         // minWidth: "500px",
         minWidth: "90%",
         padding: "0 0 0 8px",
-        border: "1px solid black",
-        backgroundColor: "silver",
+        border: "2px solid black",
         marginBottom: "2px",
         display: "inherit",
+        // backgroundColor: "silver",
+        backgroundColor: this.state.bgcolor
         // clear: "both"
-      }}>
+      }}
+        // onClick={() => this.handleClick()}
+        onClick={(e: any) => this.handleClick(e)}
+      >
 
-        <div style={{ display: "inline-flex", width: "100%" }}>
+        <div style={{ display: "inline-flex", width: "100%", }} >
           <NodeContentWithoutChildren node={node} />
           <NewNodeButton nodeId={this.props.nodeId} />
         </div>
@@ -64,8 +104,8 @@ export class NodeWithChildren extends React.Component<IProps> {
 }
 
 const mapStateToProps = (state: IGlobalReduxState, ownProps: IProps) => ({
-    node: state.nodes[ownProps.nodeId],
-    childrenIDs: new NodesManager().findChildrensIds(ownProps.nodeId, state)
+  node: state.nodes[ownProps.nodeId],
+  childrenIDs: new NodesManager().findChildrensIds(ownProps.nodeId, state)
 })
 
 const ConnectedNodeWithChildren = connect<any, any, any>(mapStateToProps)(NodeWithChildren);

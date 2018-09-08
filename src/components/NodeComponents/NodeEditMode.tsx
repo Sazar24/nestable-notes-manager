@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { INode, SingleNode } from '../../models/Node';
 import { Input, Container, TextArea, Button, InputOnChangeData } from 'semantic-ui-react';
 import { IGlobalReduxState } from '../../reducers/index';
-import { PassEditModeToId } from '../../actions/EditModeReducerActions';
+import { PassEditModeToId } from '../../actions/NodeSelecing';
 import { Dispatch } from 'redux';
 import { DeleteNodeWithId, ChangeNodeContent } from '../../actions/TaskListActions';
 
