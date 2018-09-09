@@ -6,13 +6,17 @@ import { IGlobalReduxState } from '../../reducers/index';
 import { PassEditModeToId } from '../../actions/NodeSelecing';
 import { Dispatch } from 'redux';
 import { DeleteNodeWithId, ChangeNodeContent } from '../../actions/TaskListActions';
+import NodesManager from '../../services/NodesManager';
 
 interface INodeEditModeProps {
     nodeId: string;
     node: INode;
+    allDescendatsIds: string[];
     TurnOffEditMode: () => void;
     DeleteNode: () => void;
+    DeleteNodeWIthCustomId: (id: string) => void; // TODO: jest 4 w nocy... Potem to ujednolicę. No chyba że zapomnę...
     SaveNodeContent: (node: INode) => void;  //
+    DeleteAllChildren: (nodeId: string) => void;
 };
 
 interface INodeEditState {
@@ -41,12 +45,21 @@ class NodeEditMode extends React.Component<INodeEditModeProps, INodeEditState>{
         })
     }
 
+    deleteAllChildren() {
+        this.props.allDescendatsIds.map(
+            (id: string) => {
+                this.props.DeleteNodeWIthCustomId(id);
+                console.log("attempt to remove node with id: ", id);
+            }
+        )
+
+    }
+
     render() {
-        const { node, TurnOffEditMode, DeleteNode, SaveNodeContent } = this.props;
+        const { node, TurnOffEditMode, DeleteNode, SaveNodeContent, DeleteAllChildren } = this.props;
 
         return (
             <div style={{
-                // border: "1px solid Aqua",
                 width: "100%",
                 marginTop: "3px",
                 marginBottom: "3px"
@@ -65,7 +78,8 @@ class NodeEditMode extends React.Component<INodeEditModeProps, INodeEditState>{
                 <Button onClick={() => SaveNodeContent(this.state.node)}> save node </Button>
                 <Button onClick={TurnOffEditMode}> exit edit mode</Button>
                 <Button onClick={DeleteNode} > delete node</Button>
-                <Button >delete sub-nodes</Button>
+                <Button onClick={() => this.deleteAllChildren()}>delete sub-nodes</Button>
+                {/* <Button onClick={ this.deleteAllChildren}>delete sub-nodes</Button> */}
                 <Button >toggle done</Button>
 
             </div>
@@ -76,12 +90,14 @@ class NodeEditMode extends React.Component<INodeEditModeProps, INodeEditState>{
 
 const mapStatetoProps = (state: IGlobalReduxState, ownProps: INodeEditModeProps) => ({
     node: state.nodes[ownProps.nodeId],
+    allDescendatsIds: new NodesManager().findAllDescendantsIds(ownProps.nodeId, state),
 })
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: INodeEditModeProps) => ({
     TurnOffEditMode: () => dispatch(PassEditModeToId(null)),
     DeleteNode: () => dispatch(DeleteNodeWithId(ownProps.nodeId)),
-    SaveNodeContent: (node: INode) => dispatch(ChangeNodeContent(node))
+    DeleteNodeWIthCustomId: (id: string) => dispatch(DeleteNodeWithId(id)),
+    SaveNodeContent: (node: INode) => dispatch(ChangeNodeContent(node)),
 })
 
 const ConnectedEditableNode = connect<any, any, any>(mapStatetoProps, mapDispatchToProps)(NodeEditMode);
