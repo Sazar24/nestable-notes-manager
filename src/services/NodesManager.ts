@@ -27,14 +27,13 @@ export default class NodesManager implements IFindingNodesChildren {
     }
 
     findAllDescendantsIds(ancestorNodeId: string, reduxState: IGlobalReduxState): string[] { // TODO: test me!
-        let descendatsAwaitingForChecking: string[] = [];
-        const descendatsAlreadyChecked: string[] = [];
         // zrob tablicę z dzieciakami. - descendatsAwaitingForChecking
         // Sprawdz każdego dzieciaka z tablicy. - potomków (kolejne dzieci) tego dzieciaka wrzuć do descentasAwaitingForChecking
         // Jeśli został sprawdzony, wrzuc go do odzielnej tablicy - descendatsAlreadyChecked . Nie wazne czy mial dzieci czy nie, wazne ze sprawdzony.
         // => descendatsAlreadyChecked => sprawdzaj cały czas pierwszy elementem a potem uzyj array.shift()
-
-        descendatsAwaitingForChecking = this.findChildrensIds(ancestorNodeId, reduxState);
+        
+        const descendatsAwaitingForChecking: string[] =  this.findChildrensIds(ancestorNodeId, reduxState);
+        const descendatsAlreadyChecked: string[] = [];
 
         while (descendatsAwaitingForChecking.length) {
             const probedId = descendatsAwaitingForChecking[0];
