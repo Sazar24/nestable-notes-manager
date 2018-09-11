@@ -7,15 +7,25 @@ import LocalStorageAccessor from "../services/LocalStorage";
 import { IAction } from "../actions/TaskListActions";
 // import { Action } from "../actions/TaskListActions";
 
-export interface INodesListReducer {
-  [nodeId: string]: INode;
-}
+// export interface INodesListReducer {
+//   // [nodeId: string]: INode;
+//   nodes: INode[];
+// }
 
-const initialState: INodesListReducer = {};
+/* 
+//// const initialState: INodesListReducer = {};
+//// Z tej struktury stanu:
+//// "1": { header: "new node", description: "click me, to edit", isDone: false, Id: "1", parentID: null },
+//// chcę przejść na tę:
+//// nodes: [{ header: "new node", description: "click me, to edit", isDone: false, Id: "1", parentID: null },
+//// { header: "new node", description: "click me, to edit", isDone: false, Id: "1", parentID: null }]
+*/
 
-export function nodeListReducer(state = { ...initialState }, action: any): INodesListReducer { // TODO: remove that "any"-type. Propably u will have to create many similar interfaces for actionCreators and export all of them as one Action-type.
+const initialState: INode[] = [];
 
-  const newState = Object.assign({}, state);
+export function nodeListReducer(state: INode[] = initialState, action: any): INode[] { // TODO: remove that "any"-type. Propably u will have to create many similar interfaces for actionCreators and export all of them as one Action-type.
+
+  let newState: INode[] = state.slice();
   let newNode: INode;
   const localStorageAccessor: LocalStorageAccessor = new LocalStorageAccessor();
 
@@ -23,42 +33,39 @@ export function nodeListReducer(state = { ...initialState }, action: any): INode
     case actionTypes.ADD_NODE:
       newNode = Object.assign({}, action.payload.node);
       newNode.parentID = action.payload.parentId;
-
-      newState[action.payload.node.Id] = Object.assign({}, newNode);
-
-      localStorageAccessor.setNodeInLocalStorage(newNode);
+      //TODO: dodać blokadę, żeby nie można było dwóch notek o identycznym Id
+      newState.push(newNode);
+      // localStorageAccessor.setNodeInLocalStorage(newNode);
       return newState;
 
     case actionTypes.ADD_NODE_WITH_NO_PARENT:
       newNode = Object.assign({}, action.payload.node);
-      newState[action.payload.node.Id] = Object.assign({}, newNode);
-
-      localStorageAccessor.setNodeInLocalStorage(newNode);
+      newState.push(newNode);
+      // localStorageAccessor.setNodeInLocalStorage(newNode);
       return newState;
 
     case actionTypes.DELETE_NODE_WITH_GIVEN_ID: // it doesnt remove subNodes (children)
       const nodeId = action.payload.nodeId;
-      delete newState[nodeId];
-      localStorageAccessor.removeNodeFromLocalStorage(nodeId);
+      newState = newState.filter(node => node.Id !== nodeId);
+      // localStorageAccessor.removeNodeFromLocalStorage(nodeId);
       return newState;
-
 
     case actionTypes.CHANGE_NODE_CONTENT:
       newNode = Object.assign({}, action.payload.node);
 
       const nodeWithGivenIdAlreadExists: boolean = new NodesManager().isAlreadyInState(newNode.Id, state);
       if (nodeWithGivenIdAlreadExists) {
-        // console.log(`actionTypes.CHANGE_NODE_CONTENT: node with given ID already exists in state, so i can overwrite changes. State[node.id]: ${JSON.stringify(state[newNode.Id])} and Id: ${newNode.Id}\n service returned: ${nodeWithGivenIdAlreadExists}`)
-        newState[newNode.Id] = Object.assign({}, newNode);
-        localStorageAccessor.setNodeInLocalStorage(newNode);
+        const indexOfChangedNode = state.findIndex(item => item.Id === newNode.Id);
+        newState[indexOfChangedNode] = newNode;
+        // localStorageAccessor.setNodeInLocalStorage(newNode);
       }
 
       return newState
 
-    case actionTypes.ADD_NODE_FROM_MEMORY:
-      newNode = Object.assign({}, action.payload.node);
-      newState[newNode.Id] = Object.assign({}, newNode);
-      return newState;
+    // case actionTypes.ADD_NODE_FROM_MEMORY:
+    //   newNode = Object.assign({}, action.payload.node);
+    //   newState[newNode.Id] = Object.assign({}, newNode);
+    //   return newState;
 
     default:
       return state;

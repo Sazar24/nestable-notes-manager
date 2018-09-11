@@ -11,32 +11,38 @@ import { AddLoadedNode } from "../actions/TaskListActions";
 import store from "../store/store";
 import LocalStorageAccessor from "../services/LocalStorage";
 
-
 class MainList extends React.Component<IGlobalReduxState>{
   render() {
     const { nodes } = this.props;
 
+    console.log("rendering MainList. Nodes:", nodes);
     return (
       <div>
         <List>
-          {Object.keys(nodes).map((nodeId) => {
+          {/* {Object.keys(nodes).map((nodeId) => {
             return nodes[nodeId].parentID === null ?
               <ConnectedNodeWithChildren key={nodeId} nodeId={nodeId} />
               : null;
+          })} */}
+          {nodes.map((node) => {
+            return node.parentID === null ?
+              <ConnectedNodeWithChildren key={node.Id} nodeId={node.Id} />
+              : null;
           })}
+
         </List>
       </div>
     );
   }
 
   componentWillMount() {
-    const localStorageAccessor:any = new LocalStorageAccessor();
-    localStorageAccessor.mapLocalStorageItemsToReduxState(store);
+    // const localStorageAccessor:any = new LocalStorageAccessor();
+    // localStorageAccessor.mapLocalStorageItemsToReduxState(store);
   }
 }
 
 const mapStateToProps = (state: IGlobalReduxState) => ({
-  nodes: state.nodes,
+  nodes: state.nodes
 })
 
 

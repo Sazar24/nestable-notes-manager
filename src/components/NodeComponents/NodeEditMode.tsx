@@ -82,14 +82,14 @@ class NodeEditMode extends React.Component<INodeEditModeProps, INodeEditState>{
                 {/* <Button onClick={ this.deleteAllChildren}>delete sub-nodes</Button> */}
                 <Button >toggle done</Button>
 
+
             </div>
         )
     }
 }
 
-
 const mapStatetoProps = (state: IGlobalReduxState, ownProps: INodeEditModeProps) => ({
-    node: state.nodes[ownProps.nodeId],
+    node: new NodesManager().findNode(ownProps.nodeId, state.nodes),
     allDescendatsIds: new NodesManager().findAllDescendantsIds(ownProps.nodeId, state),
 })
 

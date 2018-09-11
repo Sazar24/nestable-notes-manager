@@ -1,13 +1,14 @@
 import { combineReducers } from 'redux'
-import * as fromNodeListReducer from './nodeList';
-import * as nodeSelecting from './nodeSelecting';
+import * as allFromNodeSelecting from './nodeSelecting';
+import { INode } from '../models/Node';
+import { nodeListReducer } from './nodeList';
 
 export interface IGlobalReduxState {
-    nodes: fromNodeListReducer.INodesListReducer,
-    selectedNodes: nodeSelecting.INodeSelectingReducer
+    nodes: INode[],
+    selectedNodes: allFromNodeSelecting.INodeSelectingReducer
 }
 
 export const reducer = combineReducers<IGlobalReduxState>({
-    nodes: fromNodeListReducer.nodeListReducer,
-    selectedNodes: nodeSelecting.nodeSelectingReducer
+    nodes: nodeListReducer,
+    selectedNodes: allFromNodeSelecting.nodeSelectingReducer
 })

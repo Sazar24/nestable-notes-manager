@@ -4,7 +4,6 @@ interface IPassEditModeToID {
     type: actionTypes.SWITCH_EDIT_MODE_TO_GIVEN_ID_ONLY,
     payload: {
         IdOfEditableNode: string | null,
-
     }
 }
 

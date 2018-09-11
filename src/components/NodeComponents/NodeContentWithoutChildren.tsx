@@ -5,7 +5,7 @@ import { List } from 'semantic-ui-react';
 import ConnectedEditableNode from './NodeEditMode';
 import { Dispatch } from 'redux';
 import { PassEditModeToId } from '../../actions/NodeSelecing';
-import { IGlobalReduxState } from '../../reducers/index';
+import {IGlobalReduxState} from '../../reducers/index';
 
 interface INodeMainContent {
     node: INode;
@@ -25,7 +25,6 @@ class NodeContentWithoutChildren extends React.Component<INodeMainContent>{
 
     render() {
         const { node, editMode, switchToEditMode } = this.props;
-        // localStorage.setItem(node.Id,JSON.stringify(node));
         if (editMode) {
             return <ConnectedEditableNode nodeId={node.Id} />
         }
@@ -45,11 +44,9 @@ class NodeContentWithoutChildren extends React.Component<INodeMainContent>{
                 >
                     <List.Header >
                         {node.header}
-                        {/* <span style={{ float: "right" }}> [Id: {node.Id}] </span> */}
                     </List.Header>
                     <List.Description>
                         {node.description}
-                        {/* <span style={{ float: "right" }}> [parent:{" "} {node.parentID ? node.parentID : "(i dont have any parents)"}]</span> */}
                     </List.Description>
                 </div>
             )

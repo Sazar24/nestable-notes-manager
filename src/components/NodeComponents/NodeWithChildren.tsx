@@ -43,6 +43,7 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
         {childrenIDs.map(id => {
           return (
             <List.Item key={id}>
+              {/* <ConnectedNodeWithChildren nodeId={id} /> */}
               <ConnectedNodeWithChildren nodeId={id} />
             </List.Item>
           );
@@ -72,7 +73,7 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
   }
 
   render(): any {
-    const { node } = this.props;
+    const { node, nodeId } = this.props;
     if (node === undefined) {
       throw new Error("passed undefined {node} to NodeFrame");
     }
@@ -93,9 +94,10 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
         onClick={(e: any) => this.handleClick(e)}
       >
 
-        <div style={{ display: "inline-flex", width: "100%", }} >
+        <div style={{ display: "inline-flex", width: "100%" }} >
           <NodeContentWithoutChildren node={node} />
-          <NewNodeButton nodeId={this.props.nodeId} />
+          {/* <NewNodeButton nodeId={this.props.nodeId} /> */}
+          <NewNodeButton nodeId={nodeId} />
         </div>
         {this.renderMyChilds()}
       </List.Item>
@@ -104,8 +106,9 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
 }
 
 const mapStateToProps = (state: IGlobalReduxState, ownProps: IProps) => ({
-  node: state.nodes[ownProps.nodeId],
-  childrenIDs: new NodesManager().findChildrensIds(ownProps.nodeId, state)
+  // node: state.nodes[new NodesManager().findIndexOfNodeWithGivenId(ownProps.nodeId, state.nodes)],
+  node: new NodesManager().findNode(ownProps.nodeId, state.nodes),
+  childrenIDs: new NodesManager().findChildrensIds(ownProps.nodeId, state.nodes)
 })
 
 const ConnectedNodeWithChildren = connect<any, any, any>(mapStateToProps)(NodeWithChildren);
