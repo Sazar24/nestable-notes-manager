@@ -12,3 +12,11 @@ Failed to compile
 /home/cb/projects/todoTree/nodesList2/tasks-tree/node_modules/@types/react-redux/index.d.ts
 (195,16): Generic type 'Dispatch<S>' requires 1 type argument(s).
 This error occurred during the build time and cannot be dismissed.
+
+todo:
+wprowadzić zabezpieczenie, żeby nie można było mieć w state dwóch INode o takim samym ID
+akcja: wytnij > wklej <-- dla całej notatki
+akcja: wynieś poziom w górę (tj. weź parenta od rodzica)
+sortowanie (właśc. zapamiętywanie pozycji).
+Podświetlenia do reducera
+Akardeon (zwijanie podnotatek)

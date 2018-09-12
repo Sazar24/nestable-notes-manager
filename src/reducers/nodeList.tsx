@@ -30,19 +30,12 @@ export function nodeListReducer(state: INode[] = initialState, action: any): INo
   const localStorageAccessor: LocalStorageAccessor = new LocalStorageAccessor();
 
   switch (action.type) {
-    case actionTypes.ADD_NODE:
+    case actionTypes.CREATE_NODE:
       newNode = Object.assign({}, action.payload.node);
-      newNode.parentID = action.payload.parentId;
-      //TODO: dodać blokadę, żeby nie można było dwóch notek o identycznym Id
+      // TODO: dodać blokadę, żeby nie można było dwóch notek o identycznym Id
       newState.push(newNode);
       // localStorageAccessor.setNodeInLocalStorage(newNode);
-      return newState;
-
-    case actionTypes.ADD_NODE_WITH_NO_PARENT:
-      newNode = Object.assign({}, action.payload.node);
-      newState.push(newNode);
-      // localStorageAccessor.setNodeInLocalStorage(newNode);
-      return newState;
+    return newState;
 
     case actionTypes.DELETE_NODE_WITH_GIVEN_ID: // it doesnt remove subNodes (children)
       const nodeId = action.payload.nodeId;
@@ -50,7 +43,7 @@ export function nodeListReducer(state: INode[] = initialState, action: any): INo
       // localStorageAccessor.removeNodeFromLocalStorage(nodeId);
       return newState;
 
-    case actionTypes.CHANGE_NODE_CONTENT:
+    case actionTypes.UPDATE_NODE_CONTENT:
       newNode = Object.assign({}, action.payload.node);
 
       const nodeWithGivenIdAlreadExists: boolean = new NodesManager().isAlreadyInState(newNode.Id, state);

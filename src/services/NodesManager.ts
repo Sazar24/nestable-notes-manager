@@ -5,7 +5,7 @@ import { IGlobalReduxState } from '../reducers/index';
 interface IFindingNodesChildren {
     findChildrensIds(IdOfParentNode: string, nodesInState: INode[]): string[];
     isAlreadyInState(nodeId: string,  nodesInState: INode[]): boolean;
-    findAllDescendantsIds(nodeId: string, reduxState: IGlobalReduxState): string[];
+    findAllDescendantsIds(nodeId: string, reduxState: INode[]): string[];
     // findIndexOfNodeWithGivenId(nodeId: string, nodesInState: INode[]): number;
     findNode(nodeId: string, nodesInState: INode[]): INode;
 }
@@ -54,18 +54,18 @@ export default class NodesManager implements IFindingNodesChildren {
         else return false
     }
 
-    findAllDescendantsIds(ancestorNodeId: string, reduxState: IGlobalReduxState): string[] { // TODO: test me!
+    findAllDescendantsIds(ancestorNodeId: string, reduxState: INode[]): string[] { // TODO: test me!
         // zrob tablicę z dzieciakami. - descendatsAwaitingForChecking
         // Sprawdz każdego dzieciaka z tablicy. - potomków (kolejne dzieci) tego dzieciaka wrzuć do descentasAwaitingForChecking
         // Jeśli został sprawdzony, wrzuc go do odzielnej tablicy - descendatsAlreadyChecked . Nie wazne czy mial dzieci czy nie, wazne ze sprawdzony.
         // => descendatsAlreadyChecked => sprawdzaj cały czas pierwszy elementem a potem uzyj array.shift()
 
-        const descendatsAwaitingForChecking: string[] = this.findChildrensIds(ancestorNodeId, reduxState.nodes);
+        const descendatsAwaitingForChecking: string[] = this.findChildrensIds(ancestorNodeId, reduxState);
         const descendatsAlreadyChecked: string[] = [];
 
         while (descendatsAwaitingForChecking.length) {
             const probedId = descendatsAwaitingForChecking[0];
-            const foundDescendantsWhichNeedToBeCheckedLater: string[] = this.findChildrensIds(probedId, reduxState.nodes);
+            const foundDescendantsWhichNeedToBeCheckedLater: string[] = this.findChildrensIds(probedId, reduxState);
 
             descendatsAlreadyChecked.push(probedId);
             descendatsAwaitingForChecking.shift();

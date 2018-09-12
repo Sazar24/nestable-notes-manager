@@ -1,3 +1,7 @@
+test('should ', () => {
+   expect(true).toBe(true); 
+});
+
 // import { INodeSelectingReducer, nodeSelectingReducer } from './../../src/reducers/nodeSelecting';
 // import { PassEditModeToId } from '../../src/actions/NodeSelecing';
 

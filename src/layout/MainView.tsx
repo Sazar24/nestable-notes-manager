@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from 'react-redux';
 import { Container, Button, Icon } from "semantic-ui-react";
-import { CreateNewNodeWithoutParent } from "../actions/TaskListActions";
+import { CreateNode } from "../actions/TaskListActions";
 import { Dispatch } from "redux";
 import { v1 } from "uuid";
 import MainList from "../components/MainList";
@@ -32,7 +32,8 @@ class MainView extends React.Component<IProps>{
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  addNewBranchClicked: () => dispatch(CreateNewNodeWithoutParent(v1()))
+  // addNewBranchClicked: () => dispatch(CreateNewNodeWithoutParent(v1()))
+  addNewBranchClicked: () => dispatch(CreateNode(v1()))
 })
 
 
