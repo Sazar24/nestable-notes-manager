@@ -1,6 +1,6 @@
 import { INode } from "../models/Node";
 import { v1 } from "uuid";
-import { SingleNode } from "../models/Node";
+import { Node } from "../models/Node";
 import { actionTypes } from "./actionTypes";
 
 // export type Action = {  // TODO: review me....!
@@ -25,7 +25,7 @@ export function CreateNode(newNodeId: string, parentId?: string): IAction {
   return {
     type: actionTypes.CREATE_NODE,
     payload: {
-      node: SingleNode.newEmpty(newNodeId, parentId),
+      node: Node.newEmpty(newNodeId, parentId),
     }
   }
 }

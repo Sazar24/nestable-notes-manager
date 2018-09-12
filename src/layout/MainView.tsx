@@ -12,8 +12,6 @@ interface IProps {
 
 class MainView extends React.Component<IProps>{
   render() {
-
-    
     const { addNewBranchClicked } = this.props;
     return (
       <Container>
@@ -32,7 +30,6 @@ class MainView extends React.Component<IProps>{
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  // addNewBranchClicked: () => dispatch(CreateNewNodeWithoutParent(v1()))
   addNewBranchClicked: () => dispatch(CreateNode(v1()))
 })
 

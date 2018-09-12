@@ -9,19 +9,20 @@ export interface INode {
   // newEmpty(Id: String) :INode;
 }
 
-export class SingleNode implements INode {
+export class Node implements INode {
 
   static newEmpty(Id: string, parentID?: string | null): INode {
-    const headerDefaultText: string = "click me";
-    const descriptionDefaultText: string = "to edit.";
+
+    const headerDefaultText: string = "new node";
+    const descriptionDefaultText: string = "Click me, to edit.";
 
     if (parentID) {
-      const nodeWithIdAndParent = new SingleNode(headerDefaultText, descriptionDefaultText, false, Id);
+      const nodeWithIdAndParent = new Node(headerDefaultText, descriptionDefaultText, false, Id);
       nodeWithIdAndParent.parentID = parentID;
       return nodeWithIdAndParent;
     }
     else
-      return new SingleNode(headerDefaultText, descriptionDefaultText, false, Id);
+      return new Node(headerDefaultText, descriptionDefaultText, false, Id);
   }
 
   public parentID: string | null = null;
@@ -32,9 +33,4 @@ export class SingleNode implements INode {
     this.isDone = isDone;
     this.Id = Id;
   }
-
-
-  // static newEmpty(Id: string, nr:number):INode {
-  //   return new SingleNode("", "", false, Id);
-  // }
 }

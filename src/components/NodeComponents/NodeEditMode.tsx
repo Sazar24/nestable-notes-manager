@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from "react-redux";
-import { INode, SingleNode } from '../../models/Node';
+import { INode, Node } from '../../models/Node';
 import { Input, Container, TextArea, Button, InputOnChangeData } from 'semantic-ui-react';
 import { IGlobalReduxState } from '../../reducers/index';
 import { PassEditModeToId } from '../../actions/NodeSelecing';
@@ -14,13 +14,12 @@ interface INodeEditModeProps {
     allDescendatsIds: string[];
     TurnOffEditMode: () => void;
     DeleteNodeClick: () => void;
-    DeleteNodeWIthCustomId: (id: string) => void; // TODO: jest 4 w nocy... Potem to ujednolicę. No chyba że zapomnę...
-    SaveNodeContent: (node: INode) => void;  //
+    DeleteNodeById: (id: string) => void;
+    SaveNodeContent: (node: INode) => void;  
     DeleteAllChildren: (nodeId: string) => void;
 };
 
 interface INodeEditState {
-
     node: INode,
 };
 
@@ -48,8 +47,7 @@ class NodeEditMode extends React.Component<INodeEditModeProps, INodeEditState>{
     deleteAllChildren() {
         this.props.allDescendatsIds.map(
             (id: string) => {
-                this.props.DeleteNodeWIthCustomId(id);
-                console.log("attempt to remove node with id: ", id);
+                this.props.DeleteNodeById(id);
             }
         )
 
@@ -79,7 +77,6 @@ class NodeEditMode extends React.Component<INodeEditModeProps, INodeEditState>{
                 <Button onClick={TurnOffEditMode}> exit edit mode</Button>
                 <Button onClick={DeleteNodeClick} > delete node</Button>
                 <Button onClick={() => this.deleteAllChildren()}>delete sub-nodes</Button>
-                {/* <Button onClick={ this.deleteAllChildren}>delete sub-nodes</Button> */}
                 <Button >toggle done</Button>
 
 
@@ -89,7 +86,6 @@ class NodeEditMode extends React.Component<INodeEditModeProps, INodeEditState>{
 }
 
 const mapStatetoProps = (state: IGlobalReduxState, ownProps: INodeEditModeProps) => ({
-// const mapStatetoProps = (state: INode[], ownProps: INodeEditModeProps) => ({
     node: new NodesManager().findNode(ownProps.nodeId, state.nodes),
     allDescendatsIds: new NodesManager().findAllDescendantsIds(ownProps.nodeId, state.nodes),
 })
@@ -97,7 +93,7 @@ const mapStatetoProps = (state: IGlobalReduxState, ownProps: INodeEditModeProps)
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: INodeEditModeProps) => ({
     TurnOffEditMode: () => dispatch(PassEditModeToId(null)),
     DeleteNodeClick: () => dispatch(DeleteNode(ownProps.nodeId)),
-    DeleteNodeWIthCustomId: (id: string) => dispatch(DeleteNode(id)),
+    DeleteNodeById: (id: string) => dispatch(DeleteNode(id)),
     SaveNodeContent: (node: INode) => dispatch(ChangeNodeContent(node)),
 })
 

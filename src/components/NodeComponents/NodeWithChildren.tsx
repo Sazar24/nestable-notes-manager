@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { INode, SingleNode } from "../../models/Node";
+import { INode, Node } from "../../models/Node";
 import { List, Container, Button } from "semantic-ui-react";
 import { v1 } from "uuid";
 import NodesManager from "../../services/NodesManager";
@@ -43,7 +43,6 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
         {childrenIDs.map(id => {
           return (
             <List.Item key={id}>
-              {/* <ConnectedNodeWithChildren nodeId={id} /> */}
               <ConnectedNodeWithChildren nodeId={id} />
             </List.Item>
           );
@@ -80,23 +79,19 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
 
     return (
       <List.Item style={{
-        // minWidth: "500px",
         minWidth: "90%",
         padding: "0 0 0 8px",
         border: "2px solid black",
         marginBottom: "2px",
         display: "inherit",
-        // backgroundColor: "silver",
         backgroundColor: this.state.bgcolor
         // clear: "both"
       }}
-        // onClick={() => this.handleClick()}
         onClick={(e: any) => this.handleClick(e)}
       >
 
         <div style={{ display: "inline-flex", width: "100%" }} >
           <NodeContentWithoutChildren node={node} />
-          {/* <NewNodeButton nodeId={this.props.nodeId} /> */}
           <NewNodeButton nodeId={nodeId} />
         </div>
         {this.renderMyChilds()}
@@ -106,7 +101,6 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
 }
 
 const mapStateToProps = (state: IGlobalReduxState, ownProps: IProps) => ({
-  // node: state.nodes[new NodesManager().findIndexOfNodeWithGivenId(ownProps.nodeId, state.nodes)],
   node: new NodesManager().findNode(ownProps.nodeId, state.nodes),
   childrenIDs: new NodesManager().findChildrensIds(ownProps.nodeId, state.nodes)
 })

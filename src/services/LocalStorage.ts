@@ -1,4 +1,4 @@
-import { INode, SingleNode } from '../models/Node';
+import { INode, Node } from '../models/Node';
 import { AddLoadedNode } from '../actions/TaskListActions';
 import { Store } from 'redux';
 
@@ -41,7 +41,7 @@ class LocalStorageAccessor implements IStorageHandler { // TODO: test me!
     }
 
     public removeChildrenOfParent(parentId: string) {
-        console.log(); // TODO :)
+        // TODO :)   // ta funkcjonalność działa na state`cie, ale wymaga implementacji także na local storage. Chyba, że będę zapisywał od razu cały stan, a nie poszczególne node`y.
     }
 
     private extractKeys(): void {

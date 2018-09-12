@@ -1,6 +1,6 @@
 import { CreateNode, DeleteNode } from './../../src/actions/TaskListActions';
 import { nodeListReducer } from './../../src/reducers/nodeList';
-import { INode, SingleNode } from '../../src/models/Node';
+import { INode, Node } from '../../src/models/Node';
 import * as TaskListActions from '../../src/actions/TaskListActions';
 
 describe('handling actionTypes.ADD_NODE: reducer should return proper state when apply the action to previous state;', () => {
@@ -8,14 +8,14 @@ describe('handling actionTypes.ADD_NODE: reducer should return proper state when
     it('Adding-new-node-action returns the previous state enlarged by added node ', () => {
 
         const initialState: INode[] = [
-            SingleNode.newEmpty("1")
+            Node.newEmpty("1")
         ]
         const actionADDNode: any = CreateNode("2", "1"); // TODO: kill "any"-type
         const simulatedStateOutput = nodeListReducer(initialState, actionADDNode);
 
         const expectedState: INode[] = [
-            SingleNode.newEmpty("1", null),
-            SingleNode.newEmpty("2", "1")
+            Node.newEmpty("1", null),
+            Node.newEmpty("2", "1")
         ];
 
         expect(simulatedStateOutput).toEqual(expectedState);
@@ -23,7 +23,7 @@ describe('handling actionTypes.ADD_NODE: reducer should return proper state when
 
     it('adding subsequent nodes to same state gives state with all of the added nodes', () => {
         const initialState: INode[] = [
-            SingleNode.newEmpty("1", null),
+            Node.newEmpty("1", null),
         ]
 
         let simulatedStateOutput: INode[];
@@ -32,10 +32,10 @@ describe('handling actionTypes.ADD_NODE: reducer should return proper state when
         simulatedStateOutput = nodeListReducer(simulatedStateOutput, CreateNode("2", "3"));
 
         const expectedState2: INode[] = [
-            SingleNode.newEmpty("1", null),
-            SingleNode.newEmpty("3", "1"),
-            SingleNode.newEmpty("4", "1"),
-            SingleNode.newEmpty("2", "3"),
+            Node.newEmpty("1", null),
+            Node.newEmpty("3", "1"),
+            Node.newEmpty("4", "1"),
+            Node.newEmpty("2", "3"),
         ];
 
         expect(simulatedStateOutput).toEqual(expectedState2);
@@ -68,15 +68,15 @@ describe('handling actionTypes.ADD_NODE: reducer should return proper state when
 describe("handling actiontypes.DELETE_NODE_WITH_GIVEN_ID", () => {
     it('erase 1 of 3 existing nodes ', () => {
         const initialState: INode[] = [
-            SingleNode.newEmpty("1", null),
-            SingleNode.newEmpty("2", null),
-            SingleNode.newEmpty("3", null),
+            Node.newEmpty("1", null),
+            Node.newEmpty("2", null),
+            Node.newEmpty("3", null),
         ];
 
         const simulatedStateOutput: INode[] = nodeListReducer(initialState, DeleteNode("3"));
         const expectedState: INode[] = [
-            SingleNode.newEmpty("1", null),
-            SingleNode.newEmpty("2", null),
+            Node.newEmpty("1", null),
+            Node.newEmpty("2", null),
         ];
 
         expect(simulatedStateOutput).toEqual(expectedState);
@@ -85,7 +85,7 @@ describe("handling actiontypes.DELETE_NODE_WITH_GIVEN_ID", () => {
     it('erase 1 of 1 - leaves empty state', () => {
 
         const initialState: INode[] = [
-            SingleNode.newEmpty("3", null),
+            Node.newEmpty("3", null),
         ];
 
         const simulatedStateOutput: INode[] = nodeListReducer(initialState, DeleteNode("3"));
@@ -97,19 +97,19 @@ describe("handling actiontypes.DELETE_NODE_WITH_GIVEN_ID", () => {
     it('erasing 1 of 4. Does NOT erasing descentants, but only pointed (parent) node', () => {
 
         const initialState: INode[] = [
-            SingleNode.newEmpty("1", null),
-            SingleNode.newEmpty("2", "1"),
-            SingleNode.newEmpty("3", "2"),
-            SingleNode.newEmpty("4", "3"),
-            SingleNode.newEmpty("5", null),
+            Node.newEmpty("1", null),
+            Node.newEmpty("2", "1"),
+            Node.newEmpty("3", "2"),
+            Node.newEmpty("4", "3"),
+            Node.newEmpty("5", null),
         ];
 
         const simulatedStateOutput: INode[] = nodeListReducer(initialState, DeleteNode("2"));
         const expectedState: INode[] = [
-            SingleNode.newEmpty("1", null),
-            SingleNode.newEmpty("3", "2"),
-            SingleNode.newEmpty("4", "3"),
-            SingleNode.newEmpty("5", null),
+            Node.newEmpty("1", null),
+            Node.newEmpty("3", "2"),
+            Node.newEmpty("4", "3"),
+            Node.newEmpty("5", null),
         ];
 
         expect(simulatedStateOutput).toEqual(expectedState);
@@ -123,22 +123,22 @@ describe("handling actionTypes.CHANGE_NODE_CONTENT", () => {
 
         const initialState: INode[] = [
 
-            SingleNode.newEmpty("1", null),
-            SingleNode.newEmpty("2", "1"),
-            SingleNode.newEmpty("3", "2"),
-            SingleNode.newEmpty("4", "3"),
-            SingleNode.newEmpty("5", null),
+            Node.newEmpty("1", null),
+            Node.newEmpty("2", "1"),
+            Node.newEmpty("3", "2"),
+            Node.newEmpty("4", "3"),
+            Node.newEmpty("5", null),
         ];
 
         const changedNode: INode = { header: "I am changed!", description: "foooooooobaaaaar", isDone: true, Id: "4", parentID: "3" };
         const simulatedStateOutput: INode[] = nodeListReducer(initialState, TaskListActions.ChangeNodeContent(changedNode));
 
         const expectedState: INode[] = [
-            SingleNode.newEmpty("1", null),
-            SingleNode.newEmpty("2", "1"),
-            SingleNode.newEmpty("3", "2"),
+            Node.newEmpty("1", null),
+            Node.newEmpty("2", "1"),
+            Node.newEmpty("3", "2"),
             { header: "I am changed!", description: "foooooooobaaaaar", isDone: true, Id: "4", parentID: "3" },
-            SingleNode.newEmpty("5", null),
+            Node.newEmpty("5", null),
         ];
 
         expect(simulatedStateOutput).toEqual(expectedState);
@@ -147,8 +147,8 @@ describe("handling actionTypes.CHANGE_NODE_CONTENT", () => {
     it('should change description of pointed node ', () => {
 
         const initialState: INode[] = [
-            SingleNode.newEmpty("1", null),
-            SingleNode.newEmpty("2", "1"),
+            Node.newEmpty("1", null),
+            Node.newEmpty("2", "1"),
         ];
 
         const changedNode: INode = { header: "I am changed!", description: "foooooooobaaaaar", isDone: true, Id: "2", parentID: "3" };
@@ -156,7 +156,7 @@ describe("handling actionTypes.CHANGE_NODE_CONTENT", () => {
         const simulatedStateOutput: INode[] = nodeListReducer(initialState, TaskListActions.ChangeNodeContent(changedNode));
 
         const expectedState: INode[] = [
-            SingleNode.newEmpty("1", null),
+            Node.newEmpty("1", null),
             { header: "I am changed!", description: "foooooooobaaaaar", isDone: true, Id: "2", parentID: "3" },
         ];
 
@@ -166,11 +166,11 @@ describe("handling actionTypes.CHANGE_NODE_CONTENT", () => {
     it('cant "change" unexisting node - It leaves state untouched instead.', () => {
 
         const initialState: INode[] = [
-            SingleNode.newEmpty("1", null),
-            SingleNode.newEmpty("2", "1"),
+            Node.newEmpty("1", null),
+            Node.newEmpty("2", "1"),
         ];
 
-        const changedNode: INode = SingleNode.newEmpty("9", "1");
+        const changedNode: INode = Node.newEmpty("9", "1");
         const simulatedStateOutput: INode[] = nodeListReducer(initialState, TaskListActions.ChangeNodeContent(changedNode));
 
         expect(simulatedStateOutput).toEqual(initialState);

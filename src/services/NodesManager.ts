@@ -1,19 +1,17 @@
 import { INode } from './../models/Node';
 import { IGlobalReduxState } from '../reducers/index';
-// import { INodesListReducer } from '../reducers/nodeList';
 
 interface IFindingNodesChildren {
     findChildrensIds(IdOfParentNode: string, nodesInState: INode[]): string[];
     isAlreadyInState(nodeId: string,  nodesInState: INode[]): boolean;
     findAllDescendantsIds(nodeId: string, reduxState: INode[]): string[];
-    // findIndexOfNodeWithGivenId(nodeId: string, nodesInState: INode[]): number;
+    findIndexOfNodeWithGivenId(nodeId: string, nodesInState: INode[]): number;
     findNode(nodeId: string, nodesInState: INode[]): INode;
 }
 
 export default class NodesManager implements IFindingNodesChildren {
 
     findNode(nodeId: string, nodesInState: INode[]): INode {
-
         const node = nodesInState[this.findIndexOfNodeWithGivenId(nodeId, nodesInState)];
         return node;
 
@@ -26,17 +24,8 @@ export default class NodesManager implements IFindingNodesChildren {
         return foundIndex;
     }
 
-
-    // findChildrensIds(IdOfParentNode: string, reduxState: IGlobalReduxState): string[] {
     findChildrensIds(IdOfParentNode: string, nodesInState: INode[]): string[] {
-
         const childrenIDs: string[] = [];
-        // Object.keys(reduxState.nodes).map((nodeID) => {
-        //     const probedNode = reduxState.nodes[nodeID];
-        //     if (probedNode.parentID === IdOfParentNode) {
-        //         childrenIDs.push(probedNode.Id);
-        //     }
-        // })
         nodesInState.map(
             (node) => {
                 if (node.parentID === IdOfParentNode) {
@@ -48,8 +37,6 @@ export default class NodesManager implements IFindingNodesChildren {
     }
 
     isAlreadyInState(nodeId: string, nodesInState: INode[]): boolean { // test me!
-        // if (typeof (state[nodeId]) === "undefined" || typeof (state[nodeId]) === undefined) return false;
-        // else return true;
         if (nodesInState.find(item => item.Id === nodeId)) return true
         else return false
     }

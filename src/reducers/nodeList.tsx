@@ -1,5 +1,5 @@
 // import { IAction } from "../actions/TaskListActions";
-import { INode, SingleNode } from "../models/Node";
+import { INode, Node } from "../models/Node";
 import { actionTypes } from "../actions/actionTypes";
 import NodesManager from "../services/NodesManager";
 

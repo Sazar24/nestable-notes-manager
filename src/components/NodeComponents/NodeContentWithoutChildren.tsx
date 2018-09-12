@@ -5,7 +5,7 @@ import { List } from 'semantic-ui-react';
 import ConnectedEditableNode from './NodeEditMode';
 import { Dispatch } from 'redux';
 import { PassEditModeToId } from '../../actions/NodeSelecing';
-import {IGlobalReduxState} from '../../reducers/index';
+import { IGlobalReduxState } from '../../reducers/index';
 
 interface INodeMainContent {
     node: INode;
@@ -14,15 +14,6 @@ interface INodeMainContent {
 }
 
 class NodeContentWithoutChildren extends React.Component<INodeMainContent>{
-
-    // handleClick() {
-    //     // this.bgcolor = "red";
-    //     this.setState({
-    //         bgcolor: "red"
-    //     });
-    //     console.log("click in NodeWithChildren:", this.props.node);
-    // }
-
     render() {
         const { node, editMode, switchToEditMode } = this.props;
         if (editMode) {

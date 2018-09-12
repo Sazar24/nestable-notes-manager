@@ -1,8 +1,8 @@
-import { INode, SingleNode } from './../../src/models/Node';
+import { INode, Node } from './../../src/models/Node';
 
 describe("Node-model constructor proofs: ", () => {
     it('constructor should create new instance of an object ', () => {
-        const newNode: INode = new SingleNode("foo", "baz", false, "123");
+        const newNode: INode = new Node("foo", "baz", false, "123");
         const expectedOutput = {
             header: "foo",
             description: "baz",
@@ -13,7 +13,7 @@ describe("Node-model constructor proofs: ", () => {
     });
 
     it('static class method creates the new instance of that class (without calling "new ...()") ', () => {
-        const newNode = SingleNode.newEmpty("123");
+        const newNode = Node.newEmpty("123");
         const expectedOutput = {
             header: "",
             description: "",
@@ -24,7 +24,7 @@ describe("Node-model constructor proofs: ", () => {
     });
 
     it('.newEmpty() static method: if called with second argument it is passed to parentId property', () => {
-        const newNode = SingleNode.newEmpty("123", "bababa-baz!");
+        const newNode = Node.newEmpty("123", "bababa-baz!");
         const expectedOutput = {
             header: "",
             description: "",
