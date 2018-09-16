@@ -11,18 +11,17 @@ export interface INode {
 
 export class Node implements INode {
 
+  static headerDefaultText: string = "New node";
+  static descriptionDefaultText: string = "Click me, to edit.";
+
   static newEmpty(Id: string, parentID?: string | null): INode {
-
-    const headerDefaultText: string = "new node";
-    const descriptionDefaultText: string = "Click me, to edit.";
-
     if (parentID) {
-      const nodeWithIdAndParent = new Node(headerDefaultText, descriptionDefaultText, false, Id);
+      const nodeWithIdAndParent = new Node(this.headerDefaultText, this.descriptionDefaultText, false, Id);
       nodeWithIdAndParent.parentID = parentID;
       return nodeWithIdAndParent;
     }
     else
-      return new Node(headerDefaultText, descriptionDefaultText, false, Id);
+      return new Node(this.headerDefaultText, this.descriptionDefaultText, false, Id);
   }
 
   public parentID: string | null = null;

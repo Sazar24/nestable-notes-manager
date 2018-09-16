@@ -10,8 +10,7 @@ describe('handling actionTypes.ADD_NODE: reducer should return proper state when
         const initialState: INode[] = [
             Node.newEmpty("1")
         ]
-        const actionADDNode: any = CreateNode("2", "1"); // TODO: kill "any"-type
-        const simulatedStateOutput = nodeListReducer(initialState, actionADDNode);
+        const simulatedStateOutput = nodeListReducer(initialState, CreateNode("2", "1"));
 
         const expectedState: INode[] = [
             Node.newEmpty("1", null),
@@ -41,25 +40,24 @@ describe('handling actionTypes.ADD_NODE: reducer should return proper state when
         expect(simulatedStateOutput).toEqual(expectedState2);
     });
 
-    it('cant add (and store) nodes with same Id', () => {
-        console.log("TODO!")
-        // const initialState: INode[] = [
-        //     { header: "new node", description: "click me, to edit", isDone: false, Id: "1", parentID: null },
-        // ]
+    it.only('cant add (and store) nodes with same Id', () => {
+        const initialState: INode[] = [
+            Node.newEmpty("1", null)
+        ]
 
-        // let simulatedStateOutput: INode[];
-        // simulatedStateOutput = nodeListReducer(initialState, CreateNewNodeAsChild("3", "1"));
-        // simulatedStateOutput = nodeListReducer(simulatedStateOutput, CreateNewNodeAsChild("3", "1"));
-        // simulatedStateOutput = nodeListReducer(simulatedStateOutput, CreateNewNodeAsChild("2", "3"));
+        let simulatedStateOutput: INode[];
+        simulatedStateOutput = nodeListReducer(initialState, CreateNode("3", "1"));
+        simulatedStateOutput = nodeListReducer(simulatedStateOutput, CreateNode("3", "1"));
+        simulatedStateOutput = nodeListReducer(simulatedStateOutput, CreateNode("3", "1"));
+        simulatedStateOutput = nodeListReducer(simulatedStateOutput, CreateNode("3", "1"));
+        simulatedStateOutput = nodeListReducer(simulatedStateOutput, CreateNode("2", "3"));
 
-        // const expectedState2: INode[] = [
-        //     { header: "new node", description: "click me, to edit", isDone: false, Id: "1", parentID: null },
-        //     { header: "new node", description: "click me, to edit", isDone: false, Id: "3", parentID: "1" },
-        //     { header: "new node", description: "click me, to edit", isDone: false, Id: "2", parentID: "3" },
-        // ];
-
-        // // TODO!!
-        // // expect(simulatedStateOutput).toEqual(expectedState2);
+        const expectedState2: INode[] = [
+            Node.newEmpty("1",null),
+            Node.newEmpty("3","1"),
+            Node.newEmpty("2","3"),
+        ];
+        expect(simulatedStateOutput).toEqual(expectedState2);
     });
 });
 

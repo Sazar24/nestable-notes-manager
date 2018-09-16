@@ -62,7 +62,7 @@ class LocalStorageAccessor implements IStorageHandler { // TODO: test me!
 
     private getNode(key: string): INode {
         const extractedNode: INode = JSON.parse(this.getItemAsString(key));
-        if (extractedNode === null) {
+        if (extractedNode === null || extractedNode === undefined) {
             throw new Error("in localStorage there is null assigned to key-value, instead of Node-Object");
         }
         return extractedNode;

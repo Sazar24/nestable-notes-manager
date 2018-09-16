@@ -30,26 +30,6 @@ export function CreateNode(newNodeId: string, parentId?: string): IAction {
   }
 }
 
-// export function CreateNewNodeAsChild(newNodeId: string, parentId: string): IAction {
-//   return {
-//     type: actionTypes.ADD_NODE,
-//     payload: {
-//       node: new SingleNode("new node", "click me, to edit", false, newNodeId),
-//       // parentId,
-//     }
-//   }
-// };
-
-// export function CreateNewNodeWithoutParent(newNodeId: string): IAction { // TODO: ujednolicić tę funkcję i CreateNewNodeAsChild(...). Rozbicie na Create...AsAChild i ...WithoutParent robi bajzel i jest bez sensu.
-//   return {
-//     type: actionTypes.ADD_NODE_WITH_NO_PARENT,
-//     payload: {
-//       node: new SingleNode("new node", "To edit - click me.", false, newNodeId),
-//     }
-//   }
-// }
-
-// export function DeleteNodeWithId(nodeId: string): IAction {
 export function DeleteNode(nodeId :string): IAction {
   return {
     type: actionTypes.DELETE_NODE_WITH_GIVEN_ID,

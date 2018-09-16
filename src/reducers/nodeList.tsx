@@ -1,25 +1,10 @@
-// import { IAction } from "../actions/TaskListActions";
-import { INode, Node } from "../models/Node";
 import { actionTypes } from "../actions/actionTypes";
+import { INode, Node } from "../models/Node";
 import NodesManager from "../services/NodesManager";
-
 import LocalStorageAccessor from "../services/LocalStorage";
 import { IAction } from "../actions/TaskListActions";
 // import { Action } from "../actions/TaskListActions";
-
-// export interface INodesListReducer {
-//   // [nodeId: string]: INode;
-//   nodes: INode[];
-// }
-
-/* 
-//// const initialState: INodesListReducer = {};
-//// Z tej struktury stanu:
-//// "1": { header: "new node", description: "click me, to edit", isDone: false, Id: "1", parentID: null },
-//// chcę przejść na tę:
-//// nodes: [{ header: "new node", description: "click me, to edit", isDone: false, Id: "1", parentID: null },
-//// { header: "new node", description: "click me, to edit", isDone: false, Id: "1", parentID: null }]
-*/
+// import { IAction } from "../actions/TaskListActions";
 
 const initialState: INode[] = [];
 
@@ -32,10 +17,13 @@ export function nodeListReducer(state: INode[] = initialState, action: any): INo
   switch (action.type) {
     case actionTypes.CREATE_NODE:
       newNode = Object.assign({}, action.payload.node);
-      // TODO: dodać blokadę, żeby nie można było dwóch notek o identycznym Id
+     
+      if (NodesManager.isAlreadyInState(newNode.Id, state)) {
+        return state;
+      }
       newState.push(newNode);
       // localStorageAccessor.setNodeInLocalStorage(newNode);
-    return newState;
+      return newState;
 
     case actionTypes.DELETE_NODE_WITH_GIVEN_ID: // it doesnt remove subNodes (children)
       const nodeId = action.payload.nodeId;
@@ -46,7 +34,8 @@ export function nodeListReducer(state: INode[] = initialState, action: any): INo
     case actionTypes.UPDATE_NODE_CONTENT:
       newNode = Object.assign({}, action.payload.node);
 
-      const nodeWithGivenIdAlreadExists: boolean = new NodesManager().isAlreadyInState(newNode.Id, state);
+      // const nodeWithGivenIdAlreadExists: boolean = new NodesManager().isAlreadyInState(newNode.Id, state);
+      const nodeWithGivenIdAlreadExists: boolean = NodesManager.isAlreadyInState(newNode.Id, state);
       if (nodeWithGivenIdAlreadExists) {
         const indexOfChangedNode = state.findIndex(item => item.Id === newNode.Id);
         newState[indexOfChangedNode] = newNode;

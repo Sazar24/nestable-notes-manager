@@ -3,13 +3,18 @@ import { IGlobalReduxState } from '../reducers/index';
 
 interface IFindingNodesChildren {
     findChildrensIds(IdOfParentNode: string, nodesInState: INode[]): string[];
-    isAlreadyInState(nodeId: string,  nodesInState: INode[]): boolean;
+    // isAlreadyInState(nodeId: string,  nodesInState: INode[]): boolean;
     findAllDescendantsIds(nodeId: string, reduxState: INode[]): string[];
     findIndexOfNodeWithGivenId(nodeId: string, nodesInState: INode[]): number;
     findNode(nodeId: string, nodesInState: INode[]): INode;
 }
 
 export default class NodesManager implements IFindingNodesChildren {
+
+    static isAlreadyInState(nodeId: string, nodesInState: INode[]): boolean {
+        if (nodesInState.find(item => item.Id === nodeId)) return true
+        else return false
+    }
 
     findNode(nodeId: string, nodesInState: INode[]): INode {
         const node = nodesInState[this.findIndexOfNodeWithGivenId(nodeId, nodesInState)];
@@ -36,12 +41,7 @@ export default class NodesManager implements IFindingNodesChildren {
         return childrenIDs;
     }
 
-    isAlreadyInState(nodeId: string, nodesInState: INode[]): boolean { // test me!
-        if (nodesInState.find(item => item.Id === nodeId)) return true
-        else return false
-    }
-
-    findAllDescendantsIds(ancestorNodeId: string, reduxState: INode[]): string[] { // TODO: test me!
+    findAllDescendantsIds(ancestorNodeId: string, reduxState: INode[]): string[] {
         // zrob tablicę z dzieciakami. - descendatsAwaitingForChecking
         // Sprawdz każdego dzieciaka z tablicy. - potomków (kolejne dzieci) tego dzieciaka wrzuć do descentasAwaitingForChecking
         // Jeśli został sprawdzony, wrzuc go do odzielnej tablicy - descendatsAlreadyChecked . Nie wazne czy mial dzieci czy nie, wazne ze sprawdzony.

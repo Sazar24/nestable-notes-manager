@@ -1,18 +1,3 @@
-// zrobić coś podobnego do https://plnkr.co/edit/?p=preview , ale z opcją dodawania nowych node`ów.
-// iterować się po keyach obiektu {data} i sprawdzać czy jest zgodne z szukanym id - Bo każdy komponent będzie trzymał tylko ID.
-Nie może być świadomy całej struktury danych.
-Dlatego w momencie wywołania jakiejkolwiek akcji dla node o danym ID, logika szukania gdzie to ma być wpisane (w drzewku), powinna być gdzieś z boku.
-Ale jaka składnia wywołania, gdy już znajdę wszystkie pośrednie (rodziców/dzieci) ID?
-data.parent.[parent2].[parent3].sth. ? oO
-
-
-
-Błąd, który nie występuje w trakcie developmentu, a dopiero po ponownym odpaleniu `npm start`. Powodowane przez zaimportowanie LocalStorageHandler w reducerze.
-Failed to compile
-/home/cb/projects/todoTree/nodesList2/tasks-tree/node_modules/@types/react-redux/index.d.ts
-(195,16): Generic type 'Dispatch<S>' requires 1 type argument(s).
-This error occurred during the build time and cannot be dismissed.
-
 todo:
 + wprowadzić zabezpieczenie, żeby nie można było mieć w state dwóch INode o takim samym ID
 + akcja: wytnij > wklej <-- dla całej notatki
@@ -21,3 +6,6 @@ todo:
 + Podświetlenia do reducera
 + Akardeon (zwijanie podnotatek)
 + zapisywanie do storage: Nie zapisuj każdej notatki osobno, ale od razu cały stan reducera. (Pomysł zakoszony z www.planttext.com)
+
+++ convert z localStorage na cache-storage => make it PWA
+++ logowanie
