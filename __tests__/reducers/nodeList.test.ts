@@ -40,7 +40,7 @@ describe('handling actionTypes.ADD_NODE: reducer should return proper state when
         expect(simulatedStateOutput).toEqual(expectedState2);
     });
 
-    it.only('cant add (and store) nodes with same Id', () => {
+    it('cant add (and store) nodes with same Id', () => {
         const initialState: INode[] = [
             Node.newEmpty("1", null)
         ]
