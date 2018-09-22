@@ -7,7 +7,7 @@ import ConnectedNodeWithChildren from "./NodeComponents/NodeWithChildren";
 import { IGlobalReduxState } from "../reducers/index";
 // import { Dispatch } from "redux";
 import { Dispatch } from "redux";
-import { AddLoadedNode } from "../actions/TaskListActions";
+import { AddLoadedNode } from "../actions/NodesActions";
 import store from "../store/store";
 import LocalStorageAccessor from "../services/LocalStorage";
 
@@ -22,8 +22,7 @@ class MainList extends React.Component<IGlobalReduxState>{
             return node.parentID === null ?
               <ConnectedNodeWithChildren key={node.Id} nodeId={node.Id} />
               : null;
-          })}
-
+          })} 
         </List>
       </div>
     );

@@ -1,7 +1,8 @@
-import { CreateNode, DeleteNode } from './../../src/actions/TaskListActions';
+// import { initialState } from './../../src/reducers/nodeSelecting';
+import { CreateNode, DeleteNode } from '../../src/actions/NodesActions';
 import { nodeListReducer } from './../../src/reducers/nodeList';
 import { INode, Node } from '../../src/models/Node';
-import * as TaskListActions from '../../src/actions/TaskListActions';
+import * as TaskListActions from '../../src/actions/NodesActions';
 
 describe('handling actionTypes.ADD_NODE: reducer should return proper state when apply the action to previous state;', () => {
 
@@ -53,9 +54,9 @@ describe('handling actionTypes.ADD_NODE: reducer should return proper state when
         simulatedStateOutput = nodeListReducer(simulatedStateOutput, CreateNode("2", "3"));
 
         const expectedState2: INode[] = [
-            Node.newEmpty("1",null),
-            Node.newEmpty("3","1"),
-            Node.newEmpty("2","3"),
+            Node.newEmpty("1", null),
+            Node.newEmpty("3", "1"),
+            Node.newEmpty("2", "3"),
         ];
         expect(simulatedStateOutput).toEqual(expectedState2);
     });
@@ -173,4 +174,68 @@ describe("handling actionTypes.CHANGE_NODE_CONTENT", () => {
 
         expect(simulatedStateOutput).toEqual(initialState);
     });
+});
+
+describe("handling actionTypes.MOVE_CLOSER_TO_ANCESTOR", () => {
+    test('should move child one step closer to its grandparent', () => {
+        const initialState: Node[] = [
+            Node.newEmpty("grandfather_Id", null),
+            Node.newEmpty("parent_Id", "grandfather_Id"),
+            Node.newEmpty("transferingNode_TheChild", "parent_Id")
+        ];
+
+        const transferingNode: Node = initialState[2];
+        const simulatedStateOutput: INode[] = nodeListReducer(initialState, TaskListActions.MoveNodeCloserToAncestor(transferingNode));
+
+        const expectedOutcome: Node[] = [
+            Node.newEmpty("grandfather_Id", null),
+            Node.newEmpty("parent_Id", "grandfather_Id"),
+            Node.newEmpty("transferingNode_TheChild", "grandfather_Id")
+        ];
+
+        expect(simulatedStateOutput).toEqual(expectedOutcome);
+    });
+
+    test('should move child one step closer to its grandparent, when that grandparent is not the top ancestor', () => {
+        const initialState: Node[] = [
+            Node.newEmpty("topAncestor_grandGrandFather", null),
+            Node.newEmpty("grandfather_Id", "topAncestor_grandGrandFather"),
+            Node.newEmpty("parent_Id", "grandfather_Id"),
+            Node.newEmpty("transferingNode_TheChild", "parent_Id")
+        ];
+
+        const transferingNode: Node = initialState[3];
+        const simulatedStateOutput: INode[] = nodeListReducer(initialState, TaskListActions.MoveNodeCloserToAncestor(transferingNode));
+
+        const expectedOutcome: Node[] = [
+            Node.newEmpty("topAncestor_grandGrandFather", null),
+            Node.newEmpty("grandfather_Id", "topAncestor_grandGrandFather"),
+            Node.newEmpty("parent_Id", "grandfather_Id"),
+            Node.newEmpty("transferingNode_TheChild", "grandfather_Id")
+        ];
+
+        expect(simulatedStateOutput).toEqual(expectedOutcome);
+    });
+
+    test('shoudnt move anything when trying to move top-level node', () => {
+        const initialState: Node[] = [
+            Node.newEmpty("topAncestor_grandGrandFather", null),
+            Node.newEmpty("grandfather_Id", "topAncestor_grandGrandFather"),
+            Node.newEmpty("parent_Id", "grandfather_Id"),
+            Node.newEmpty("transferingNode_TheChild", "parent_Id")
+        ];
+
+        const transferingNode: Node = initialState[0];
+        const simulatedStateOutput: INode[] = nodeListReducer(initialState, TaskListActions.MoveNodeCloserToAncestor(transferingNode));
+
+        const expectedOutcome: Node[] = [
+            Node.newEmpty("topAncestor_grandGrandFather", null),
+            Node.newEmpty("grandfather_Id", "topAncestor_grandGrandFather"),
+            Node.newEmpty("parent_Id", "grandfather_Id"),
+            Node.newEmpty("transferingNode_TheChild", "parent_Id")
+        ];
+
+        expect(simulatedStateOutput).toEqual(expectedOutcome);
+    });
+
 });

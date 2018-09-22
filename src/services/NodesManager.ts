@@ -12,7 +12,10 @@ interface IFindingNodesChildren {
 export default class NodesManager implements IFindingNodesChildren {
 
     static isAlreadyInState(nodeId: string, nodesInState: INode[]): boolean {
-        if (nodesInState.find(item => item.Id === nodeId)) return true
+        if (nodesInState.find(item => item.Id === nodeId)) {
+            // console.log("possible dubbled node with Id: ", nodeId);
+            return true
+        }
         else return false
     }
 

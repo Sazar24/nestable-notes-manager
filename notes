@@ -1,11 +1,11 @@
 todo:
-+ wprowadzić zabezpieczenie, żeby nie można było mieć w state dwóch INode o takim samym ID
-+ akcja: wytnij > wklej <-- dla całej notatki
 + akcja: wynieś poziom w górę (tj. weź parenta od rodzica)
++ Akardeon (zwijanie podnotatek)
+
+//na później/ lub na kiedyś:
++ akcja: wytnij > wklej <-- dla całej notatki
 + sortowanie (właśc. zapamiętywanie pozycji).
 + Podświetlenia do reducera
-+ Akardeon (zwijanie podnotatek)
-+ zapisywanie do storage: Nie zapisuj każdej notatki osobno, ale od razu cały stan reducera. (Pomysł zakoszony z www.planttext.com)
 
 ++ convert z localStorage na cache-storage => make it PWA
 ++ logowanie

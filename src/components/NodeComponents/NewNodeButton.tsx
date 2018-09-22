@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Button, Icon } from "semantic-ui-react";
-import { CreateNode } from "../../actions/TaskListActions";
+import { CreateNode } from "../../actions/NodesActions";
 import { Dispatch } from "redux";
 import { v1 } from "uuid";
 

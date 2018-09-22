@@ -1,5 +1,5 @@
-import { INode } from './../../src/models/Node';
-import NodesManager from '../../src/services/NodesManager';
+import { INode } from '../../../src/models/Node';
+import NodesManager from '../../../src/services/NodesManager';
 
 
 describe("NodesManager.findIndexOfNodeWithGivenId(...) method tests", () => {

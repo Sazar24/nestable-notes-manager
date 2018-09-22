@@ -1,6 +1,6 @@
-import { INode } from './../../src/models/Node';
-import { IGlobalReduxState } from '../../src/reducers/index';
-import NodesManager from '../../src/services/NodesManager';
+import { INode } from '../../../src/models/Node';
+import { IGlobalReduxState } from '../../../src/reducers/index';
+import NodesManager from '../../../src/services/NodesManager';
 
 describe('findMyChildrenIds(...) should return propper array of Ids; ', () => {
     const nodesManager = new NodesManager();

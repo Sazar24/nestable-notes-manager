@@ -1,5 +1,5 @@
 import { INode, Node } from '../models/Node';
-import { AddLoadedNode } from '../actions/TaskListActions';
+import { AddLoadedNode } from '../actions/NodesActions';
 import { Store } from 'redux';
 
 interface IStorageHandler {

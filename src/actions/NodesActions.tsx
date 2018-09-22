@@ -57,3 +57,12 @@ export function AddLoadedNode(node: INode): IAction {
     }
   }
 }
+
+export function MoveNodeCloserToAncestor(node: INode): IAction {
+  return {
+    type: actionTypes.MOVE_CLOSER_TO_ANCESTOR,
+    payload: {
+      node
+    }
+  }
+}

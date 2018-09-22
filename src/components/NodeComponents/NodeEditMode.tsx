@@ -5,7 +5,9 @@ import { Input, Container, TextArea, Button, InputOnChangeData } from 'semantic-
 import { IGlobalReduxState } from '../../reducers/index';
 import { PassEditModeToId } from '../../actions/NodeSelecing';
 import { Dispatch } from 'redux';
-import { DeleteNode, ChangeNodeContent } from '../../actions/TaskListActions';
+// import { DeleteNode, ChangeNodeContent } from '../../actions/NodesActions';
+import * as NodesActions from '../../actions/NodesActions';
+
 import NodesManager from '../../services/NodesManager';
 
 interface INodeEditModeProps {
@@ -15,8 +17,9 @@ interface INodeEditModeProps {
     TurnOffEditMode: () => void;
     DeleteNodeClick: () => void;
     DeleteNodeById: (id: string) => void;
-    SaveNodeContent: (node: INode) => void;  
+    SaveNodeContent: (node: INode) => void;
     DeleteAllChildren: (nodeId: string) => void;
+    MoveLevelUp: (node: Node) => void;
 };
 
 interface INodeEditState {
@@ -54,7 +57,7 @@ class NodeEditMode extends React.Component<INodeEditModeProps, INodeEditState>{
     }
 
     render() {
-        const { node, TurnOffEditMode, DeleteNodeClick, SaveNodeContent, DeleteAllChildren } = this.props;
+        const { node, TurnOffEditMode, DeleteNodeClick, SaveNodeContent, DeleteAllChildren, MoveLevelUp } = this.props;
 
         return (
             <div style={{
@@ -77,7 +80,7 @@ class NodeEditMode extends React.Component<INodeEditModeProps, INodeEditState>{
                 <Button onClick={TurnOffEditMode}> exit edit mode</Button>
                 <Button onClick={DeleteNodeClick} > delete node</Button>
                 <Button onClick={() => this.deleteAllChildren()}>delete sub-nodes</Button>
-                <Button >toggle done</Button>
+                <Button onClick={() => MoveLevelUp(node)}>move level up</Button>
 
 
             </div>
@@ -92,9 +95,10 @@ const mapStatetoProps = (state: IGlobalReduxState, ownProps: INodeEditModeProps)
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: INodeEditModeProps) => ({
     TurnOffEditMode: () => dispatch(PassEditModeToId(null)),
-    DeleteNodeClick: () => dispatch(DeleteNode(ownProps.nodeId)),
-    DeleteNodeById: (id: string) => dispatch(DeleteNode(id)),
-    SaveNodeContent: (node: INode) => dispatch(ChangeNodeContent(node)),
+    DeleteNodeClick: () => dispatch(NodesActions.DeleteNode(ownProps.nodeId)),
+    DeleteNodeById: (id: string) => dispatch(NodesActions.DeleteNode(id)),
+    SaveNodeContent: (node: INode) => dispatch(NodesActions.ChangeNodeContent(node)),
+    MoveLevelUp: (node: Node) => dispatch(NodesActions.MoveNodeCloserToAncestor(node)),
 })
 
 const ConnectedEditableNode = connect<any, any, any>(mapStatetoProps, mapDispatchToProps)(NodeEditMode);

@@ -1,5 +1,5 @@
-import { Node } from './../../src/models/Node';
-import NodesManager from '../../src/services/NodesManager';
+import { Node } from '../../../src/models/Node';
+import NodesManager from '../../../src/services/NodesManager';
 
 describe('handling NodesManager.isAlreadyInState method: ', () => {
     test.each([

@@ -1,6 +1,5 @@
-// import { initialState } from './../../src/reducers/nodeSelecting';
-import * as fromNodeSelectingReducer from './../../src/reducers/nodeSelecting';
-import { INodeSelectingReducer, nodeSelectingReducer } from './../../src/reducers/nodeSelecting';
+import * as fromNodeSelectingReducer from '../../src/reducers/nodeSelecting';
+import { INodeSelectingReducer, nodeSelectingReducer } from '../../src/reducers/nodeSelecting';
 import { PassEditModeToId } from '../../src/actions/NodeSelecing';
 
 describe("nodeSelecting Reducer >> handling ActionTypes.SWITCH_EDIT_MODE_TO_GIVEN_ID_ONLY", () => {
@@ -16,7 +15,6 @@ describe("nodeSelecting Reducer >> handling ActionTypes.SWITCH_EDIT_MODE_TO_GIVE
         initialState.IdOfEditableNode = null;
         expectedOutput.IdOfEditableNode = null;
         const simulationOutput: INodeSelectingReducer = nodeSelectingReducer(initialState, PassEditModeToId(null));
-        console.log(`expectedOutput ${expectedOutput}`);
         expect(simulationOutput).toEqual(expectedOutput);
     });
 
@@ -25,8 +23,6 @@ describe("nodeSelecting Reducer >> handling ActionTypes.SWITCH_EDIT_MODE_TO_GIVE
         expectedOutput.IdOfEditableNode = null;
 
         const simulationOutput: INodeSelectingReducer = nodeSelectingReducer(initialState, PassEditModeToId(null));
-        // console.log({ simulatingEmptyOutput });
-        // console.log({ expectedOutput });
         expect(simulationOutput).toEqual(expectedOutput);
     });
 

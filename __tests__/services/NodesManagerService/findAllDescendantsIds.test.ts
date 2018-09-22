@@ -1,7 +1,7 @@
-import { INode } from './../../src/models/Node';
-import { IGlobalReduxState } from './../../src/reducers/index';
+import { INode } from '../../../src/models/Node';
+import { IGlobalReduxState } from '../../../src/reducers/index';
 
-import NodesManager from '../../src/services/NodesManager';
+import NodesManager from '../../../src/services/NodesManager';
 
 describe("handling NodeManager.findAllDEscendatsIds method:", () => {
 
