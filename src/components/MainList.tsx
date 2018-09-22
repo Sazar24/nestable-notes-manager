@@ -30,8 +30,8 @@ class MainList extends React.Component<IGlobalReduxState>{
   }
 
   componentWillMount() {
-    // const localStorageAccessor:any = new LocalStorageAccessor();
-    // localStorageAccessor.mapLocalStorageItemsToReduxState(store);
+    const localStorageAccessor: LocalStorageAccessor = new LocalStorageAccessor();
+    localStorageAccessor.mapLocalStorageItemsToReduxState(store);
   }
 }
 

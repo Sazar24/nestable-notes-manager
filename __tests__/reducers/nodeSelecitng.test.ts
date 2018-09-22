@@ -1,58 +1,50 @@
-import { initialState } from './../../src/reducers/nodeSelecting';
-// test('should ', () => {
-//    expect(true).toBe(true); 
-// });
-
+// import { initialState } from './../../src/reducers/nodeSelecting';
+import * as fromNodeSelectingReducer from './../../src/reducers/nodeSelecting';
 import { INodeSelectingReducer, nodeSelectingReducer } from './../../src/reducers/nodeSelecting';
 import { PassEditModeToId } from '../../src/actions/NodeSelecing';
 
 describe("nodeSelecting Reducer >> handling ActionTypes.SWITCH_EDIT_MODE_TO_GIVEN_ID_ONLY", () => {
-    it.each(
-        [
-            [{ IdOfEditableNode: null }, { IdOfEditableNode: null }],
-            [{ IdOfEditableNode:  "foo-bar" }, { IdOfEditableNode: null}]
-        ]
-    )("When null Id is dispatched to IdOfEditableNode-property, it is saved to reducer state as null ", (initialState, expectedOutput) => {
+    let initialState: INodeSelectingReducer;
+    let expectedOutput: INodeSelectingReducer;
 
-        const simulatingEmptyOutput: INodeSelectingReducer = nodeSelectingReducer(initialState, PassEditModeToId(null));
-        console.log(`expectedOutput ${expectedOutput}`);
-        expect(simulatingEmptyOutput).toEqual(expectedOutput);
-
+    beforeEach(() => {
+        initialState = Object.assign({}, fromNodeSelectingReducer.initialState);
+        expectedOutput = Object.assign({}, fromNodeSelectingReducer.initialState);
     });
 
-    it('dispatching null to IdOfEditableNode-property, when this property already was set to any Id, nulls it. ', () => {
-        const initialState: INodeSelectingReducer = {
-            IdOfEditableNode: "foobar",
-        };
-        const expectedOutput: INodeSelectingReducer = {
-            IdOfEditableNode: null
-        }
+    it("When null Id is dispatched to IdOfEditableNode-property, it is saved to reducer state as null ", () => {
+        initialState.IdOfEditableNode = null;
+        expectedOutput.IdOfEditableNode = null;
+        const simulationOutput: INodeSelectingReducer = nodeSelectingReducer(initialState, PassEditModeToId(null));
+        console.log(`expectedOutput ${expectedOutput}`);
+        expect(simulationOutput).toEqual(expectedOutput);
+    });
 
-        const simulatingEmptyOutput: INodeSelectingReducer = nodeSelectingReducer(initialState, PassEditModeToId(null));
-        expect(simulatingEmptyOutput).toEqual(expectedOutput);
+    it('dispatching null to IdOfEditableNode-property, when this property is set to any Id, nulls it. ', () => {
+        initialState.IdOfEditableNode = "foobar";
+        expectedOutput.IdOfEditableNode = null;
+
+        const simulationOutput: INodeSelectingReducer = nodeSelectingReducer(initialState, PassEditModeToId(null));
+        // console.log({ simulatingEmptyOutput });
+        // console.log({ expectedOutput });
+        expect(simulationOutput).toEqual(expectedOutput);
     });
 
     it('in state was null. Setting(dispatching) properties to any value saves it properly', () => {
-        const initialState: INodeSelectingReducer = {
-            IdOfEditableNode: null
-        };
-        const expectedOutput: INodeSelectingReducer = {
-            IdOfEditableNode: "foobar123"
-        }
 
-        const simulatingEmptyOutput: INodeSelectingReducer = nodeSelectingReducer(initialState, PassEditModeToId("foobar123"));
-        expect(simulatingEmptyOutput).toEqual(expectedOutput);
+        expectedOutput.IdOfEditableNode = "foobar123";
+        initialState.IdOfEditableNode = null;
+
+        const simulationOutput: INodeSelectingReducer = nodeSelectingReducer(initialState, PassEditModeToId("foobar123"));
+        expect(simulationOutput).toEqual(expectedOutput);
     });
 
-    it('in state was some value. Dispatch changes it to given value (other than null)', () => {
-        const initialState: INodeSelectingReducer = {
-            IdOfEditableNode: "baz"
-        };
-        const expectedOutput: INodeSelectingReducer = {
-            IdOfEditableNode: "foobar"
-        }
+    it('in state was some value. Dispatch changes it to given value, other than null', () => {
 
-        const simulatingEmptyOutput: INodeSelectingReducer = nodeSelectingReducer(initialState, PassEditModeToId("foobar"));
-        expect(simulatingEmptyOutput).toEqual(expectedOutput);
+        expectedOutput.IdOfEditableNode = "foobar";
+        initialState.IdOfEditableNode = "baz";
+
+        const simulationOutput: INodeSelectingReducer = nodeSelectingReducer(initialState, PassEditModeToId("foobar"));
+        expect(simulationOutput).toEqual(expectedOutput);
     });
 })

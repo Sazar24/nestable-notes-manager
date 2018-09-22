@@ -23,12 +23,14 @@ export function nodeListReducer(state: INode[] = initialState, action: any): INo
       }
       newState.push(newNode);
       // localStorageAccessor.setNodeInLocalStorage(newNode);
+      localStorageAccessor.saveAllNodesInStorage(newState);
       return newState;
 
     case actionTypes.DELETE_NODE_WITH_GIVEN_ID: // it doesnt remove subNodes (children)
       const nodeId = action.payload.nodeId;
       newState = newState.filter(node => node.Id !== nodeId);
       // localStorageAccessor.removeNodeFromLocalStorage(nodeId);
+      localStorageAccessor.saveAllNodesInStorage(newState);
       return newState;
 
     case actionTypes.UPDATE_NODE_CONTENT:
@@ -41,13 +43,14 @@ export function nodeListReducer(state: INode[] = initialState, action: any): INo
         newState[indexOfChangedNode] = newNode;
         // localStorageAccessor.setNodeInLocalStorage(newNode);
       }
-
+      localStorageAccessor.saveAllNodesInStorage(newState);
       return newState
 
-    // case actionTypes.ADD_NODE_FROM_MEMORY:
-    //   newNode = Object.assign({}, action.payload.node);
-    //   newState[newNode.Id] = Object.assign({}, newNode);
-    //   return newState;
+    case actionTypes.ADD_NODE_FROM_MEMORY:
+      // newNode = Object.assign({}, action.payload.node);
+      newState.push(action.payload.node);
+      // newState[newNode.Id] = Object.assign({}, newNode);
+      return newState;
 
     default:
       return state;
