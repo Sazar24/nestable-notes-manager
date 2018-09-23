@@ -1,11 +1,8 @@
 import * as React from "react";
 import { List } from "semantic-ui-react";
-// import { INode } from "../models/Node";
-// import { v1 } from 'uuid';
 import { connect } from 'react-redux';
 import ConnectedNodeWithChildren from "./NodeComponents/NodeWithChildren";
 import { IGlobalReduxState } from "../reducers/index";
-// import { Dispatch } from "redux";
 import { Dispatch } from "redux";
 import { AddLoadedNode } from "../actions/NodesActions";
 import store from "../store/store";

@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@types/react-onclickoutside": "^6.0.4",
+    "@types/semantic-ui": "^2.2.6",
     "@types/uuid": "^3.4.3",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
@@ -45,7 +46,7 @@
   "devDependencies": {
     "@types/jest": "^23.3.1",
     "@types/node": "^10.5.1",
-    "@types/react": "^16.4.6",
+    "@types/react": "^16.4.14",
     "@types/react-dom": "^16.0.6",
     "@types/react-redux": "^6.0.3",
     "@types/redux-logger": "^3.0.6",

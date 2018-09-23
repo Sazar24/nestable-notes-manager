@@ -1,16 +1,16 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { INode, Node } from "../../models/Node";
-import { List, Container, Button } from "semantic-ui-react";
-import { v1 } from "uuid";
+import { Node } from "../../models/Node";
+import { List, Button, Icon } from "semantic-ui-react";
 import NodesManager from "../../services/NodesManager";
 import NewNodeButton from "./NewNodeButton";
 import NodeContentWithoutChildren from "./NodeContentWithoutChildren";
 import { IGlobalReduxState } from "../../reducers/index";
+import Toolbar from "./Toolbar";
 
 export interface IProps {
   nodeId: string;
-  node: INode;
+  node: Node;
   childrenIDs: string[];
 }
 
@@ -66,10 +66,10 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
     });
   }
 
-  handleClick = (event: Event) => {
-    event.stopPropagation();
-    this.toggleSelected();
-  }
+  // handleClick = (event: Event) => {
+  //   event.stopPropagation();
+  //   this.toggleSelected();
+  // }
 
   render(): any {
     const { node, nodeId } = this.props;
@@ -87,12 +87,16 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
         backgroundColor: this.state.bgcolor
         // clear: "both"
       }}
-        onClick={(e: any) => this.handleClick(e)}
+      // onClick={(e: any) => this.handleClick(e)}
       >
 
         <div style={{ display: "inline-flex", width: "100%" }} >
           <NodeContentWithoutChildren node={node} />
-          <NewNodeButton nodeId={nodeId} />
+          <Toolbar nodeId={node.Id} />
+          {/* <NewNodeButton nodeId={nodeId} />
+          <Button onClick={() => this.toggleSelected()} circular={true}>
+            <Icon name="lightbulb" bordered={false}/>
+          </Button> */}
         </div>
         {this.renderMyChilds()}
       </List.Item>

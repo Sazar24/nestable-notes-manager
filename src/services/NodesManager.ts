@@ -61,8 +61,6 @@ export default class NodesManager implements IFindingNodesChildren {
             descendatsAwaitingForChecking.shift();
             descendatsAwaitingForChecking.push(...foundDescendantsWhichNeedToBeCheckedLater);
         }
-
-
         return descendatsAlreadyChecked;
     }
 }

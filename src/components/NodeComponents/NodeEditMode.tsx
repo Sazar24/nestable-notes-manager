@@ -47,13 +47,12 @@ class NodeEditMode extends React.Component<INodeEditModeProps, INodeEditState>{
         })
     }
 
-    deleteAllChildren() {
+    deleteAllChildren() {   // test me!
         this.props.allDescendatsIds.map(
             (id: string) => {
                 this.props.DeleteNodeById(id);
             }
         )
-
     }
 
     render() {

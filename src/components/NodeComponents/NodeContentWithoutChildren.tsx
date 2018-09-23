@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { INode } from "../../models/Node";
-import { List } from 'semantic-ui-react';
+import { List, Reveal, Image, Button, Icon } from 'semantic-ui-react';
 import ConnectedEditableNode from './NodeEditMode';
 import { Dispatch } from 'redux';
 import { PassEditModeToId } from '../../actions/NodeSelecing';
@@ -13,12 +13,11 @@ interface INodeMainContent {
     switchToEditMode: () => void;
 }
 
-class NodeContentWithoutChildren extends React.Component<INodeMainContent>{
+class NodeContentWithoutChildrenUnconnected extends React.Component<INodeMainContent>{
     render() {
         const { node, editMode, switchToEditMode } = this.props;
-        if (editMode) {
+        if (editMode)
             return <ConnectedEditableNode nodeId={node.Id} />
-        }
         else {
             return (
                 <div style={{
@@ -31,7 +30,9 @@ class NodeContentWithoutChildren extends React.Component<INodeMainContent>{
                     textJustify: "inter-word",
                     textOverflow: "clip"
                 }}
-                    onClick={() => switchToEditMode()}
+                    // onClick={() => switchToEditMode()}
+                    onDoubleClick={() => switchToEditMode()}
+                    onClick={() => console.log("onClicked in node with header: ", node.header)}
                 >
                     <List.Header >
                         {node.header}
@@ -45,18 +46,13 @@ class NodeContentWithoutChildren extends React.Component<INodeMainContent>{
     }
 }
 
-function AmIInEditMode(askingNodeId: string, IdOfEditableNode: string | null): boolean {
-    if (askingNodeId === IdOfEditableNode) return true
-    else return false
-}
-
 const mapStateToProps = (state: IGlobalReduxState, ownProps: INodeMainContent) => ({
-    editMode: AmIInEditMode(ownProps.node.Id, state.selectedNodes.IdOfEditableNode),
+    editMode: (ownProps.node.Id === state.selectedNodes.IdOfEditableNode) ? true : false
 })
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: INodeMainContent) => ({
     switchToEditMode: () => dispatch(PassEditModeToId(ownProps.node.Id))
 })
 
-const ConnectedNodeContentWithoutChildren = connect<any, any, any>(mapStateToProps, mapDispatchToProps)(NodeContentWithoutChildren);
-export default ConnectedNodeContentWithoutChildren;
+const NodeContentWithoutChildren = connect<any, any, any>(mapStateToProps, mapDispatchToProps)(NodeContentWithoutChildrenUnconnected);
+export default NodeContentWithoutChildren;
