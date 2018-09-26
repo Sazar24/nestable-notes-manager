@@ -1,19 +1,29 @@
 import { actionTypes } from "./actionTypes";
 
-interface IPassEditModeToID {
-    type: actionTypes.SWITCH_EDIT_MODE_TO_GIVEN_ID_ONLY,
+export interface IAction {
+    type: actionTypes,
     payload: {
-        IdOfEditableNode: string | null,
+        IdOfEditableNode?: string | null,
+        nodeId? : string | null, 
     }
 }
 
-export function PassEditModeToId(nodeId: string | null): IPassEditModeToID {
+export function PassEditModeToId(nodeId: string | null): IAction {
     return {
         type: actionTypes.SWITCH_EDIT_MODE_TO_GIVEN_ID_ONLY,
         payload: {
             IdOfEditableNode: nodeId
         }
     }
+}
+
+export function SelectAndRememberNodeId(nodeId: string): IAction {
+  return {
+    type: actionTypes.SELECT_AND_REMEMBER_NODEID,
+    payload: {
+      nodeId
+    }
+  }
 }
 
 // interface IToggleHoghlightNode {
@@ -32,4 +42,4 @@ export function PassEditModeToId(nodeId: string | null): IPassEditModeToID {
 //     }
 // }
 
-export type Action = IPassEditModeToID;
+export type Action = IAction;

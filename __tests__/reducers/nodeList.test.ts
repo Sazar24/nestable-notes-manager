@@ -239,3 +239,26 @@ describe("handling actionTypes.MOVE_CLOSER_TO_ANCESTOR", () => {
     });
 
 });
+
+describe("handling moving nodes: cut and paste actions", () => {
+    test("handle paste", () => {
+        const initialState: Node[] = [
+            {header: "head1", description: "descr1", isDone: false, Id: "1", parentID: null},
+            {header: "head2", description: "descr2", isDone: false, Id: "2", parentID: "1"},
+            {header: "head3", description: "descr3", isDone: false, Id: "3", parentID: "2"},
+            {header: "head4", description: "descr4", isDone: false, Id: "4", parentID: "3"},
+        ];
+
+        const transferingNode: Node = initialState[0];
+        const simulatedStateOutput: INode[] = nodeListReducer(initialState, TaskListActions.PasteAsChild("4","1"));
+
+        const expectedOutcome: Node[] = [
+            {header: "head1", description: "descr1", isDone: false, Id: "1", parentID: null},
+            {header: "head2", description: "descr2", isDone: false, Id: "2", parentID: "1"},
+            {header: "head3", description: "descr3", isDone: false, Id: "3", parentID: "2"},
+            {header: "head4", description: "descr4", isDone: false, Id: "4", parentID: "1"},
+        ];
+
+        expect(simulatedStateOutput).toEqual(expectedOutcome);
+    });
+});

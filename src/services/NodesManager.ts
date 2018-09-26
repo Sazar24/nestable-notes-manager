@@ -1,7 +1,7 @@
 import { INode } from './../models/Node';
 import { IGlobalReduxState } from '../reducers/index';
 
-interface IFindingNodesChildren {
+interface INodesManagerService {
     findChildrensIds(IdOfParentNode: string, nodesInState: INode[]): string[];
     // isAlreadyInState(nodeId: string,  nodesInState: INode[]): boolean;
     findAllDescendantsIds(nodeId: string, reduxState: INode[]): string[];
@@ -9,7 +9,7 @@ interface IFindingNodesChildren {
     findNode(nodeId: string, nodesInState: INode[]): INode;
 }
 
-export default class NodesManager implements IFindingNodesChildren {
+export default class NodesManager implements INodesManagerService {
 
     static isAlreadyInState(nodeId: string, nodesInState: INode[]): boolean {
         if (nodesInState.find(item => item.Id === nodeId)) {

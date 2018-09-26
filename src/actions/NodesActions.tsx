@@ -18,6 +18,8 @@ export interface IAction {
     node?: INode;
     // parentId?: string;
     nodeId?: string;
+    movingNodeId?: string,
+    destinationParentNodeId?: string,
   };
 }
 
@@ -30,7 +32,7 @@ export function CreateNode(newNodeId: string, parentId?: string): IAction {
   }
 }
 
-export function DeleteNode(nodeId :string): IAction {
+export function DeleteNode(nodeId: string): IAction {
   return {
     type: actionTypes.DELETE_NODE_WITH_GIVEN_ID,
     payload: {
@@ -58,11 +60,23 @@ export function AddLoadedNode(node: INode): IAction {
   }
 }
 
-export function MoveNodeCloserToAncestor(node: INode): IAction {
+export function MoveNodeCloserToAncestor(node: INode): IAction { // TODO: przerobić na (nodeId:string), bo ta akcja nie potrzebuje całego node`a.
   return {
     type: actionTypes.MOVE_CLOSER_TO_ANCESTOR,
     payload: {
       node
+    }
+  }
+}
+
+
+export function PasteAsChild(movingNodeId: string, destinationParentNodeId: string): IAction {
+  console.log(`Your are in PasteAsChild_action, movingNodeId: ${movingNodeId}, destinationParentNodeId: ${destinationParentNodeId}`, )
+  return {
+    type: actionTypes.ATTACH_REMEMBERED_NODE_TO_PARENT,
+    payload: {
+      movingNodeId,
+      destinationParentNodeId
     }
   }
 }

@@ -8,7 +8,7 @@ import { IAction } from "../actions/NodesActions";
 
 const initialState: INode[] = [];
 
-export function nodeListReducer(state: INode[] = initialState, action: any): INode[] { // TODO: remove that "any"-type. Propably u will have to create many similar interfaces for actionCreators and export all of them as one Action-type.
+export function nodeListReducer(state: INode[] = initialState, action: IAction): INode[] { // TODO: remove that "any"-type. Propably u will have to create many similar interfaces for actionCreators and export all of them as one Action-type.
 
   let newState: INode[] = state.slice();
   let newNode: INode;
@@ -44,39 +44,56 @@ export function nodeListReducer(state: INode[] = initialState, action: any): INo
       return newState;
 
     case actionTypes.ADD_NODE_FROM_MEMORY:
+      if (action.payload.node === undefined) return state;
       if (NodesManager.isAlreadyInState(action.payload.node.Id, state)) {
         return state;
       }
       newState.push(action.payload.node);
       return newState;
-    /////////////////////
 
     case actionTypes.MOVE_CLOSER_TO_ANCESTOR:
+      if (action.payload.node === undefined) return state;
       const transferingNode: Node = action.payload.node;
-
       if (NodesManager.isAlreadyInState(transferingNode.Id, state) === false) return state;
       if (transferingNode.parentID === null) return state;
 
-      // 1. Znajdź index - tj. pozycję w tablicy state`u przenoszonego elementu.
-      const indexOfMovingNode: number = state.findIndex(item => item.Id === transferingNode.Id);
 
-      // 2. Znajdź rodzica przenoszonego elementu
-      // 3. Znajdź index - tj. pozycję w tablicy znalezionego rodzica:
       const parentNodeIndex: number = state.findIndex(item => item.Id === transferingNode.parentID);
       if (parentNodeIndex === -1) return state;
-      const parentNode: Node = state[parentNodeIndex];
 
-      // 4. Przenoszonemu elementowi przypisz jako rodzica rodzica rodzica ( xD ) (tj. elementowi z pkt 1: .parent = parent of element z pkt 3.) 
+      const parentNode: Node = state[parentNodeIndex];
       transferingNode.parentID = parentNode.parentID;
 
-      // 5. Zapisz zmiany do stanu aplikacji:
+      const indexOfMovingNode: number = state.findIndex(item => item.Id === transferingNode.Id);
       newState[indexOfMovingNode] = transferingNode;
+
       localStorageAccessor.saveAllNodesInStorage(newState);
       return newState;
 
-    /////////////////////
+
+    case actionTypes.ATTACH_REMEMBERED_NODE_TO_PARENT:  
+    // TODO: 
+    // Need zabezpieczenie przed rozerwaniem łańcucha dziedziczenia
+    // 1. Need kontrola, zeby nie dalo sie wkleic jako children`a samego siebie 
+    // 2. Wklejanie przodka do dzieciaka/potomka musi być zabronione (albo najpierw powinno następować wyniesienie dzieciaków poziom w górę).
+      if (action.payload.destinationParentNodeId === undefined || action.payload.movingNodeId === undefined) return state;
+      if (action.payload.movingNodeId === null) return state;
+
+      console.log("In nodeListReducer with action: ", action);
+
+      const parentNodeId: string = action.payload.destinationParentNodeId;
+      if (NodesManager.isAlreadyInState(parentNodeId, state) === false) return state;
+      const parentNodeInStateIndex: number = state.findIndex(item => item.Id === parentNodeId);
+
+      if (NodesManager.isAlreadyInState(action.payload.movingNodeId, state) === false) return state;
+      const movinNodeIndex: number = state.findIndex(item => item.Id === action.payload.movingNodeId);
+
+      newState[movinNodeIndex].parentID = state[parentNodeInStateIndex].Id;
+      console.log(`parentNodeId: ${parentNodeId}, parentNodeInStateIndex: ${parentNodeInStateIndex}\n movinNodeId: ${action.payload.movingNodeId} movinNodeIndex: ${movinNodeIndex}`);
+      return newState;
 
     default:
       return state;
   }
+
 };

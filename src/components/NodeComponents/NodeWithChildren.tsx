@@ -92,7 +92,7 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
 
         <div style={{ display: "inline-flex", width: "100%" }} >
           <NodeContentWithoutChildren node={node} />
-          <Toolbar nodeId={node.Id} />
+          <Toolbar  node={node} />
           {/* <NewNodeButton nodeId={nodeId} />
           <Button onClick={() => this.toggleSelected()} circular={true}>
             <Icon name="lightbulb" bordered={false}/>
