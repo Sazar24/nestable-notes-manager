@@ -21,14 +21,9 @@ class NodeContentWithoutChildrenUnconnected extends React.Component<INodeMainCon
         else {
             return (
                 <div style={{
-                    width: "100%",
-                    paddingRight: "15px",
-                    whiteSpace: "pre-wrap",
-                    wordWrap: "break-word",
-                    wordBreak: "keep-all",
-                    textAlign: "justify",
-                    textJustify: "inter-word",
-                    textOverflow: "clip"
+                    width: "100%", paddingRight: "15px",
+                    whiteSpace: "pre-wrap", wordWrap: "break-word", wordBreak: "keep-all",
+                    textAlign: "justify", textJustify: "inter-word", textOverflow: "clip"
                 }}
                     // onClick={() => switchToEditMode()}
                     onDoubleClick={() => switchToEditMode()}

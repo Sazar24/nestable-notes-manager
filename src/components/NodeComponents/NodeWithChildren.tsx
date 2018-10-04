@@ -16,7 +16,7 @@ export interface IProps {
 
 interface IState {
   bgcolor: string;
-  selected: boolean;
+  showChildren: boolean;
 }
 
 export class NodeWithChildren extends React.Component<IProps, IState> {
@@ -27,7 +27,7 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
     super(props);
     this.state = {
       bgcolor: this.selectedOffColor,
-      selected: false
+      showChildren: true
     }
   }
 
@@ -59,20 +59,22 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
   }
 
   toggleSelected() {
-    const { selected } = this.state;
-    this.changeBackgroundColor(!selected);
+    const { showChildren } = this.state;
+    this.changeBackgroundColor(!showChildren);
+    console.log(`state.selected: ${showChildren}`);
     this.setState({
-      selected: !selected,
+      showChildren: !showChildren,
     });
   }
 
-  // handleClick = (event: Event) => {
-  //   event.stopPropagation();
-  //   this.toggleSelected();
-  // }
+  handleClick = (event: Event) => {
+    // event.stopPropagation();
+    this.toggleSelected();
+  }
 
   render(): any {
     const { node, nodeId } = this.props;
+    const { showChildren } = this.state;
     if (node === undefined) {
       throw new Error("passed undefined {node} to NodeFrame");
     }
@@ -87,18 +89,16 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
         backgroundColor: this.state.bgcolor
         // clear: "both"
       }}
-      // onClick={(e: any) => this.handleClick(e)}
       >
-
         <div style={{ display: "inline-flex", width: "100%" }} >
+          <Icon
+            onClick={(e: any) => this.handleClick(e)}
+            name={showChildren ? "caret right" : "caret down"}
+          />
           <NodeContentWithoutChildren node={node} />
-          <Toolbar  node={node} />
-          {/* <NewNodeButton nodeId={nodeId} />
-          <Button onClick={() => this.toggleSelected()} circular={true}>
-            <Icon name="lightbulb" bordered={false}/>
-          </Button> */}
+          <Toolbar node={node} />
         </div>
-        {this.renderMyChilds()}
+        {showChildren ? this.renderMyChilds() : <div>...</div>}
       </List.Item>
     );
   }
