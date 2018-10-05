@@ -60,7 +60,7 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
 
   toggleSelected() {
     const { showChildren } = this.state;
-    this.changeBackgroundColor(!showChildren);
+    // this.changeBackgroundColor(!showChildren);
     console.log(`state.selected: ${showChildren}`);
     this.setState({
       showChildren: !showChildren,
