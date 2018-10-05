@@ -8,7 +8,7 @@ import { IAction } from "../actions/NodesActions";
 
 const initialState: INode[] = [];
 
-export function nodeListReducer(state: INode[] = initialState, action: IAction): INode[] { // TODO: remove that "any"-type. Propably u will have to create many similar interfaces for actionCreators and export all of them as one Action-type.
+export function nodeListReducer(state: INode[] = initialState, action: IAction): INode[] { 
 
   let newState: INode[] = state.slice();
   let newNode: INode;
