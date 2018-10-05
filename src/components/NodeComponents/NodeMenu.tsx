@@ -35,12 +35,12 @@ class NodeMenu extends React.Component<INodeMenu> {
                     <Menu.Item name="delete" onClick={DeleteNode} />
                     <Menu.Item name="kill my children" />
                     <Menu.Item name="move me up" onClick={MoveLevelUp} />
-                    <Menu.Item name="cut" onClick={RememberNodeId} />
+                    <Menu.Item name="cut node" onClick={RememberNodeId} />
                     {/* <Popup
                         content={<div> Long live lorem ipsum! </div>}
                         trigger={ */}
                     <Menu.Item
-                        name="paste (Attach under this node)"
+                        name="Attach cutted as subNode"
                         onClick={() => PasteNodeAsChildToThisNode(cuttedIdInClipboard)}
                     />
                     {/* /> */}
@@ -56,6 +56,7 @@ class NodeMenu extends React.Component<INodeMenu> {
 const mapStatetoProps = (state: IGlobalReduxState) => ({
     cuttedIdInClipboard: state.selectedNodes.IdOfCuttedNode
 })
+
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: INodeMenu) => ({
     TurnOnEditMode: () => dispatch(NodeSelecing.PassEditModeToId(ownProps.node.Id)),
     TurnOffEditMode: () => dispatch(NodeSelecing.PassEditModeToId(null)),

@@ -31,7 +31,6 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
     }
   }
 
-
   renderMyChilds() {
     const { childrenIDs } = this.props;
     if (!childrenIDs || childrenIDs.length === 0) {
@@ -60,21 +59,20 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
 
   toggleSelected() {
     const { showChildren } = this.state;
-    // this.changeBackgroundColor(!showChildren);
-    console.log(`state.selected: ${showChildren}`);
     this.setState({
       showChildren: !showChildren,
     });
   }
 
   handleClick = (event: Event) => {
-    // event.stopPropagation();
     this.toggleSelected();
   }
 
   render(): any {
     const { node, nodeId } = this.props;
     const { showChildren } = this.state;
+    const iHaveKids: boolean = (this.props.childrenIDs.length > 0) ? true : false;
+
     if (node === undefined) {
       throw new Error("passed undefined {node} to NodeFrame");
     }
@@ -87,18 +85,17 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
         marginBottom: "2px",
         display: "inherit",
         backgroundColor: this.state.bgcolor
-        // clear: "both"
       }}
       >
         <div style={{ display: "inline-flex", width: "100%" }} >
-          <Icon
+          {iHaveKids && <Icon
             onClick={(e: any) => this.handleClick(e)}
-            name={showChildren ? "caret right" : "caret down"}
-          />
+            name={(showChildren) ? "caret right" : "caret down"}
+          />}
           <NodeContentWithoutChildren node={node} />
           <Toolbar node={node} />
         </div>
-        {showChildren ? this.renderMyChilds() : <div>...</div>}
+        {(showChildren) ? this.renderMyChilds() : (iHaveKids && <div>...</div>)} {/*TODO: Refactor; It may be hard to read this... although it works :) */}
       </List.Item>
     );
   }
