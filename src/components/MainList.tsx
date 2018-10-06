@@ -7,6 +7,8 @@ import { Dispatch } from "redux";
 import { AddLoadedNode } from "../actions/NodesActions";
 import store from "../store/store";
 import LocalStorageAccessor from "../services/LocalStorage";
+import { helloNodes } from '../helloData/helloNotes';
+
 
 class MainList extends React.Component<IGlobalReduxState>{
   render() {
@@ -19,7 +21,7 @@ class MainList extends React.Component<IGlobalReduxState>{
             return node.parentID === null ?
               <ConnectedNodeWithChildren key={node.Id} nodeId={node.Id} />
               : null;
-          })} 
+          })}
         </List>
       </div>
     );
@@ -28,6 +30,11 @@ class MainList extends React.Component<IGlobalReduxState>{
   componentWillMount() {
     const localStorageAccessor: LocalStorageAccessor = new LocalStorageAccessor();
     localStorageAccessor.mapLocalStorageItemsToReduxState(store);
+
+    // let isItFirstAppUse: boolean;
+    // isItFirstAppUse = localStorageAccessor.isItFirstUse();
+    // console.log(({ isItFirstAppUse }));
+    // if (isItFirstAppUse) localStorageAccessor.loadHelloData(helloNodes, store);
   }
 }
 

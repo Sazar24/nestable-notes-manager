@@ -40,7 +40,7 @@ class NodeMenu extends React.Component<INodeMenu> {
                         content={<div> Long live lorem ipsum! </div>}
                         trigger={ */}
                     <Menu.Item
-                        name="Attach cutted as subNode"
+                        name="Paste"
                         onClick={() => PasteNodeAsChildToThisNode(cuttedIdInClipboard)}
                     />
                     {/* /> */}

@@ -7,6 +7,7 @@ import NewNodeButton from "./NewNodeButton";
 import NodeContentWithoutChildren from "./NodeContentWithoutChildren";
 import { IGlobalReduxState } from "../../reducers/index";
 import Toolbar from "./Toolbar";
+import MyChildrenOrSpacer from "./ChildrenOrSpacer";
 
 export interface IProps {
   nodeId: string;
@@ -79,23 +80,23 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
 
     return (
       <List.Item style={{
+        backgroundColor: this.state.bgcolor,
         minWidth: "90%",
         padding: "0 0 0 8px",
         border: "2px solid black",
         marginBottom: "2px",
-        display: "inherit",
-        backgroundColor: this.state.bgcolor
-      }}
-      >
+        display: "inherit"
+      }} >
         <div style={{ display: "inline-flex", width: "100%" }} >
           {iHaveKids && <Icon
-            onClick={(e: any) => this.handleClick(e)}
-            name={(showChildren) ? "caret right" : "caret down"}
-          />}
+            onClick={this.handleClick}
+            name={(showChildren) ? "caret right" : "caret down"} />
+          }
           <NodeContentWithoutChildren node={node} />
           <Toolbar node={node} />
         </div>
-        {(showChildren) ? this.renderMyChilds() : (iHaveKids && <div>...</div>)} {/*TODO: Refactor; It may be hard to read this... although it works :) */}
+
+        <MyChildrenOrSpacer nodeId={nodeId} showChildren={showChildren} />
       </List.Item>
     );
   }

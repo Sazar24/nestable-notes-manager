@@ -1,0 +1,17 @@
+import { Node } from "../models/Node";
+
+export const helloNodes: Node[] = [
+    Node.newNode("Instrukcja", "czyli jak działa i co potrafi ta apka", "top1", null),
+    /**/Node.newNode("Tworzenie notatek", "", "2", "top1"),
+    /****/Node.newNode("", "Głównym celem niniejszej aplikacji jest tworzenie nowych notatek (składających się z dwóch części: nagłówka i opisu).", "3", "2"),
+    /****/Node.newNode("notatki zagnieżdżone", 'Podstawowym bajerem (czyt. featurem) jest możliwość tworzenia notatek "zagnieżdżonych". Czyli notatka "zawiera się" w innej notatce.', "4", "2"),
+    /****/Node.newNode("pamiętanie notatek, nawet po resecie (!)", 'Notatki przechowywane są w pamięci przeglądarki. \nOdświeżenie strony, zamknięcie zakładki czy nawet przeglądarki, nie spowodują wykasowania notatek :)\n\n', "5", "2"),
+    /**/Node.newNode("Zarządzanie","","22","top1"),
+    /****/Node.newNode("przenoszenie","","221","22"),
+    /****/Node.newNode("poziom w górę",'notatkę można szybko wynieść o jeden poziom w górę (spłycając poziom zagnieżdżenia)',"222","221"),
+    /****/Node.newNode("dowolnie, wedgług uznania :)",'Przenoszenie notatek względem siebie na zasadzie "wytnij>wklej".\nWycina się notatkę (de facto jest do schowka aplikacji), a następnie wkleja jako podNotatkę, innej notatki',"223","221"),
+    /**/Node.newNode("usuwanie", "1. ...pojedyńczej notki\n2. ...wszystkich podrzędnych/zagnieżdżonych","232","22"),
+    /****/Node.newNode("...I inne bajery...","...takie jak podświetlanie czy rozwijanie...","233","22"),
+    
+    Node.newNode("CV autora", "...2018.10.07...", "cv-top", null),
+]

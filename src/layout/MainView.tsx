@@ -5,27 +5,76 @@ import { CreateNode } from "../actions/NodesActions";
 import { Dispatch } from "redux";
 import { v1 } from "uuid";
 import MainList from "../components/MainList";
+import LocalStorageAccessor from "../services/LocalStorage";
+import { helloNodes } from "../helloData/helloNotes";
+import store from "../store/store";
 
 interface IProps {
   addNewBranchClicked: () => void,
 }
 
-class MainView extends React.Component<IProps>{
+interface IState {
+  isItFirstAppUse: boolean;
+}
+
+class MainView extends React.Component<IProps, IState>{
+  constructor(props: IProps) {
+    super(props);
+    // this.setState({
+    //   isItFirstAppUse: false,
+    // })
+
+  }
+  // isItFirstAppUse: boolean;
+
+  loadExampleData = () => {
+    const localStorageAccessor: LocalStorageAccessor = new LocalStorageAccessor();
+    localStorageAccessor.loadHelloData(helloNodes, store);
+    // this.isItFirstAppUse = false;
+    this.setState({
+      isItFirstAppUse: false,
+    });
+    console.log("kupa?");
+  }
+
   render() {
     const { addNewBranchClicked } = this.props;
     return (
+
       <Container>
-        <MainList />
-        <Button
-          basic={true}
-          icon={true}
-          floated="right"
-          onClick={() => addNewBranchClicked()}
-        >
-          <Icon name="plus" />
-        </Button>
+        {this.state.isItFirstAppUse && (
+          <Button
+          label="it seems this is the first time you are using this app. Let me show you an example how it works."
+            size="massive"
+            color="teal"
+            content="run hello-example"
+            onClick={this.loadExampleData}
+          />
+        )}
+        {!this.state.isItFirstAppUse &&
+          <div>
+            <MainList />
+            <Button
+              basic={true}
+              icon={true}
+              floated="right"
+              onClick={() => addNewBranchClicked()}
+            >
+              <Icon name="plus" />
+            </Button>
+          </div>
+        }
       </Container>
     );
+  }
+
+  componentWillMount() {
+    const localStorageAccessor: LocalStorageAccessor = new LocalStorageAccessor();
+    const isItFirstAppUse = localStorageAccessor.isItFirstUse();
+    this.setState({
+      isItFirstAppUse
+    })
+    // if (isItFirstAppUse) localStorageAccessor.loadHelloData(helloNodes, store);
   }
 };
 

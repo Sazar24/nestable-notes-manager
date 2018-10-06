@@ -24,6 +24,12 @@ export class Node implements INode {
       return new Node(this.headerDefaultText, this.descriptionDefaultText, false, Id);
   }
 
+  static newNode(header: string, description: string, Id: string, parentID: string | null): INode {
+    const nodeWithContent = new Node(header, description, false, Id);
+    nodeWithContent.parentID = parentID;
+    return nodeWithContent;
+  };
+
   public parentID: string | null = null;
 
   constructor(public header: string, public description: string, public isDone: boolean, public Id: string) {

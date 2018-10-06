@@ -25,9 +25,7 @@ class NodeContentWithoutChildrenUnconnected extends React.Component<INodeMainCon
                     whiteSpace: "pre-wrap", wordWrap: "break-word", wordBreak: "keep-all",
                     textAlign: "justify", textJustify: "inter-word", textOverflow: "clip"
                 }}
-                    // onClick={() => switchToEditMode()}
                     onDoubleClick={() => switchToEditMode()}
-                    onClick={() => console.log("onClicked in node with header: ", node.header)}
                 >
                     <List.Header >
                         {node.header}

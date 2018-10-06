@@ -27,6 +27,7 @@ interface INodeEditState {
 };
 
 class NodeEditMode extends React.Component<INodeEditModeProps, INodeEditState>{
+    inputRef: any;
     state = {
         node: this.props.node
     };
@@ -55,6 +56,27 @@ class NodeEditMode extends React.Component<INodeEditModeProps, INodeEditState>{
         )
     }
 
+    // handleFocus = (event: any) => {
+    handleFocus(event: any) {
+        event.target.select();
+    }
+
+    // focusMeOnRender = (input: any) => {
+    //     input.focus();
+    // };
+
+    handleRef = (c: any) => {
+        this.inputRef = c;
+        // this.inputRef.focus();
+        // c.focus();
+    }
+
+    componentDidMount() {
+        if (this.inputRef === undefined || this.inputRef === null) return;
+        this.inputRef.focus();
+        // this.inputRef.current.select();
+    }
+
     render() {
         const { node, TurnOffEditMode, DeleteNodeClick, SaveNodeContent, DeleteAllChildren, MoveLevelUp } = this.props;
 
@@ -68,12 +90,20 @@ class NodeEditMode extends React.Component<INodeEditModeProps, INodeEditState>{
                     style={{ width: "100%" }}
                     defaultValue={this.state.node.header}
                     onChange={this.handleHeaderChange}
+                    onFocus={this.handleFocus}
+                    ref={this.handleRef}
+                // ref={(e: any) => e.focus()}
+                // ref={this.focusMeOnRender}
                 />
+
+
                 <TextArea
                     defaultValue={node.description}
                     style={{ minWidth: "100%" }}
                     autoHeight={true}
                     onChange={this.handleDescriptionChange}
+                    onFocus={(e: any) => this.handleFocus(e)}
+
                 />
                 <Button onClick={() => SaveNodeContent(this.state.node)}> save node </Button>
                 <Button onClick={TurnOffEditMode}> exit edit mode</Button>
