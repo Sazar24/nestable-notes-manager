@@ -5,6 +5,7 @@ todo:
 
 + sortowanie (właśc. zapamiętywanie pozycji).
 + Podświetlenia do reducera
++ zwijanie do reducera
 
 ++ convert z localStorage na cache-storage => make it PWA
 ++ logowanie

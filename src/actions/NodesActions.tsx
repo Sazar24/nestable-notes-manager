@@ -71,7 +71,6 @@ export function MoveNodeCloserToAncestor(node: INode): IAction { // TODO: przero
 
 
 export function PasteAsChild(movingNodeId: string, destinationParentNodeId: string): IAction {
-  console.log(`Your are in PasteAsChild_action, movingNodeId: ${movingNodeId}, destinationParentNodeId: ${destinationParentNodeId}`, )
   return {
     type: actionTypes.ATTACH_REMEMBERED_NODE_TO_PARENT,
     payload: {

@@ -9,7 +9,7 @@ export const helloNodes: Node[] = [
     /**/Node.newNode("Zarządzanie","","22","top1"),
     /****/Node.newNode("przenoszenie","","221","22"),
     /****/Node.newNode("poziom w górę",'notatkę można szybko wynieść o jeden poziom w górę (spłycając poziom zagnieżdżenia)',"222","221"),
-    /****/Node.newNode("dowolnie, wedgług uznania :)",'Przenoszenie notatek względem siebie na zasadzie "wytnij>wklej".\nWycina się notatkę (de facto jest do schowka aplikacji), a następnie wkleja jako podNotatkę, innej notatki',"223","221"),
+    /****/Node.newNode("dowolnie, wedgług uznania :)",'Przenoszenie notatek względem siebie na zasadzie "wytnij>wklej".\nWycina się notatkę (właśc. kopiuje do schowka aplikacji), a następnie wkleja jako podNotatkę innej notatki',"223","221"),
     /**/Node.newNode("usuwanie", "1. ...pojedyńczej notki\n2. ...wszystkich podrzędnych/zagnieżdżonych","232","22"),
     /****/Node.newNode("...I inne bajery...","...takie jak podświetlanie czy rozwijanie...","233","22"),
     

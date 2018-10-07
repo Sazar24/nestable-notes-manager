@@ -8,7 +8,7 @@ import { IAction } from "../actions/NodesActions";
 
 const initialState: INode[] = [];
 
-export function nodeListReducer(state: INode[] = initialState, action: IAction): INode[] { 
+export function nodeListReducer(state: INode[] = initialState, action: IAction): INode[] {
 
   let newState: INode[] = state.slice();
   let newNode: INode;
@@ -27,6 +27,7 @@ export function nodeListReducer(state: INode[] = initialState, action: IAction):
 
     case actionTypes.DELETE_NODE_WITH_GIVEN_ID: // it doesnt remove subNodes (children)
       const nodeId = action.payload.nodeId;
+      // TODO: zrobić, żeby wyfiltrowywało też potomków.
       newState = newState.filter(node => node.Id !== nodeId);
       localStorageAccessor.saveAllNodesInStorage(newState);
       return newState;
@@ -71,25 +72,30 @@ export function nodeListReducer(state: INode[] = initialState, action: IAction):
       return newState;
 
 
-    case actionTypes.ATTACH_REMEMBERED_NODE_TO_PARENT:  
-    // TODO: 
-    // Need zabezpieczenie przed rozerwaniem łańcucha dziedziczenia
-    // 1. Need kontrola, zeby nie dalo sie wkleic jako children`a samego siebie 
-    // 2. Wklejanie przodka do dzieciaka/potomka musi być zabronione (albo najpierw powinno następować wyniesienie dzieciaków poziom w górę).
-      if (action.payload.destinationParentNodeId === undefined || action.payload.movingNodeId === undefined) return state;
-      if (action.payload.movingNodeId === null) return state;
-
-      console.log("In nodeListReducer with action: ", action);
-
+    case actionTypes.ATTACH_REMEMBERED_NODE_TO_PARENT: // TODO: refactor me.
+      if (action.payload.destinationParentNodeId === undefined ||
+        action.payload.movingNodeId === undefined ||
+        action.payload.movingNodeId === null)
+        return state;
+      // if (action.payload.movingNodeId === null) return state;
       const parentNodeId: string = action.payload.destinationParentNodeId;
-      if (NodesManager.isAlreadyInState(parentNodeId, state) === false) return state;
-      const parentNodeInStateIndex: number = state.findIndex(item => item.Id === parentNodeId);
+      const movingNodeId: string = action.payload.movingNodeId;
 
-      if (NodesManager.isAlreadyInState(action.payload.movingNodeId, state) === false) return state;
+      if (NodesManager.isAlreadyInState(parentNodeId, state) === false) return state;
+      if (NodesManager.isAlreadyInState(movingNodeId, state) === false) return state;
+
+      const isDescendingToItself: boolean = new NodesManager().isDescendingToItself(movingNodeId, parentNodeId, state);
+      if (isDescendingToItself) {
+        window.alert("The node cannot be nested under itself.")
+        return state;
+      }
+      ////////
+
+      const parentNodeInStateIndex: number = state.findIndex(item => item.Id === parentNodeId); 
       const movinNodeIndex: number = state.findIndex(item => item.Id === action.payload.movingNodeId);
 
       newState[movinNodeIndex].parentID = state[parentNodeInStateIndex].Id;
-      console.log(`parentNodeId: ${parentNodeId}, parentNodeInStateIndex: ${parentNodeInStateIndex}\n movinNodeId: ${action.payload.movingNodeId} movinNodeIndex: ${movinNodeIndex}`);
+      // localStorageAccessor.saveAllNodesInStorage(newState);
       return newState;
 
     default:

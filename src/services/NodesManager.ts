@@ -1,5 +1,7 @@
+import { actionTypes } from './../actions/actionTypes';
 import { INode } from './../models/Node';
 import { IGlobalReduxState } from '../reducers/index';
+import { colorOfDepth, colorsByDeepLevel } from '../models/colorsByDeepLvl';
 
 interface INodesManagerService {
     findChildrensIds(IdOfParentNode: string, nodesInState: INode[]): string[];
@@ -7,6 +9,9 @@ interface INodesManagerService {
     findAllDescendantsIds(nodeId: string, reduxState: INode[]): string[];
     findIndexOfNodeWithGivenId(nodeId: string, nodesInState: INode[]): number;
     findNode(nodeId: string, nodesInState: INode[]): INode;
+    isDescendingToItself(movingID: string, destinationId: string, reduxState: INode[]): boolean;
+    getDeepLevel(node: INode, nodesInState: INode[]): number;
+    getColorOfDeepLevel(nodeId: string, nodesInState: INode[]): colorOfDepth;
 }
 
 export default class NodesManager implements INodesManagerService {
@@ -22,7 +27,6 @@ export default class NodesManager implements INodesManagerService {
     findNode(nodeId: string, nodesInState: INode[]): INode {
         const node = nodesInState[this.findIndexOfNodeWithGivenId(nodeId, nodesInState)];
         return node;
-
     }
 
     findIndexOfNodeWithGivenId(nodeId: string, nodesInState: INode[]): number {
@@ -62,5 +66,62 @@ export default class NodesManager implements INodesManagerService {
             descendatsAwaitingForChecking.push(...foundDescendantsWhichNeedToBeCheckedLater);
         }
         return descendatsAlreadyChecked;
+    }
+
+    isDescendingToItself(movingID: string, destinationId: string, reduxState: INode[]): boolean { // TODO: test me!
+        let result: boolean = false;
+
+        const myDescendants: string[] = this.findAllDescendantsIds(movingID, reduxState);
+        // console.log(`for id = ${movingID} i found descendats ids: ${JSON.stringify(myDescendants)}`);
+
+        myDescendants.map(descendantID => {
+            if (descendantID === destinationId) result = true;
+        });
+
+        if (movingID === destinationId) result = true;
+
+        // console.log("isDescindingToItself result: ", result);
+        return result;
+    }
+
+    getDeepLevel(node: INode, nodesInState: INode[]): number {
+        let deepLevel: number;
+        if (node.parentID === null) {
+            deepLevel = 0;
+            return deepLevel;
+        }
+
+        let ancestor: INode;
+        let searchingForParentResult: INode | undefined;
+
+        deepLevel = 0;
+        searchingForParentResult = nodesInState.find(item => item.Id === node.parentID);
+
+        while (true) {
+            if (searchingForParentResult === undefined)
+                throw new Error("Line of descendants has been compromised. At least one ancestor of rendered node is no longer exist in state.");
+            else {
+                deepLevel += 1;
+                if (deepLevel === 5000) throw new Error("Sth gone wrong or You keep your nodes reeeeeeealy deeply nested. Deep-level reached 5k.")
+                ancestor = searchingForParentResult;
+            }
+            searchingForParentResult = nodesInState.find(item => item.Id === ancestor.parentID);
+
+            if (ancestor.parentID === null) return deepLevel;
+        };
+    };
+
+    getColorOfDeepLevel(nodeId:string , nodesInState: INode[]): colorOfDepth {
+        const nodeIndex = this.findIndexOfNodeWithGivenId(nodeId, nodesInState);
+        const node = nodesInState[nodeIndex];
+        const myDeepLevel :number= this.getDeepLevel(node, nodesInState);
+
+        const colorNr = myDeepLevel % colorsByDeepLevel.length;
+        return colorsByDeepLevel[colorNr];
+        
+
+        // return "#"+JSON.stringify(myDeepLevel*200);
+
+        // return "red";
     }
 }

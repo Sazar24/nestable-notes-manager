@@ -19,7 +19,7 @@ class MainList extends React.Component<IGlobalReduxState>{
         <List>
           {nodes.map((node) => {
             return node.parentID === null ?
-              <ConnectedNodeWithChildren key={node.Id} nodeId={node.Id} />
+              <ConnectedNodeWithChildren key={node.Id} nodeId={node.Id}  />
               : null;
           })}
         </List>

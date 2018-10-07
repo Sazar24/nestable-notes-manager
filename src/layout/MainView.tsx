@@ -18,19 +18,18 @@ interface IState {
 }
 
 class MainView extends React.Component<IProps, IState>{
-  constructor(props: IProps) {
-    super(props);
-    // this.setState({
-    //   isItFirstAppUse: false,
-    // })
 
+  componentWillMount() {
+    const localStorageAccessor: LocalStorageAccessor = new LocalStorageAccessor();
+    const isItFirstAppUse = localStorageAccessor.isItFirstUse();
+    this.setState({
+      isItFirstAppUse
+    });
   }
-  // isItFirstAppUse: boolean;
 
   loadExampleData = () => {
     const localStorageAccessor: LocalStorageAccessor = new LocalStorageAccessor();
     localStorageAccessor.loadHelloData(helloNodes, store);
-    // this.isItFirstAppUse = false;
     this.setState({
       isItFirstAppUse: false,
     });
@@ -44,13 +43,15 @@ class MainView extends React.Component<IProps, IState>{
       <Container>
         {this.state.isItFirstAppUse && (
           <Button
-          label="it seems this is the first time you are using this app. Let me show you an example how it works."
+            label="it seems this is the first time you are using this app. Let me show you an example how it can be used."
+            labelPosition="right"
             size="massive"
             color="teal"
             content="run hello-example"
             onClick={this.loadExampleData}
           />
         )}
+
         {!this.state.isItFirstAppUse &&
           <div>
             <MainList />
@@ -62,25 +63,18 @@ class MainView extends React.Component<IProps, IState>{
             >
               <Icon name="plus" />
             </Button>
+            <Button basic={true} icon={true} size="tiny" floated="left">
+              <Icon name="trash" />
+            </Button >
           </div>
         }
       </Container>
     );
-  }
-
-  componentWillMount() {
-    const localStorageAccessor: LocalStorageAccessor = new LocalStorageAccessor();
-    const isItFirstAppUse = localStorageAccessor.isItFirstUse();
-    this.setState({
-      isItFirstAppUse
-    })
-    // if (isItFirstAppUse) localStorageAccessor.loadHelloData(helloNodes, store);
   }
 };
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   addNewBranchClicked: () => dispatch(CreateNode(v1()))
 })
-
 
 export default connect<any, any, any>(null, mapDispatchToProps)(MainView);

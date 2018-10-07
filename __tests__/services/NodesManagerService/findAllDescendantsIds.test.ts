@@ -23,7 +23,7 @@ describe("handling NodeManager.findAllDEscendatsIds method:", () => {
         { header: "foobar", description: "baz", isDone: false, Id: "noParentOrChildren2", parentID: null },
     ]
 
-    it('searching return all children (one level deep - children only, no grandChildren) of top ancestor', () => {
+    it('searching return all children (one level deep - children only, no grandChildren (because there is none grand-children) of top ancestor', () => {
 
         const simulatedOutput: string[] = nodeManager.findAllDescendantsIds("parent1-ancestor", simulationlState);
         const expectedOutput: string[] = ["child1", "child2", "child3"];

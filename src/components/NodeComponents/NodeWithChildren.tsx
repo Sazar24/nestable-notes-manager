@@ -8,11 +8,13 @@ import NodeContentWithoutChildren from "./NodeContentWithoutChildren";
 import { IGlobalReduxState } from "../../reducers/index";
 import Toolbar from "./Toolbar";
 import MyChildrenOrSpacer from "./ChildrenOrSpacer";
+import { colorOfDepth } from "../../models/colorsByDeepLvl";
 
 export interface IProps {
   nodeId: string;
   node: Node;
   childrenIDs: string[];
+  colorOfDeepLevel: colorOfDepth;
 }
 
 interface IState {
@@ -80,7 +82,8 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
 
     return (
       <List.Item style={{
-        backgroundColor: this.state.bgcolor,
+        // backgroundColor: this.state.bgcolor,
+        backgroundColor: this.props.colorOfDeepLevel,
         minWidth: "90%",
         padding: "0 0 0 8px",
         border: "2px solid black",
@@ -104,7 +107,8 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
 
 const mapStateToProps = (state: IGlobalReduxState, ownProps: IProps) => ({
   node: new NodesManager().findNode(ownProps.nodeId, state.nodes),
-  childrenIDs: new NodesManager().findChildrensIds(ownProps.nodeId, state.nodes)
+  childrenIDs: new NodesManager().findChildrensIds(ownProps.nodeId, state.nodes),
+  colorOfDeepLevel: new NodesManager().getColorOfDeepLevel(ownProps.nodeId, state.nodes)
 })
 
 const ConnectedNodeWithChildren = connect<any, any, any>(mapStateToProps)(NodeWithChildren);
