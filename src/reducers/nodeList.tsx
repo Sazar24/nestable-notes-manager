@@ -103,7 +103,7 @@ export function nodeListReducer(state: INode[] = initialState, action: IAction):
     case actionTypes.TOGGLE_DONE_STATUS_ENTIRE_NODE_BRANCH:
       if (action.payload.nodeId === undefined) return state;
       nodeId = action.payload.nodeId;
-
+      
       const destinationStatus: boolean = !nodesManager.findNode(nodeId, state).isDone;
       const allDescendantsAndAncestorIds: string[] = nodesManager.findAllDescendantsIds(nodeId, newState);
       allDescendantsAndAncestorIds.push(nodeId);
@@ -111,7 +111,7 @@ export function nodeListReducer(state: INode[] = initialState, action: IAction):
       newState.map((item) => {
         allDescendantsAndAncestorIds.map(descendantID => {
           if (descendantID === item.Id)
-            item.isDone = !item.isDone;
+            item.isDone = destinationStatus;
         });
       });
 

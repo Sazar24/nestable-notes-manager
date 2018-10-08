@@ -5,11 +5,15 @@ export const colorsByDeepLevel :colorOfDepth[]= [
     "#9a9eb0",
     "#808dbc",
     "#6278ca",
+    "#808dbc",
+    "#9a9eb0",
     // "#4363d8",
     "#808dbc",
-    "#6278ca",
-    "#808dbc",
-]
+
+    // "#6278ca",
+    // "#808dbc",
+];
+
 
 // colors picked with https://www.w3schools.com/colors/colors_mixer.asp
 // starting color: #a9a9a9

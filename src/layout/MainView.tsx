@@ -33,7 +33,6 @@ class MainView extends React.Component<IProps, IState>{
     this.setState({
       isItFirstAppUse: false,
     });
-    console.log("kupa?");
   }
 
   render() {

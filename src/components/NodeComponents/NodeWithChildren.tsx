@@ -53,9 +53,9 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
   }
 
   render(): any {
-    const { node, nodeId, colorOfDeepLevel } = this.props;
+    const { node, nodeId, colorOfDeepLevel, childrenIDs } = this.props;
     const { showChildren } = this.state;
-    const iHaveKids: boolean = (this.props.childrenIDs.length > 0) ? true : false;
+    const iHaveKids: boolean = (childrenIDs.length > 0) ? true : false;
 
     if (node === undefined) {
       throw new Error("passed undefined {node} to NodeFrame");
@@ -70,7 +70,7 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
         border: "2px solid black",
         marginBottom: "2px",
         display: "inherit",
-        textDecoration: (node.isDone) ? "line-through" : "none",
+        textDecoration: (node.isDone) ? "line-through" : "none", // TODO: TBD czy to jest błąd: Z tego miejsca następuje przekazywanie css`owego przekreślenia dla wszystkich childrenowych notek. Jeśli nowo utworzona notka jest pod "przekreśloną" (.isDone == true) notką, to ta nowa notka też zostanie przekreślona, bez zmiany statusu (.isDone tej nowo utworzonej).
         // textDecorationColor: colorOfDeepLevel
       }} >
         <div style={{ display: "inline-flex", width: "100%" }} >
