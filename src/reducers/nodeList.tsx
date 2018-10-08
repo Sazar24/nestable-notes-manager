@@ -8,11 +8,13 @@ import { IAction } from "../actions/NodesActions";
 
 const initialState: INode[] = [];
 
-export function nodeListReducer(state: INode[] = initialState, action: IAction): INode[] {
+export function nodeListReducer(state: INode[] = initialState, action: IAction): INode[] { // TODO: refactor.
 
   let newState: INode[] = state.slice();
   let newNode: INode;
+  let nodeId: string
   const localStorageAccessor: LocalStorageAccessor = new LocalStorageAccessor();
+  const nodesManager = new NodesManager();
 
   switch (action.type) {
     case actionTypes.CREATE_NODE:
@@ -26,7 +28,8 @@ export function nodeListReducer(state: INode[] = initialState, action: IAction):
       return newState;
 
     case actionTypes.DELETE_NODE_WITH_GIVEN_ID: // it doesnt remove subNodes (children)
-      const nodeId = action.payload.nodeId;
+      if (action.payload.nodeId !== undefined)
+        nodeId = action.payload.nodeId;
       // TODO: zrobić, żeby wyfiltrowywało też potomków.
       newState = newState.filter(node => node.Id !== nodeId);
       localStorageAccessor.saveAllNodesInStorage(newState);
@@ -73,9 +76,7 @@ export function nodeListReducer(state: INode[] = initialState, action: IAction):
 
 
     case actionTypes.ATTACH_REMEMBERED_NODE_TO_PARENT: // TODO: refactor me.
-      if (action.payload.destinationParentNodeId === undefined ||
-        action.payload.movingNodeId === undefined ||
-        action.payload.movingNodeId === null)
+      if (action.payload.destinationParentNodeId === undefined || action.payload.movingNodeId === undefined || action.payload.movingNodeId === null)
         return state;
       // if (action.payload.movingNodeId === null) return state;
       const parentNodeId: string = action.payload.destinationParentNodeId;
@@ -91,11 +92,29 @@ export function nodeListReducer(state: INode[] = initialState, action: IAction):
       }
       ////////
 
-      const parentNodeInStateIndex: number = state.findIndex(item => item.Id === parentNodeId); 
+      const parentNodeInStateIndex: number = state.findIndex(item => item.Id === parentNodeId);
       const movinNodeIndex: number = state.findIndex(item => item.Id === action.payload.movingNodeId);
 
       newState[movinNodeIndex].parentID = state[parentNodeInStateIndex].Id;
       // localStorageAccessor.saveAllNodesInStorage(newState);
+      return newState;
+
+
+    case actionTypes.TOGGLE_DONE_STATUS_ENTIRE_NODE_BRANCH:
+      if (action.payload.nodeId === undefined) return state;
+      nodeId = action.payload.nodeId;
+
+      const destinationStatus: boolean = !nodesManager.findNode(nodeId, state).isDone;
+      const allDescendantsAndAncestorIds: string[] = nodesManager.findAllDescendantsIds(nodeId, newState);
+      allDescendantsAndAncestorIds.push(nodeId);
+
+      newState.map((item) => {
+        allDescendantsAndAncestorIds.map(descendantID => {
+          if (descendantID === item.Id)
+            item.isDone = !item.isDone;
+        });
+      });
+
       return newState;
 
     default:

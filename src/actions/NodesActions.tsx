@@ -79,3 +79,12 @@ export function PasteAsChild(movingNodeId: string, destinationParentNodeId: stri
     }
   }
 }
+
+export function toglleDoneNodeBranch(nodeId: string) :IAction {
+  return{
+    type: actionTypes.TOGGLE_DONE_STATUS_ENTIRE_NODE_BRANCH,
+    payload: {
+      nodeId
+    }
+  }
+}

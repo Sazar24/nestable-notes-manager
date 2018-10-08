@@ -34,31 +34,12 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
     }
   }
 
-  renderMyChilds() {
-    const { childrenIDs } = this.props;
-    if (!childrenIDs || childrenIDs.length === 0) {
-      return;
-    }
-
-    return (
-      <List>
-        {childrenIDs.map(id => {
-          return (
-            <List.Item key={id}>
-              <ConnectedNodeWithChildren nodeId={id} />
-            </List.Item>
-          );
-        })}
-      </List>
-    );
-  }
-
-  changeBackgroundColor(isToggled: boolean) {
-    if (isToggled)
-      this.setState({ bgcolor: this.selectedOnColor })
-    else
-      this.setState({ bgcolor: this.selectedOffColor });
-  }
+  // changeBackgroundColor(isToggled: boolean) {
+  //   if (isToggled)
+  //     this.setState({ bgcolor: this.selectedOnColor })
+  //   else
+  //     this.setState({ bgcolor: this.selectedOffColor });
+  // }
 
   toggleSelected() {
     const { showChildren } = this.state;
@@ -67,12 +48,12 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
     });
   }
 
-  handleClick = (event: Event) => {
+  handleClick = () => {
     this.toggleSelected();
   }
 
   render(): any {
-    const { node, nodeId } = this.props;
+    const { node, nodeId, colorOfDeepLevel } = this.props;
     const { showChildren } = this.state;
     const iHaveKids: boolean = (this.props.childrenIDs.length > 0) ? true : false;
 
@@ -83,12 +64,14 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
     return (
       <List.Item style={{
         // backgroundColor: this.state.bgcolor,
-        backgroundColor: this.props.colorOfDeepLevel,
+        backgroundColor: colorOfDeepLevel,
         minWidth: "90%",
         padding: "0 0 0 8px",
         border: "2px solid black",
         marginBottom: "2px",
-        display: "inherit"
+        display: "inherit",
+        textDecoration: (node.isDone) ? "line-through" : "none",
+        // textDecorationColor: colorOfDeepLevel
       }} >
         <div style={{ display: "inline-flex", width: "100%" }} >
           {iHaveKids && <Icon

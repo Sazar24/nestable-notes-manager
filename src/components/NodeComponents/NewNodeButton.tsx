@@ -10,9 +10,11 @@ interface INewNodeButton {
     CreateNewNodeWithParentIdClicked: () => void;
 }
 
+// TODO: to niepotrzebnie jest oddzielnym komponentem. Wrzucić do <Toolbar`a />
+
 class NewNodeButton extends React.Component<INewNodeButton> {
     handleClick = (e: Event) => {
-        e.stopPropagation();
+        // e.stopPropagation();
         this.props.CreateNewNodeWithParentIdClicked();
     }
     render() {

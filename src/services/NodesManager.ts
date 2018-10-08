@@ -5,7 +5,7 @@ import { colorOfDepth, colorsByDeepLevel } from '../models/colorsByDeepLvl';
 
 interface INodesManagerService {
     findChildrensIds(IdOfParentNode: string, nodesInState: INode[]): string[];
-    // isAlreadyInState(nodeId: string,  nodesInState: INode[]): boolean;
+    // isAlreadyInState(nodeId: string,  nodesInState: INode[]): boolean;  // i made it static...
     findAllDescendantsIds(nodeId: string, reduxState: INode[]): string[];
     findIndexOfNodeWithGivenId(nodeId: string, nodesInState: INode[]): number;
     findNode(nodeId: string, nodesInState: INode[]): INode;
@@ -18,7 +18,6 @@ export default class NodesManager implements INodesManagerService {
 
     static isAlreadyInState(nodeId: string, nodesInState: INode[]): boolean {
         if (nodesInState.find(item => item.Id === nodeId)) {
-            // console.log("possible dubbled node with Id: ", nodeId);
             return true
         }
         else return false
@@ -32,7 +31,6 @@ export default class NodesManager implements INodesManagerService {
     findIndexOfNodeWithGivenId(nodeId: string, nodesInState: INode[]): number {
         const foundIndex: number = nodesInState.findIndex(node => node.Id === nodeId)
         if (foundIndex === -1) throw new Error("node not found in given state. Sth gone wrong :( ");
-
         return foundIndex;
     }
 
@@ -70,17 +68,13 @@ export default class NodesManager implements INodesManagerService {
 
     isDescendingToItself(movingID: string, destinationId: string, reduxState: INode[]): boolean { // TODO: test me!
         let result: boolean = false;
-
         const myDescendants: string[] = this.findAllDescendantsIds(movingID, reduxState);
-        // console.log(`for id = ${movingID} i found descendats ids: ${JSON.stringify(myDescendants)}`);
 
         myDescendants.map(descendantID => {
             if (descendantID === destinationId) result = true;
         });
 
         if (movingID === destinationId) result = true;
-
-        // console.log("isDescindingToItself result: ", result);
         return result;
     }
 
@@ -118,10 +112,5 @@ export default class NodesManager implements INodesManagerService {
 
         const colorNr = myDeepLevel % colorsByDeepLevel.length;
         return colorsByDeepLevel[colorNr];
-        
-
-        // return "#"+JSON.stringify(myDeepLevel*200);
-
-        // return "red";
     }
 }

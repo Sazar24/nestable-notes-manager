@@ -47,7 +47,7 @@ class MainView extends React.Component<IProps, IState>{
             labelPosition="right"
             size="massive"
             color="teal"
-            content="run hello-example"
+            content="run example"
             onClick={this.loadExampleData}
           />
         )}
