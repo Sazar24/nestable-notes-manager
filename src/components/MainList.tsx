@@ -1,25 +1,25 @@
 import * as React from "react";
 import { List } from "semantic-ui-react";
 import { connect } from 'react-redux';
-import ConnectedNodeWithChildren from "./NodeComponents/NodeWithChildren";
+import ConnectedNoteWithChildren from "./NoteComponents/NoteWithChildren";
 import { IGlobalReduxState } from "../reducers/index";
 import { Dispatch } from "redux";
-import { AddLoadedNode } from "../actions/NodesActions";
+import { AddLoadedNote } from "../actions/NotesActions";
 import store from "../store/store";
 import LocalStorageAccessor from "../services/LocalStorage";
-import { helloNodes } from '../helloData/helloNotes';
+import { helloNotes } from '../helloData/helloNotes';
 
 
 class MainList extends React.Component<IGlobalReduxState>{
   render() {
-    const { nodes } = this.props;
+    const { notes } = this.props;
 
     return (
       <div>
         <List>
-          {nodes.map((node) => {
-            return node.parentID === null ?
-              <ConnectedNodeWithChildren key={node.Id} nodeId={node.Id}  />
+          {notes.map((note) => {
+            return note.parentID === null ?
+              <ConnectedNoteWithChildren key={note.Id} noteId={note.Id}  />
               : null;
           })}
         </List>
@@ -30,16 +30,11 @@ class MainList extends React.Component<IGlobalReduxState>{
   componentWillMount() {
     const localStorageAccessor: LocalStorageAccessor = new LocalStorageAccessor();
     localStorageAccessor.mapLocalStorageItemsToReduxState(store);
-
-    // let isItFirstAppUse: boolean;
-    // isItFirstAppUse = localStorageAccessor.isItFirstUse();
-    // console.log(({ isItFirstAppUse }));
-    // if (isItFirstAppUse) localStorageAccessor.loadHelloData(helloNodes, store);
   }
 }
 
 const mapStateToProps = (state: IGlobalReduxState) => ({
-  nodes: state.nodes
+  notes: state.notes
 })
 
 

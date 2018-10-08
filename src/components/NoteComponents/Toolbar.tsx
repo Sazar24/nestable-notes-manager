@@ -1,17 +1,15 @@
 import * as React from 'react';
 import { connect } from "react-redux";
 import { Button, Icon, Popup } from 'semantic-ui-react';
-import NodeMenu from './NodeMenu';
-import { Node } from '../../models/Node';
-import NewNodeButton from './NewNodeButton';
+import NoteMenu from './NoteMenu';
+import { Note } from '../../models/Note';
+import NewNoteButton from './NewNoteButton';
 import { Dispatch } from 'redux';
-import * as NodesActions from '../../actions/NodesActions';
+import * as NotesActions from '../../actions/NotesActions';
 
 interface IToolbar {
-    // nodeId: string;
-    node: Node;
-    toggleDone: (nodeId:string) => void;
-    // CreateNewNodeWithParentIdClicked: () => void;
+    note: Note;
+    toggleDone: (noteId:string) => void;
 }
 
 class Toolbar extends React.Component<IToolbar> {
@@ -20,7 +18,7 @@ class Toolbar extends React.Component<IToolbar> {
     }
 
     render() {
-        const { node , toggleDone} = this.props;
+        const { note , toggleDone} = this.props;
 
         return (
             // <div style={{
@@ -32,9 +30,9 @@ class Toolbar extends React.Component<IToolbar> {
                 <Button
                     basic={true}
                     icon="check"
-                    onClick={()=>toggleDone(node.Id)}
+                    onClick={()=>toggleDone(note.Id)}
                 />
-                <NewNodeButton nodeId={node.Id} />
+                <NewNoteButton noteId={note.Id} />
                 <Popup
                     // flowing
                     hoverable={true}
@@ -46,7 +44,7 @@ class Toolbar extends React.Component<IToolbar> {
                     on={['hover', 'click']}
                     style={{ padding: "0px", backgroundColor: "aqua" }}
                 >
-                    <NodeMenu node={node} />
+                    <NoteMenu note={note} />
                 </Popup>
             </div>
             // </div>
@@ -57,9 +55,7 @@ class Toolbar extends React.Component<IToolbar> {
 // export default Toolbar;
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: IToolbar) => ({
-    // CreateNewNodeWithParentIdClicked: () => dispatch(CreateNewNodeAsChild(v1(), ownProps.nodeId)),
-    // CreateNewNodeWithParentIdClicked: () => dispatch(CreateNode(v1(), ownProps.nodeId)),
-    toggleDone: (nodeId:string)=> dispatch(NodesActions.toglleDoneNodeBranch(nodeId)),
+    toggleDone: (noteId:string)=> dispatch(NotesActions.toglleDoneNotesBranch(noteId)),
 });
 
 export default connect<any, any, any>( null, mapDispatchToProps)(Toolbar);

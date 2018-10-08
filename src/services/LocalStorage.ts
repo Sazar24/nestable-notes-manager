@@ -1,21 +1,21 @@
-import { INode, Node } from '../models/Node';
-import { AddLoadedNode } from '../actions/NodesActions';
+import { INote, Note } from '../models/Note';
+import { AddLoadedNote } from '../actions/NotesActions';
 import { Store } from 'redux';
 
 interface IStorageHandler {
     setLastAccessDateTime(): void;
-    saveAllNodesInStorage(allNodes: INode[]): void;
+    saveAllNotesInStorage(allNotes: INote[]): void;
     mapLocalStorageItemsToReduxState(reduxStore: Store): void;
     isItFirstUse(): boolean;
-    loadHelloData(helloNodes: Node[], reduxStore: Store): void;
+    loadHelloData(helloNotes: Note[], reduxStore: Store): void;
 }
 
 class LocalStorageAccessor implements IStorageHandler { // TODO: test me!
-    private allNodesKey: string = "allNodes";
+    private allNotesKey: string = "allNotes";
     private LastAccessDateTimeKey: string = "LastAccessDateTime";
 
     public isItFirstUse(): boolean {
-        const areThereAnyNodes: string | null = localStorage.getItem(this.allNodesKey);
+        const areThereAnyNotes: string | null = localStorage.getItem(this.allNotesKey);
         const anyAccessTimeSaved: string | null = localStorage.getItem(this.LastAccessDateTimeKey);
 
         // console.log(`retrieved ${this.LastAccessDateTimeKey}: ${JSON.stringify(anyAccessTimeSaved)}`);
@@ -23,10 +23,10 @@ class LocalStorageAccessor implements IStorageHandler { // TODO: test me!
         else return false;
     }
 
-    public loadHelloData(helloNodes: Node[], reduxStore: Store) {
-        helloNodes.map(node => {
-            reduxStore.dispatch(AddLoadedNode(node));
-            console.log(node);
+    public loadHelloData(helloNotes: Note[], reduxStore: Store) {
+        helloNotes.map(note => {
+            reduxStore.dispatch(AddLoadedNote(note));
+            console.log(note);
         });
     };
 
@@ -35,22 +35,22 @@ class LocalStorageAccessor implements IStorageHandler { // TODO: test me!
         localStorage.setItem(this.LastAccessDateTimeKey, JSON.stringify(new Date()));
     };
 
-    public saveAllNodesInStorage(allNodes: INode[]): void {
+    public saveAllNotesInStorage(allNotes: INote[]): void {
         if (!this.isLocalStorageSupported()) return;
-        localStorage.setItem(this.allNodesKey, JSON.stringify(allNodes));
+        localStorage.setItem(this.allNotesKey, JSON.stringify(allNotes));
         this.setLastAccessDateTime();
     };
 
     public mapLocalStorageItemsToReduxState(reduxStore: Store): void {
         if (!this.isLocalStorageSupported()) return;
 
-        let retrievedNodes: INode[];
-        const retrievedData: string | null = localStorage.getItem(this.allNodesKey);
+        let retrievedNotes: INote[];
+        const retrievedData: string | null = localStorage.getItem(this.allNotesKey);
         if (!retrievedData) return;
-        else retrievedNodes = JSON.parse(retrievedData);
+        else retrievedNotes = JSON.parse(retrievedData);
 
-        retrievedNodes.map(node => {
-            reduxStore.dispatch(AddLoadedNode(node));
+        retrievedNotes.map(note => {
+            reduxStore.dispatch(AddLoadedNote(note));
         });
     };
 

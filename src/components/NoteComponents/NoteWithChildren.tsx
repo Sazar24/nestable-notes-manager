@@ -1,10 +1,10 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { Node } from "../../models/Node";
+import { Note } from "../../models/Note";
 import { List, Button, Icon } from "semantic-ui-react";
-import NodesManager from "../../services/NodesManager";
-import NewNodeButton from "./NewNodeButton";
-import NodeContentWithoutChildren from "./NodeContentWithoutChildren";
+import NotesManager from "../../services/NotesManager";
+import NewNoteButton from "./NewNoteButton";
+import NoteContentWithoutChildren from "./NoteContentWithoutChildren";
 import { IGlobalReduxState } from "../../reducers/index";
 import Toolbar from "./Toolbar";
 import MyChildrenOrSpacer from "./ChildrenOrSpacer";
@@ -12,8 +12,8 @@ import { colorOfDepth } from "../../models/colorsByDeepLvl";
 
 
 export interface IProps {
-  nodeId: string;
-  node: Node;
+  noteId: string;
+  note: Note;
   childrenIDs: string[];
   colorOfDeepLevel: colorOfDepth;
 }
@@ -23,7 +23,7 @@ interface IState {
   showChildren: boolean;
 }
 
-export class NodeWithChildren extends React.Component<IProps, IState> {
+export class NoteWithChildren extends React.Component<IProps, IState> {
   private selectedOnColor: string = "#08e8ff";
   private selectedOffColor: string = "silver";
 
@@ -54,12 +54,12 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
   }
 
   render(): any {
-    const { node, nodeId, colorOfDeepLevel, childrenIDs } = this.props;
+    const { note, noteId, colorOfDeepLevel, childrenIDs } = this.props;
     const { showChildren } = this.state;
     const iHaveKids: boolean = (childrenIDs.length > 0) ? true : false;
 
-    if (node === undefined) {
-      throw new Error("passed undefined {node} to NodeFrame");
+    if (note === undefined) {
+      throw new Error("passed undefined {note} to NoteFrame");
     }
 
     return (
@@ -77,21 +77,21 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
             onClick={this.handleClick}
             name={(showChildren) ? "caret right" : "caret down"} />
           }
-          <NodeContentWithoutChildren node={node} />
-          <Toolbar node={node} />
+          <NoteContentWithoutChildren note={note} />
+          <Toolbar note={note} />
         </div>
 
-        <MyChildrenOrSpacer nodeId={nodeId} showChildren={showChildren} />
+        <MyChildrenOrSpacer noteId={noteId} showChildren={showChildren} />
       </List.Item>
     );
   }
 }
 
 const mapStateToProps = (state: IGlobalReduxState, ownProps: IProps) => ({
-  node: new NodesManager().findNode(ownProps.nodeId, state.nodes),
-  childrenIDs: new NodesManager().findChildrensIds(ownProps.nodeId, state.nodes),
-  colorOfDeepLevel: new NodesManager().getColorOfDeepLevel(ownProps.nodeId, state.nodes)
+  note: new NotesManager().findNote(ownProps.noteId, state.notes),
+  childrenIDs: new NotesManager().findChildrensIds(ownProps.noteId, state.notes),
+  colorOfDeepLevel: new NotesManager().getColorOfDeepLevel(ownProps.noteId, state.notes)
 })
 
-const ConnectedNodeWithChildren = connect<any, any, any>(mapStateToProps)(NodeWithChildren);
-export default ConnectedNodeWithChildren;
+const ConnectedNoteWithChildren = connect<any, any, any>(mapStateToProps)(NoteWithChildren);
+export default ConnectedNoteWithChildren;

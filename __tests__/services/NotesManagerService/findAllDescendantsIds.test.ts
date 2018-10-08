@@ -1,12 +1,12 @@
-import { INode } from '../../../src/models/Node';
+import { INote } from '../../../src/models/Note';
 import { IGlobalReduxState } from '../../../src/reducers/index';
 
-import NodesManager from '../../../src/services/NodesManager';
+import NotesManager from '../../../src/services/NotesManager';
 
-describe("handling NodeManager.findAllDEscendatsIds method:", () => {
+describe("handling NoteManager.findAllDEscendatsIds method:", () => {
 
-    const nodeManager = new NodesManager();
-    const simulationlState: INode[] = [
+    const noteManager = new NotesManager();
+    const simulationlState: INote[] = [
         { header: "foobar", description: "baz", isDone: false, Id: "parent1-ancestor", parentID: null },
           /**/{ header: "foobar", description: "baz", isDone: false, Id: "child1", parentID: "parent1-ancestor" },
           /**/{ header: "foobar", description: "baz", isDone: false, Id: "child2", parentID: "parent1-ancestor" },
@@ -25,28 +25,28 @@ describe("handling NodeManager.findAllDEscendatsIds method:", () => {
 
     it('searching return all children (one level deep - children only, no grandChildren (because there is none grand-children) of top ancestor', () => {
 
-        const simulatedOutput: string[] = nodeManager.findAllDescendantsIds("parent1-ancestor", simulationlState);
+        const simulatedOutput: string[] = noteManager.findAllDescendantsIds("parent1-ancestor", simulationlState);
         const expectedOutput: string[] = ["child1", "child2", "child3"];
 
         expect(simulatedOutput).toEqual(expectedOutput);
     });
 
     it('finding deep nested descendatnts of top ancestor', () => {
-        const simulatedOutput: string[] = nodeManager.findAllDescendantsIds("parent2-ancestor", simulationlState);
+        const simulatedOutput: string[] = noteManager.findAllDescendantsIds("parent2-ancestor", simulationlState);
         const expectedOutput: string[] = ["child21", "child22", "child23", "sub-child-1", "sub-child-2", "sub-child-3", "sub-child-4"];
 
         expect(simulatedOutput).toEqual(expectedOutput);
     });
 
-    it('for node with no parent and no children returns empty array', () => {
-        const simulatedOutput: string[] = nodeManager.findAllDescendantsIds("noParent2", simulationlState);
+    it('for note with no parent and no children returns empty array', () => {
+        const simulatedOutput: string[] = noteManager.findAllDescendantsIds("noParent2", simulationlState);
         const expectedOutput: string[] = [];
 
         expect(simulatedOutput).toEqual(expectedOutput);
     });
 
     it('for child, who has its own childs, returns those childs', () => {
-        const simulatedOutput: string[] = nodeManager.findAllDescendantsIds("child23", simulationlState);
+        const simulatedOutput: string[] = noteManager.findAllDescendantsIds("child23", simulationlState);
         const expectedOutput: string[] = ["sub-child-1", "sub-child-2", "sub-child-3", "sub-child-4"];
 
         expect(simulatedOutput).toEqual(expectedOutput);

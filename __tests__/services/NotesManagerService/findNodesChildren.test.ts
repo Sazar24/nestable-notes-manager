@@ -1,12 +1,12 @@
-import { INode } from '../../../src/models/Node';
+import { INote } from '../../../src/models/Note';
 import { IGlobalReduxState } from '../../../src/reducers/index';
-import NodesManager from '../../../src/services/NodesManager';
+import NotesManager from '../../../src/services/NotesManager';
 
 describe('findMyChildrenIds(...) should return propper array of Ids; ', () => {
-    const nodesManager = new NodesManager();
+    const nodesManager = new NotesManager();
 
     it('There are 2 nodes in state. 1st is parent of 2nd', () => {
-        const nodesInState: INode[] = [
+        const nodesInState: INote[] = [
             { header: "header", description: "descr", isDone: false, Id: "1", parentID: null },
             { header: "header", description: "descr", isDone: false, Id: "2", parentID: "1" },
         ];
@@ -20,7 +20,7 @@ describe('findMyChildrenIds(...) should return propper array of Ids; ', () => {
 
     it('2 nodes in state. No kinship - every node has no children or parent', () => { // <ang. kinship = pokrewieństwo>
 
-        const nodesInState: INode[] = [
+        const nodesInState: INote[] = [
             { header: "header", description: "descr", isDone: false, Id: "1", parentID: null },
             { header: "header", description: "descr", isDone: false, Id: "6", parentID: "3" },
         ]
@@ -32,7 +32,7 @@ describe('findMyChildrenIds(...) should return propper array of Ids; ', () => {
 
     it('Many nodes in state. There are some parents/children, but given Id has no children. Should return empty array', () => {
 
-        const nodesInState: INode[] = [
+        const nodesInState: INote[] = [
             { header: "header", description: "descr", isDone: false, Id: "1", parentID: null },
             { header: "header", description: "descr", isDone: false, Id: "3", parentID: "1" },
             { header: "header", description: "descr", isDone: false, Id: "4", parentID: "1" },
@@ -47,7 +47,7 @@ describe('findMyChildrenIds(...) should return propper array of Ids; ', () => {
 
     it('For given parent Id returns Ids(array) which are assigned as it children.', () => {
 
-        const nodesInState: INode[] = [
+        const nodesInState: INote[] = [
             { header: "header", description: "descr", isDone: false, Id: "1", parentID: null },
             { header: "header", description: "descr", isDone: false, Id: "3", parentID: "1" },
             { header: "header", description: "descr", isDone: false, Id: "4", parentID: "1" },
@@ -63,7 +63,7 @@ describe('findMyChildrenIds(...) should return propper array of Ids; ', () => {
 });
 
 describe("nodeManager.findChildren method returns proper array (big state tests) ", () => {
-    const nodesManager = new NodesManager();
+    const nodesManager = new NotesManager();
 
     const nodesInState = [
         { header: "top-ancestor", description: "descr", isDone: false, Id: "1", parentID: null },

@@ -6,6 +6,4 @@ test('should work', () => {
     
     const expectedResult: colorOfDepth[] = ["red","orange","green", "blue", "green","orange"];
     expect(result).toEqual(expectedResult);
-    
-    
 });

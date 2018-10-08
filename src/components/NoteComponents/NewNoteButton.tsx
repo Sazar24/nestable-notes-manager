@@ -1,24 +1,24 @@
 import * as React from "react";
 import { connect } from "react-redux";
 import { Button, Icon } from "semantic-ui-react";
-import { CreateNode } from "../../actions/NodesActions";
+import { CreateNote } from "../../actions/NotesActions";
 import { Dispatch } from "redux";
 import { v1 } from "uuid";
 
-interface INewNodeButton {
-    nodeId: string;
-    CreateNewNodeWithParentIdClicked: () => void;
+interface INewNoteButton {
+    noteId: string;
+    CreateNewNoteWithParentIdClicked: () => void;
 }
 
 // TODO: to niepotrzebnie jest oddzielnym komponentem. Wrzucić do <Toolbar`a />
 
-class NewNodeButton extends React.Component<INewNodeButton> {
+class NewNoteButton extends React.Component<INewNoteButton> {
     handleClick = (e: Event) => {
         // e.stopPropagation();
-        this.props.CreateNewNodeWithParentIdClicked();
+        this.props.CreateNewNoteWithParentIdClicked();
     }
     render() {
-        const { CreateNewNodeWithParentIdClicked, nodeId } = this.props;
+        const { CreateNewNoteWithParentIdClicked, noteId } = this.props;
         return (
             // <div style={{
             // float: "right",
@@ -37,12 +37,11 @@ class NewNodeButton extends React.Component<INewNodeButton> {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch, ownProps: INewNodeButton) => ({
-    // CreateNewNodeWithParentIdClicked: () => dispatch(CreateNewNodeAsChild(v1(), ownProps.nodeId)),
-    CreateNewNodeWithParentIdClicked: () => dispatch(CreateNode(v1(), ownProps.nodeId)),
+const mapDispatchToProps = (dispatch: Dispatch, ownProps: INewNoteButton) => ({
+    CreateNewNoteWithParentIdClicked: () => dispatch(CreateNote(v1(), ownProps.noteId)),
 });
 
 export default connect<any, any, any>(
     null,
     mapDispatchToProps
-)(NewNodeButton);
+)(NewNoteButton);

@@ -20,7 +20,11 @@ const colorsList3: colorOfDepth[] = [
     "##008252s",
 ];
 
-const colorsList4: colorOfDepth[] = ["red", "blue", "yellow", "silver", "orange"]
+const colorsList4: colorOfDepth[] = ["red", "blue", "yellow", "silver", "orange"];
+
+const colorsList5: colorOfDepth[]=[
+    "silver"
+];
 
 export function loopColorTransitions(sourceArray: colorOfDepth[], firstOnlyOnTop: boolean = true): colorOfDepth[] {
     if (sourceArray.length === 1) return sourceArray;
@@ -39,6 +43,4 @@ export function loopColorTransitions(sourceArray: colorOfDepth[], firstOnlyOnTop
 export default loopColorTransitions(colorsList1, true);
 
 
-// colors picked with https://www.w3schools.com/colors/colors_mixer.asp
-// starting color: #a9a9a9
-// end/bottom color: #4363d8
+// colors picked with w3s-tool: https://www.w3schools.com/colors/colors_mixer.asp
