@@ -2,8 +2,7 @@ import { Node } from "../models/Node";
 
 export const helloNodes: Node[] = [
     Node.newNode("Instrukcja", "czyli jak działa i co potrafi ta apka", "top1", null),
-    /**/Node.newNode("Tworzenie notatek", "", "2", "top1"),
-    /****/Node.newNode("", "Głównym celem niniejszej aplikacji jest tworzenie nowych notatek (składających się z dwóch części: nagłówka i opisu).", "3", "2"),
+    /**/Node.newNode("Tworzenie notatek", "Głównym celem niniejszej aplikacji jest tworzenie nowych notatek (składających się z dwóch części: nagłówka i opisu).", "2", "top1"),
     /****/Node.newNode("notatki zagnieżdżone", 'Podstawowym bajerem (czyt. featurem) jest możliwość tworzenia notatek "zagnieżdżonych". Czyli notatka "zawiera się" w innej notatce.', "4", "2"),
     /****/Node.newNode("pamiętanie notatek, nawet po resecie (!)", 'Notatki przechowywane są w pamięci przeglądarki. \nOdświeżenie strony, zamknięcie zakładki czy nawet przeglądarki, nie spowodują wykasowania notatek :)\n\n', "5", "2"),
     /**/Node.newNode("Zarządzanie","","22","top1"),

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { INode } from "../../models/Node";
+import { INode, Node } from "../../models/Node";
 import { List, Reveal, Image, Button, Icon } from 'semantic-ui-react';
 import ConnectedEditableNode from './NodeEditMode';
 import { Dispatch } from 'redux';
@@ -8,14 +8,22 @@ import { PassEditModeToId } from '../../actions/NodeSelecing';
 import { IGlobalReduxState } from '../../reducers/index';
 
 interface INodeMainContent {
-    node: INode;
+    node: Node;
     editMode: boolean;
+    isDone: boolean;
     switchToEditMode: () => void;
 }
 
 class NodeContentWithoutChildrenUnconnected extends React.Component<INodeMainContent>{
+    shouldComponentUpdate(nextProps: INodeMainContent) {
+        const diffrentIsDoneStatus : boolean = this.props.node.isDone !== nextProps.node.isDone;
+        return diffrentIsDoneStatus;
+    }
     render() {
-        const { node, editMode, switchToEditMode } = this.props;
+        const { node, editMode, switchToEditMode, isDone } = this.props;
+        // const decorationStyle = isDone ? "line-through" : "none";
+        const decorationStyle = node.isDone ? "line-through" : "none";
+
         if (editMode)
             return <ConnectedEditableNode nodeId={node.Id} />
         else {
@@ -23,7 +31,8 @@ class NodeContentWithoutChildrenUnconnected extends React.Component<INodeMainCon
                 <div style={{
                     width: "100%", paddingRight: "15px",
                     whiteSpace: "pre-wrap", wordWrap: "break-word", wordBreak: "keep-all",
-                    textAlign: "justify", textJustify: "inter-word", textOverflow: "clip"
+                    textAlign: "justify", textJustify: "inter-word", textOverflow: "clip",
+                    textDecoration: decorationStyle,
                 }}
                     onDoubleClick={() => switchToEditMode()}
                 >
@@ -40,7 +49,8 @@ class NodeContentWithoutChildrenUnconnected extends React.Component<INodeMainCon
 }
 
 const mapStateToProps = (state: IGlobalReduxState, ownProps: INodeMainContent) => ({
-    editMode: (ownProps.node.Id === state.selectedNodes.IdOfEditableNode) ? true : false
+    editMode: (ownProps.node.Id === state.selectedNodes.IdOfEditableNode) ? true : false,
+    isDone: ownProps.node.isDone
 })
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: INodeMainContent) => ({

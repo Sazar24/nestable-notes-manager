@@ -1,7 +1,8 @@
 import { actionTypes } from './../actions/actionTypes';
 import { INode } from './../models/Node';
 import { IGlobalReduxState } from '../reducers/index';
-import { colorOfDepth, colorsByDeepLevel } from '../models/colorsByDeepLvl';
+import { colorOfDepth } from '../models/colorsByDeepLvl';
+import colorsByDeepLvl from '../models/colorsByDeepLvl';
 
 interface INodesManagerService {
     findChildrensIds(IdOfParentNode: string, nodesInState: INode[]): string[];
@@ -105,12 +106,17 @@ export default class NodesManager implements INodesManagerService {
         };
     };
 
-    getColorOfDeepLevel(nodeId:string , nodesInState: INode[]): colorOfDepth {
+    getColorOfDeepLevel(nodeId: string, nodesInState: INode[]): colorOfDepth {
         const nodeIndex = this.findIndexOfNodeWithGivenId(nodeId, nodesInState);
         const node = nodesInState[nodeIndex];
-        const myDeepLevel :number= this.getDeepLevel(node, nodesInState);
+        const colorsPallete: colorOfDepth[] = colorsByDeepLvl.slice();
+        if (node.parentID === null) return colorsPallete[0];
+        else colorsPallete.shift();
 
-        const colorNr = myDeepLevel % colorsByDeepLevel.length;
-        return colorsByDeepLevel[colorNr];
+        const myDeepLevel: number = this.getDeepLevel(node, nodesInState);
+
+        // const colorNr = myDeepLevel % colorsByDeepLevel.length;
+        const colorNr = myDeepLevel % colorsPallete.length;
+        return colorsPallete[colorNr];
     }
 }

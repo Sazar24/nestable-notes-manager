@@ -10,6 +10,7 @@ import Toolbar from "./Toolbar";
 import MyChildrenOrSpacer from "./ChildrenOrSpacer";
 import { colorOfDepth } from "../../models/colorsByDeepLvl";
 
+
 export interface IProps {
   nodeId: string;
   node: Node;
@@ -70,8 +71,6 @@ export class NodeWithChildren extends React.Component<IProps, IState> {
         border: "2px solid black",
         marginBottom: "2px",
         display: "inherit",
-        textDecoration: (node.isDone) ? "line-through" : "none", // TODO: TBD czy to jest błąd: Z tego miejsca następuje przekazywanie css`owego przekreślenia dla wszystkich childrenowych notek. Jeśli nowo utworzona notka jest pod "przekreśloną" (.isDone == true) notką, to ta nowa notka też zostanie przekreślona, bez zmiany statusu (.isDone tej nowo utworzonej).
-        // textDecorationColor: colorOfDeepLevel
       }} >
         <div style={{ display: "inline-flex", width: "100%" }} >
           {iHaveKids && <Icon
