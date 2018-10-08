@@ -15,14 +15,9 @@ interface INodeMainContent {
 }
 
 class NodeContentWithoutChildrenUnconnected extends React.Component<INodeMainContent>{
-    shouldComponentUpdate(nextProps: INodeMainContent) {
-        const diffrentIsDoneStatus : boolean = this.props.node.isDone !== nextProps.node.isDone;
-        return diffrentIsDoneStatus;
-    }
     render() {
         const { node, editMode, switchToEditMode, isDone } = this.props;
-        // const decorationStyle = isDone ? "line-through" : "none";
-        const decorationStyle = node.isDone ? "line-through" : "none";
+        const decorationStyle = isDone ? "line-through" : "none";
 
         if (editMode)
             return <ConnectedEditableNode nodeId={node.Id} />
