@@ -22,6 +22,7 @@ class MainView extends React.Component<IProps, IState>{
   componentWillMount() {
     const localStorageAccessor: LocalStorageAccessor = new LocalStorageAccessor();
     const isItFirstAppUse = localStorageAccessor.isItFirstUse();
+
     this.setState({
       isItFirstAppUse
     });
@@ -57,14 +58,11 @@ class MainView extends React.Component<IProps, IState>{
             <Button
               basic={true}
               icon={true}
-              floated="right"
+              floated="left"
               onClick={() => addNewBranchClicked()}
             >
               <Icon name="plus" />
             </Button>
-            <Button basic={true} icon={true} size="tiny" floated="left">
-              <Icon name="trash" />
-            </Button >
           </div>
         }
       </Container>

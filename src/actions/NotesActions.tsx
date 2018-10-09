@@ -41,14 +41,6 @@ export function ChangeNoteContent(note: INote): IAction {
   }
 }
 
-export function AddLoadedNote(note: INote): IAction {
-  return {
-    type: actionTypes.ADD_NOTE_FROM_MEMORY,
-    payload: {
-      note
-    }
-  }
-}
 
 export function MoveNoteCloserToAncestor(note: INote): IAction { // TODO: przerobić na (noteId:string), bo ta akcja nie potrzebuje całego note`a.
   return {

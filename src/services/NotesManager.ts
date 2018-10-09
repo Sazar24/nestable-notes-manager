@@ -117,7 +117,6 @@ export default class NotesManager implements INotesManagerService {
 
         const myDeepLevel: number = this.getDeepLevel(note, notesInState);
 
-        // const colorNr = myDeepLevel % colorsByDeepLevel.length;
         const colorNr = myDeepLevel % colorsPallete.length;
         return colorsPallete[colorNr];
     };
@@ -130,28 +129,20 @@ export default class NotesManager implements INotesManagerService {
             if (notesIdsToErase.indexOf(note.Id) === -1)
                 return true;
             else return false;
-
         })
         return result;
     };
 
     toggleBranchStatus(noteId: string, notesInState: INote[]): void {
-        let result: INote[] = [];
         const destinationStatus: boolean = !this.findNote(noteId, notesInState).isDone;
         const allDescendantsAndAncestorIds: string[] = this.findAllDescendantsIds(noteId, notesInState);
         allDescendantsAndAncestorIds.push(noteId);
 
-        notesInState.map((item) => {  // TODO: move it to service
+        notesInState.map((item) => {
             allDescendantsAndAncestorIds.map(descendantID => {
                 if (descendantID === item.Id)
                     item.isDone = destinationStatus;
             });
         });
-    }
-
-    proofPush(array: number[], arg: number): void {
-        array.push(arg);
-        // array = [1,4,6,7,913213908];
-        console.log("array inside function: ", JSON.stringify(array));
     }
 }

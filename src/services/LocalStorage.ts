@@ -1,5 +1,5 @@
 import { INote, Note } from '../models/Note';
-import { AddLoadedNote, loadAllNotes } from '../actions/NotesActions';
+import { loadAllNotes } from '../actions/NotesActions';
 import { Store } from 'redux';
 
 interface IStorageHandler {
@@ -10,7 +10,7 @@ interface IStorageHandler {
     loadHelloData(helloNotes: Note[], reduxStore: Store): void;
 }
 
-class LocalStorageAccessor implements IStorageHandler { // TODO: test me!
+class LocalStorageAccessor implements IStorageHandler {
     private allNotesKey: string = "allNotes";
     private LastAccessDateTimeKey: string = "LastAccessDateTime";
 
@@ -18,16 +18,12 @@ class LocalStorageAccessor implements IStorageHandler { // TODO: test me!
         const areThereAnyNotes: string | null = localStorage.getItem(this.allNotesKey);
         const anyAccessTimeSaved: string | null = localStorage.getItem(this.LastAccessDateTimeKey);
 
-        // console.log(`retrieved ${this.LastAccessDateTimeKey}: ${JSON.stringify(anyAccessTimeSaved)}`);
         if (anyAccessTimeSaved === null && anyAccessTimeSaved === null) return true;
         else return false;
     }
 
     public loadHelloData(helloNotes: Note[], reduxStore: Store) {
-        helloNotes.map(note => {
-            reduxStore.dispatch(AddLoadedNote(note));
-            console.log(note);
-        });
+            reduxStore.dispatch(loadAllNotes(helloNotes));
     };
 
     public setLastAccessDateTime(): void {

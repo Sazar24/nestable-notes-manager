@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Note } from "../../models/Note";
 import { List, Button, Icon } from "semantic-ui-react";
 import NotesManager from "../../services/NotesManager";
-import NewNoteButton from "./NewNoteButton";
 import NoteContentWithoutChildren from "./NoteContentWithoutChildren";
 import { IGlobalReduxState } from "../../reducers/index";
 import Toolbar from "./Toolbar";

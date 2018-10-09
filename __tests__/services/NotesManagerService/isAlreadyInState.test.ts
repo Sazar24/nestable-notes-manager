@@ -1,7 +1,7 @@
 import { Note } from '../../../src/models/Note';
 import NotesManager from '../../../src/services/NotesManager';
 
-describe('handling NodesManager.isAlreadyInState method: ', () => {
+describe('handling NotesManager.isAlreadyInState method: ', () => {
     test.each([
         // 1 test:
         [
@@ -22,9 +22,9 @@ describe('handling NodesManager.isAlreadyInState method: ', () => {
             true // <--expectedOutput
         ],
     ])
-        ('should return proper result', (testId, nodesInState, expectedOutput) => {
+        ('should return proper result', (testId, notesInState, expectedOutput) => {
 
-            const result: boolean = NotesManager.isAlreadyInState(testId, nodesInState);
+            const result: boolean = NotesManager.isAlreadyInState(testId, notesInState);
             expect(result).toBe(expectedOutput);
 
         });

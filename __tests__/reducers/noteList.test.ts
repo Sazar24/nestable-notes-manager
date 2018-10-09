@@ -92,27 +92,6 @@ describe("handling actiontypes.DELETE_note_WITH_GIVEN_ID", () => {
         expect(simulatedStateOutput).toEqual(expectedState);
     });
 
-    it.skip('erasing 1 of 4. Does NOT erasing descentants, but only pointed (parent) note', () => {
-
-        const initialState: INote[] = [
-            Note.newEmpty("1", null),
-            Note.newEmpty("2", "1"),
-            Note.newEmpty("3", "2"),
-            Note.newEmpty("4", "3"),
-            Note.newEmpty("5", null),
-        ];
-
-        const simulatedStateOutput: INote[] = notesListReducer(initialState, DeleteNote("2"));
-        const expectedState: INote[] = [
-            Note.newEmpty("1", null),
-            Note.newEmpty("3", "2"),
-            Note.newEmpty("4", "3"),
-            Note.newEmpty("5", null),
-        ];
-
-        expect(simulatedStateOutput).toEqual(expectedState);
-    });
-
     it('Erasing descentants and pointed note', () => {
 
         const initialState: INote[] = [
