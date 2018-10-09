@@ -1,7 +1,7 @@
 {
   "name": "task-list",
   "version": "0.1.0",
-  "homepage": "https://Sazar24.github.io/tasks-tree",
+  "homepage": "https://Sazar24.github.io/nestable-notes-manager",
   "private": true,
   "main": "src/index.tsx",
   "jest": {
