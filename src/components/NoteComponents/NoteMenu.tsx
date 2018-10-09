@@ -31,7 +31,6 @@ class NoteMenu extends React.Component<INoteMenu> {
                     <Menu.Item name="edit" onClick={TurnOnEditMode} />
                     <Menu.Item name="exit edit mode" onClick={TurnOffEditMode} />
                     <Menu.Item name="delete" onClick={DeleteNote} />
-                    <Menu.Item name="kill my children" />
                     <Menu.Item name="move me up" onClick={MoveLevelUp} />
                     <Menu.Item name="cut note" onClick={RememberNoteId} />
                     <Menu.Item
