@@ -1,7 +1,7 @@
 import { CreateNote, DeleteNote } from '../../src/actions/NotesActions';
 import { notesListReducer } from '../../src/reducers/notesList';
 import { INote, Note } from '../../src/models/Note';
-import * as TaskListActions from '../../src/actions/NotesActions';
+import * as NotesActions from '../../src/actions/NotesActions';
 
 describe('handling actionTypes.ADD_NOTE: reducer should return proper state when apply the action to previous state;', () => {
 
@@ -127,7 +127,7 @@ describe("handling actionTypes.CHANGE_NOtE_CONTENT", () => {
         ];
 
         const changedNote: INote = { header: "I am changed!", description: "foooooooobaaaaar", isDone: true, Id: "4", parentID: "3" };
-        const simulatedStateOutput: INote[] = notesListReducer(initialState, TaskListActions.ChangeNoteContent(changedNote));
+        const simulatedStateOutput: INote[] = notesListReducer(initialState, NotesActions.ChangeNoteContent(changedNote));
 
         const expectedState: INote[] = [
             Note.newEmpty("1", null),
@@ -149,7 +149,7 @@ describe("handling actionTypes.CHANGE_NOtE_CONTENT", () => {
 
         const changedNote: INote = { header: "I am changed!", description: "foooooooobaaaaar", isDone: true, Id: "2", parentID: "3" };
 
-        const simulatedStateOutput: INote[] = notesListReducer(initialState, TaskListActions.ChangeNoteContent(changedNote));
+        const simulatedStateOutput: INote[] = notesListReducer(initialState, NotesActions.ChangeNoteContent(changedNote));
 
         const expectedState: INote[] = [
             Note.newEmpty("1", null),
@@ -167,7 +167,7 @@ describe("handling actionTypes.CHANGE_NOtE_CONTENT", () => {
         ];
 
         const changednote: INote = Note.newEmpty("9", "1");
-        const simulatedStateOutput: INote[] = notesListReducer(initialState, TaskListActions.ChangeNoteContent(changednote));
+        const simulatedStateOutput: INote[] = notesListReducer(initialState, NotesActions.ChangeNoteContent(changednote));
 
         expect(simulatedStateOutput).toEqual(initialState);
     });
@@ -182,7 +182,7 @@ describe("handling actionTypes.MOVE_CLOSER_TO_ANCESTOR", () => {
         ];
 
         const transferingnote: Note = initialState[2];
-        const simulatedStateOutput: INote[] = notesListReducer(initialState, TaskListActions.MoveNoteCloserToAncestor(transferingnote));
+        const simulatedStateOutput: INote[] = notesListReducer(initialState, NotesActions.MoveNoteCloserToAncestor(transferingnote));
 
         const expectedOutcome: Note[] = [
             Note.newEmpty("grandfather_Id", null),
@@ -202,7 +202,7 @@ describe("handling actionTypes.MOVE_CLOSER_TO_ANCESTOR", () => {
         ];
 
         const transferingnote: Note = initialState[3];
-        const simulatedStateOutput: INote[] = notesListReducer(initialState, TaskListActions.MoveNoteCloserToAncestor(transferingnote));
+        const simulatedStateOutput: INote[] = notesListReducer(initialState, NotesActions.MoveNoteCloserToAncestor(transferingnote));
 
         const expectedOutcome: Note[] = [
             Note.newEmpty("topAncestor_grandGrandFather", null),
@@ -223,7 +223,7 @@ describe("handling actionTypes.MOVE_CLOSER_TO_ANCESTOR", () => {
         ];
 
         const transferingnote: Note = initialState[0];
-        const simulatedStateOutput: INote[] = notesListReducer(initialState, TaskListActions.MoveNoteCloserToAncestor(transferingnote));
+        const simulatedStateOutput: INote[] = notesListReducer(initialState, NotesActions.MoveNoteCloserToAncestor(transferingnote));
 
         const expectedOutcome: Note[] = [
             Note.newEmpty("topAncestor_grandGrandFather", null),
@@ -247,7 +247,7 @@ describe("handling moving notes: cut and paste actions", () => {
         ];
 
         const transferingnote: Note = initialState[0];
-        const simulatedStateOutput: INote[] = notesListReducer(initialState, TaskListActions.PasteAsChild("4","1"));
+        const simulatedStateOutput: INote[] = notesListReducer(initialState, NotesActions.PasteAsChild("4","1"));
 
         const expectedOutcome: Note[] = [
             {header: "head1", description: "descr1", isDone: false, Id: "1", parentID: null},

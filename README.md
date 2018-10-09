@@ -1,10 +1,6 @@
-# This application is not done yet.
+## Nestable notes manager
+This is another notes-list App. Kind of more advanced ToDo-list, so to speak. With some upgrades (listed below) :
 
-## Main purpose:
-This is going to be a kind of notes-list App. More advanced ToDo-list , so to speak.
-
-Its purpose is to make possible quickly write some shopping list on your PC (when you are home, and its faster than putting every letter on mobile-screen)
-and open it (still with edit possibility, ofc) on your mobile phone, when you are outside.
 
 ### features: 
 - Every note has a header and description, which you can easily edit (double click on note).
@@ -13,6 +9,7 @@ and open it (still with edit possibility, ofc) on your mobile phone, when you ar
 - - even after page reload,
 - - even after closing-and reopening tab or entire browser,
 - - even after device reboot.
+- - (Doesn't work on private/incognito mode)
 - Notes menagement:
 - - Changing check-status (visualised as crossing out note`s content).
 - - Notes can change their position relative to each other (cut/paste mechanism).
@@ -29,6 +26,6 @@ and open it (still with edit possibility, ofc) on your mobile phone, when you ar
 #
 ### online version
 App is deployed at:
-https://sazar24.github.io/tasks-tree/
+https://sazar24.github.io/nestable-notes-manager/
 
 On first use there will be a tutorial/example.

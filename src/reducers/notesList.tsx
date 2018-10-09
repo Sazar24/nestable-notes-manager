@@ -3,8 +3,6 @@ import { INote, Note } from "../models/Note";
 import NotesManager from "../services/NotesManager";
 import LocalStorageAccessor from "../services/LocalStorage";
 import { IAction } from "../actions/NotesActions";
-// import { Action } from "../actions/TaskListActions";
-// import { IAction } from "../actions/TaskListActions";
 
 const initialState: INote[] = [];
 
