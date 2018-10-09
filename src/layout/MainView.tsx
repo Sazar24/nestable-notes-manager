@@ -39,7 +39,6 @@ class MainView extends React.Component<IProps, IState>{
   render() {
     const { addNewBranchClicked } = this.props;
     return (
-
       <Container>
         {this.state.isItFirstAppUse && (
           <Button
