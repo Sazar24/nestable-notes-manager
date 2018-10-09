@@ -26,11 +26,11 @@ export function notesListReducer(state: INote[] = initialState, action: IAction)
       localStorageAccessor.saveAllNotesInStorage(newState);
       return newState;
 
-    case actionTypes.DELETE_NOTE_WITH_GIVEN_ID: // it doesnt remove subNotes (children)
-      if (action.payload.noteId !== undefined)
-        noteId = action.payload.noteId;
-      // TODO: zrobić, żeby wyfiltrowywało też potomków.
-      newState = newState.filter(note => note.Id !== noteId);
+    case actionTypes.DELETE_NOTE: // it doesnt remove subNotes (children)
+      if (action.payload.noteId === undefined) return state;
+      noteId = action.payload.noteId;
+
+      newState = notesManager.deleteNoteAndDescendants(noteId, newState);
       localStorageAccessor.saveAllNotesInStorage(newState);
       return newState;
 
@@ -41,12 +41,13 @@ export function notesListReducer(state: INote[] = initialState, action: IAction)
       if (noteWithGivenIdAlreadExists) {
         const indexOfChangedNote: number = state.findIndex(item => item.Id === newNote.Id);
         newState[indexOfChangedNote] = newNote;
-      }
+      };
 
       localStorageAccessor.saveAllNotesInStorage(newState);
       return newState;
 
     case actionTypes.ADD_NOTE_FROM_MEMORY:
+      // TODO/TBD: przecież teraz od razu zasyłam całą tablicę, więc po co się rozdrabniać...? // Refactor me!
       if (action.payload.note === undefined) return state;
       if (NotesManager.isAlreadyInState(action.payload.note.Id, state)) {
         return state;
@@ -56,8 +57,13 @@ export function notesListReducer(state: INote[] = initialState, action: IAction)
 
     case actionTypes.MOVE_CLOSER_TO_ANCESTOR:
       if (action.payload.note === undefined) return state;
+
       const transferingNote: Note = action.payload.note;
-      if (NotesManager.isAlreadyInState(transferingNote.Id, state) === false) return state;
+      if (NotesManager.isAlreadyInState(transferingNote.Id, state) === false) {
+        window.alert("Firstly you need to pick (cut) existing Note.");
+        return state;
+      }
+
       if (transferingNote.parentID === null) return state;
 
 
@@ -99,23 +105,33 @@ export function notesListReducer(state: INote[] = initialState, action: IAction)
       return newState;
 
 
-    case actionTypes.TOGGLE_DONE_STATUS_ENTIRE_NOTE_BRANCH:
+    case actionTypes.TOGGLE_DONE_STATUS_ENTIRE_NOTE_BRANCH: // TODO: test me!
       if (action.payload.noteId === undefined) return state;
       noteId = action.payload.noteId;
 
-      const destinationStatus: boolean = !notesManager.findNote(noteId, state).isDone;
-      const allDescendantsAndAncestorIds: string[] = notesManager.findAllDescendantsIds(noteId, newState);
-      allDescendantsAndAncestorIds.push(noteId);
+      // newState = notesManager.toggleBranchStatus(noteId, state);
+       notesManager.toggleBranchStatus(noteId, newState);
 
-      newState.map((item) => {
-        allDescendantsAndAncestorIds.map(descendantID => {
-          if (descendantID === item.Id)
-            item.isDone = destinationStatus;
-        });
-      });
+      // const destinationStatus: boolean = !notesManager.findNote(noteId, state).isDone;
+      // const allDescendantsAndAncestorIds: string[] = notesManager.findAllDescendantsIds(noteId, newState);
+      // allDescendantsAndAncestorIds.push(noteId);
+
+      // newState.map((item) => {  // TODO: move it to service
+      //   allDescendantsAndAncestorIds.map(descendantID => {
+      //     if (descendantID === item.Id)
+      //       item.isDone = destinationStatus;
+      //   });
+      // });
 
       localStorageAccessor.saveAllNotesInStorage(newState);
       return newState;
+
+    case actionTypes.LOAD_ALL_NOTES:
+      if (action.payload.allNotes) {
+        newState = action.payload.allNotes;
+      };
+      return newState;
+
 
     default:
       return state;

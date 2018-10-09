@@ -3,11 +3,8 @@ import { List } from "semantic-ui-react";
 import { connect } from 'react-redux';
 import ConnectedNoteWithChildren from "./NoteComponents/NoteWithChildren";
 import { IGlobalReduxState } from "../reducers/index";
-import { Dispatch } from "redux";
-import { AddLoadedNote } from "../actions/NotesActions";
 import store from "../store/store";
 import LocalStorageAccessor from "../services/LocalStorage";
-import { helloNotes } from '../helloData/helloNotes';
 
 
 class MainList extends React.Component<IGlobalReduxState>{
@@ -29,7 +26,7 @@ class MainList extends React.Component<IGlobalReduxState>{
 
   componentWillMount() {
     const localStorageAccessor: LocalStorageAccessor = new LocalStorageAccessor();
-    localStorageAccessor.mapLocalStorageItemsToReduxState(store);
+    localStorageAccessor.loadStorageItemsToReduxState(store);
   }
 }
 

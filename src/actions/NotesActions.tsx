@@ -10,6 +10,7 @@ export interface IAction {
     noteId?: string;
     movingNoteId?: string,
     destinationParentNoteId?: string,
+    allNotes?: Note[],
   };
 }
 
@@ -24,7 +25,7 @@ export function CreateNote(newNoteId: string, parentId?: string): IAction {
 
 export function DeleteNote(noteId: string): IAction {
   return {
-    type: actionTypes.DELETE_NOTE_WITH_GIVEN_ID,
+    type: actionTypes.DELETE_NOTE,
     payload: {
       noteId
     }
@@ -58,7 +59,6 @@ export function MoveNoteCloserToAncestor(note: INote): IAction { // TODO: przero
   }
 }
 
-
 export function PasteAsChild(movingNoteId: string, destinationParentNoteId: string): IAction {
   return {
     type: actionTypes.ATTACH_REMEMBERED_NOTE_TO_PARENT,
@@ -69,11 +69,20 @@ export function PasteAsChild(movingNoteId: string, destinationParentNoteId: stri
   }
 }
 
-export function toglleDoneNotesBranch(noteId: string) :IAction {
-  return{
+export function toglleDoneNotesBranch(noteId: string): IAction {
+  return {
     type: actionTypes.TOGGLE_DONE_STATUS_ENTIRE_NOTE_BRANCH,
     payload: {
       noteId
+    }
+  }
+}
+
+export function loadAllNotes(allNotes: Note[]): IAction {
+  return {
+    type: actionTypes.LOAD_ALL_NOTES,
+    payload: {
+      allNotes
     }
   }
 }

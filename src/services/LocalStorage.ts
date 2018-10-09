@@ -1,11 +1,11 @@
 import { INote, Note } from '../models/Note';
-import { AddLoadedNote } from '../actions/NotesActions';
+import { AddLoadedNote, loadAllNotes } from '../actions/NotesActions';
 import { Store } from 'redux';
 
 interface IStorageHandler {
     setLastAccessDateTime(): void;
     saveAllNotesInStorage(allNotes: INote[]): void;
-    mapLocalStorageItemsToReduxState(reduxStore: Store): void;
+    loadStorageItemsToReduxState(reduxStore: Store): void;
     isItFirstUse(): boolean;
     loadHelloData(helloNotes: Note[], reduxStore: Store): void;
 }
@@ -41,7 +41,7 @@ class LocalStorageAccessor implements IStorageHandler { // TODO: test me!
         this.setLastAccessDateTime();
     };
 
-    public mapLocalStorageItemsToReduxState(reduxStore: Store): void {
+    public loadStorageItemsToReduxState(reduxStore: Store): void {
         if (!this.isLocalStorageSupported()) return;
 
         let retrievedNotes: INote[];
@@ -49,14 +49,12 @@ class LocalStorageAccessor implements IStorageHandler { // TODO: test me!
         if (!retrievedData) return;
         else retrievedNotes = JSON.parse(retrievedData);
 
-        retrievedNotes.map(note => {
-            reduxStore.dispatch(AddLoadedNote(note));
-        });
-    };
+        reduxStore.dispatch(loadAllNotes(retrievedNotes));
+    }
 
     private isLocalStorageSupported(): boolean {  // Jest tests does not support localStorage so it is necessary.
         try {
-            const itemBackup = localStorage.getItem("")
+            const itemBackup = localStorage.getItem("");
             return true;
         } catch (e) {
             return false;

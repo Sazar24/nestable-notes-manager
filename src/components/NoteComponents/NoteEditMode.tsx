@@ -47,37 +47,21 @@ class NoteEditMode extends React.Component<INoteEditModeProps, INoteEditState>{
         })
     }
 
-    deleteAllChildren() {   // test me!
-        this.props.allDescendatsIds.map(
-            (id: string) => {
-                this.props.DeleteNoteById(id);
-            }
-        )
-    }
-
-    // handleFocus = (event: any) => {
     handleFocus(event: any) {
         event.target.select();
     }
 
-    // focusMeOnRender = (input: any) => {
-    //     input.focus();
-    // };
-
     handleRef = (c: any) => {
         this.inputRef = c;
-        // this.inputRef.focus();
-        // c.focus();
     }
 
     componentDidMount() {
         if (this.inputRef === undefined || this.inputRef === null) return;
         this.inputRef.focus();
-        // this.inputRef.current.select();
     }
 
     render() {
-        const { note, TurnOffEditMode, DeleteNoteClick, SaveNoteContent, DeleteAllChildren, MoveLevelUp } = this.props;
+        const { note, TurnOffEditMode, DeleteNoteClick, SaveNoteContent, MoveLevelUp } = this.props;
 
         return (
             <div style={{
@@ -91,26 +75,18 @@ class NoteEditMode extends React.Component<INoteEditModeProps, INoteEditState>{
                     onChange={this.handleHeaderChange}
                     onFocus={this.handleFocus}
                     ref={this.handleRef}
-                // ref={(e: any) => e.focus()}
-                // ref={this.focusMeOnRender}
                 />
-
-
                 <TextArea
                     defaultValue={note.description}
                     style={{ minWidth: "100%" }}
                     autoHeight={true}
                     onChange={this.handleDescriptionChange}
                     onFocus={(e: any) => this.handleFocus(e)}
-
                 />
-                <Button onClick={() => SaveNoteContent(this.state.note)}> save note </Button>
-                <Button onClick={TurnOffEditMode}> exit edit mode</Button>
-                <Button onClick={DeleteNoteClick} > delete note</Button>
-                <Button onClick={() => this.deleteAllChildren()}>delete sub-notes</Button>
+                <Button onClick={() => SaveNoteContent(this.state.note)}>save note</Button>
+                <Button onClick={TurnOffEditMode}>exit edit-mode</Button>
+                <Button onClick={DeleteNoteClick}>delete note</Button>
                 <Button onClick={() => MoveLevelUp(note)}>move level up</Button>
-
-
             </div>
         )
     }
@@ -119,15 +95,14 @@ class NoteEditMode extends React.Component<INoteEditModeProps, INoteEditState>{
 const mapStatetoProps = (state: IGlobalReduxState, ownProps: INoteEditModeProps) => ({
     note: new NotesManager().findNote(ownProps.noteId, state.notes),
     allDescendatsIds: new NotesManager().findAllDescendantsIds(ownProps.noteId, state.notes),
-})
+});
 
 const mapDispatchToProps = (dispatch: Dispatch, ownProps: INoteEditModeProps) => ({
     TurnOffEditMode: () => dispatch(PassEditModeToId(null)),
     DeleteNoteClick: () => dispatch(NotesActions.DeleteNote(ownProps.noteId)),
-    DeleteNoteById: (id: string) => dispatch(NotesActions.DeleteNote(id)),
     SaveNoteContent: (note: INote) => dispatch(NotesActions.ChangeNoteContent(note)),
     MoveLevelUp: (note: Note) => dispatch(NotesActions.MoveNoteCloserToAncestor(note)),
-})
+});
 
 const ConnectedEditableNote = connect<any, any, any>(mapStatetoProps, mapDispatchToProps)(NoteEditMode);
 export default ConnectedEditableNote;

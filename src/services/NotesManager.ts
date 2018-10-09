@@ -1,3 +1,4 @@
+import { Note } from './../models/Note';
 import { actionTypes } from '../actions/actionTypes';
 import { INote } from '../models/Note';
 import { IGlobalReduxState } from '../reducers/index';
@@ -12,6 +13,8 @@ interface INotesManagerService {
     isDescendingToItself(movingID: string, destinationId: string, reduxState: INote[]): boolean;
     getDeepLevel(note: INote, notesInState: INote[]): number;
     getColorOfDeepLevel(noteId: string, notesInState: INote[]): colorOfDepth;
+    deleteNoteAndDescendants(nodeId: string, notesInState: INote[]): INote[];
+    toggleBranchStatus(nodeId: string, notesInState: INote[]): void;
 }
 
 export default class NotesManager implements INotesManagerService {
@@ -117,5 +120,38 @@ export default class NotesManager implements INotesManagerService {
         // const colorNr = myDeepLevel % colorsByDeepLevel.length;
         const colorNr = myDeepLevel % colorsPallete.length;
         return colorsPallete[colorNr];
+    };
+
+    deleteNoteAndDescendants(nodeId: string, notesInState: INote[]): INote[] {
+        const notesIdsToErase: string[] = this.findAllDescendantsIds(nodeId, notesInState);
+        notesIdsToErase.push(nodeId);
+
+        const result: INote[] = notesInState.filter(note => {
+            if (notesIdsToErase.indexOf(note.Id) === -1)
+                return true;
+            else return false;
+
+        })
+        return result;
+    };
+
+    toggleBranchStatus(noteId: string, notesInState: INote[]): void {
+        let result: INote[] = [];
+        const destinationStatus: boolean = !this.findNote(noteId, notesInState).isDone;
+        const allDescendantsAndAncestorIds: string[] = this.findAllDescendantsIds(noteId, notesInState);
+        allDescendantsAndAncestorIds.push(noteId);
+
+        notesInState.map((item) => {  // TODO: move it to service
+            allDescendantsAndAncestorIds.map(descendantID => {
+                if (descendantID === item.Id)
+                    item.isDone = destinationStatus;
+            });
+        });
+    }
+
+    proofPush(array: number[], arg: number): void {
+        array.push(arg);
+        // array = [1,4,6,7,913213908];
+        console.log("array inside function: ", JSON.stringify(array));
     }
 }
